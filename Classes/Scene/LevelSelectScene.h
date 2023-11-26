@@ -10,16 +10,16 @@ USING_NS_CC;
 class LevelSelect : public cocos2d::Scene
 {
 public:
+    static cocos2d::Scene* createScene(); //创建场景函数
 
-    static cocos2d::Scene* createScene();
+    virtual bool init(); //开始函数
 
-    int FinishLevelNum = 0;
+    void setFinishLevelNum(int num); //设置完成关卡数量函数
 
-    virtual bool init();
+    void menuCloseCallback(cocos2d::Ref* pSender); //程序关闭函数
+    void menuToLevel1Callback(cocos2d::Ref* pSender);
 
-    void menuCloseCallback(cocos2d::Ref* pSender);
-
-    void LevelCreate(int levelnum);
+    void LevelCreate(int levelnum); //关卡按钮生成函数
 
     CREATE_FUNC(LevelSelect);
 };
