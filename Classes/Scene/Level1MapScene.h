@@ -17,9 +17,16 @@ public:
 
 	virtual void update(float update_time);
 
+	bool onTouchBegan(Touch* touch, Event* unused_event);
+	void onTouchMoved(Touch* touch, Event* unused_event);
+	void onTouchEnded(Touch* touch, Event* unused_event);
+
 	void menuBackCallback(cocos2d::Ref* pSender);
 
 	CREATE_FUNC(Level1Map);
+
+private:
+	bool IsSelectCard;
 };
 
 
