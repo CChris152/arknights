@@ -10,7 +10,10 @@ Scene* Level1Map::createScene()
 
 bool Level1Map::init()
 {
+	//数据初始化
 	init_data();
+
+	//页面数据获取
 	if (!Scene::init())
 	{
 		return false;
@@ -37,6 +40,24 @@ bool Level1Map::init()
 	backmenu->setPosition(Vec2::ZERO);
 	this->addChild(backmenu, 1);
 
+	//费用数字
+	expenseslabel = Label::createWithTTF(std::to_string(expenses), "fonts/Marker Felt.ttf", 150);
+	expenseslabel->setPosition(Vec2(origin.x + visibleSize.width - 170, origin.y + 100));
+	expenseslabel->setColor(Color3B::BLACK);
+	this->addChild(expenseslabel, 1);
+
+	//消灭敌人数量
+	killednumlabel= Label::createWithTTF(std::to_string(killednum), "fonts/Marker Felt.ttf", 30);
+	killednumlabel->setPosition(Vec2(origin.x + visibleSize.width / 2 - 105, origin.y + visibleSize.height - 70));
+	killednumlabel->setColor(Color3B::BLACK);
+	this->addChild(killednumlabel, 1);
+
+	//基地血量
+	BaseHPlabel = Label::createWithTTF(std::to_string(BaseHP), "fonts/Marker Felt.ttf", 30);
+	BaseHPlabel->setPosition(Vec2(origin.x + visibleSize.width / 2 + 200, origin.y + visibleSize.height - 70));
+	BaseHPlabel->setColor(Color3B::BLACK);
+	this->addChild(BaseHPlabel, 1);
+
 	//干员卡片
 	for (int i = 0; i < Cards.size();i++) {
 		auto card = Sprite::create("pictures/" + Cards[i] + "Card.png");
@@ -45,6 +66,8 @@ bool Level1Map::init()
 		CardsSpr.push_back(card);
 	}
 
+	//update开始运行
+	this->scheduleUpdate();
 	return true;
 }
 
@@ -59,11 +82,26 @@ void Level1Map::init_data()
 	CardsSpr.clear();
 
 	IsSelectCard = 0;
+	expensestimer = 0;
 }
 
 void Level1Map::update(float update_time)
 {
-	;
+	//费用刷新
+	if (expensestimer >= 1) {
+		if (expenses < 99) {
+			expenses++;
+		}
+		expensestimer = 0;
+	}
+	else {
+		expensestimer += update_time;
+	}
+
+	//更改数字
+	expenseslabel->setString(std::to_string(expenses));
+	killednumlabel->setString(std::to_string(killednum));
+	BaseHPlabel->setString(std::to_string(BaseHP));
 }
 
 bool Level1Map::onTouchBegan(Touch* touch, Event* unused_event)
@@ -90,5 +128,6 @@ void Level1Map::onTouchEnded(Touch* touch, Event* unused_event)
 
 void Level1Map::menuBackCallback(cocos2d::Ref* pSender)
 {
+	//返回关卡选择页面
 	Director::getInstance()->replaceScene(LevelSelect::create());
 }

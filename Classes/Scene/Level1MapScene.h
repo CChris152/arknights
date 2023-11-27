@@ -17,7 +17,7 @@ public:
 
 	virtual void update(float update_time);
 
-	bool onTouchBegan(Touch* touch, Event* unused_event);
+	bool onTouchBegan(Touch* touch, Event* unused_event); //鼠标事件函数
 	void onTouchMoved(Touch* touch, Event* unused_event);
 	void onTouchEnded(Touch* touch, Event* unused_event);
 
@@ -26,7 +26,12 @@ public:
 	CREATE_FUNC(Level1Map);
 
 private:
-	bool IsSelectCard;
+	Label* expenseslabel; //三个场景中可改动的数据标签
+	Label* killednumlabel;
+	Label* BaseHPlabel;
+
+	bool IsSelectCard; //是否处于已经选择了卡片的状态
+	float expensestimer; //费用计时器(1s = 1费用)
 };
 
 
