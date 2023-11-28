@@ -10,3 +10,8 @@ int killednum = 0; //消灭敌人数量
 
 std::vector<std::string> Cards = { "Exusiai" }; //干员卡片名称
 std::vector<Sprite*> CardsSpr; //干员卡片精灵
+
+std::vector<std::vector<int>> Level1vec = { { 1, 1, 1, 1, 1, 1, 1},
+                                            { 0, 1, 0, 0, 0, 0, 0},
+                                            { 0, 0, 0, 1, 0, 0, 0},
+                                            { 1, 1, 1, 1, 1, 1, 1} };

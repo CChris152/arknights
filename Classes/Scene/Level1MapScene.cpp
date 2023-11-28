@@ -1,7 +1,9 @@
 #include "Level1MapScene.h"
 #include "Data/AllData.h"
 #include "LevelSelectScene.h"
+#include "Sprite/ExusiaiOperator.h"
 #include <vector>
+#include <cmath>
 
 Scene* Level1Map::createScene()
 {
@@ -32,6 +34,11 @@ bool Level1Map::init()
 	auto level1map = Sprite::create("pictures/Level1map.png");
 	level1map->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(level1map, 0);
+
+	//测量锚点
+	auto BlackDot = Sprite::create("BlackDot.png");
+	BlackDot->setPosition(Vec2(origin.x+995, origin.y+370));
+	this->addChild(BlackDot, 0);
 
 	//返回按钮
 	auto back = MenuItemImage::create("pictures/Back.png", "pictures/Back.png", CC_CALLBACK_1(Level1Map::menuBackCallback, this)); 
@@ -83,6 +90,12 @@ void Level1Map::init_data()
 
 	IsSelectCard = 0;
 	expensestimer = 0;
+	choosedoperatornum = -1;
+
+	currentLevel1vec = { { 1, 1, 1, 1, 1, 1, 1},
+						 { 0, 1, 0, 0, 0, 0, 0},
+						 { 0, 0, 0, 1, 0, 0, 0},
+						 { 1, 1, 1, 1, 1, 1, 1} };
 }
 
 void Level1Map::update(float update_time)
@@ -106,11 +119,59 @@ void Level1Map::update(float update_time)
 
 bool Level1Map::onTouchBegan(Touch* touch, Event* unused_event)
 {
+	//获取鼠标坐标
+	auto touchposition = touch->getLocation();
+
 	if (IsSelectCard == 0) {
 
+		//判断是否在卡片范围，如果是，就切换状态
+		for (int i = 0; i < CardsSpr.size(); i++) {
+			auto position = CardsSpr[i]->getPosition();
+			if (abs(touchposition.x - position.x) < 80 && abs(touchposition.y - position.y) < 135) {
+				choosedoperatornum = i;
+			}
+		}
+
+		if (choosedoperatornum != -1) {
+			IsSelectCard = 1;
+		}
 	}
 	else {
 
+		//一个辅助判断的变量
+		bool out = 0;
+
+		//对于选中的不同卡片，给予不同的判定
+		switch (choosedoperatornum) {
+		case 0:
+			for (int i = 0; i < currentLevel1vec.size(); i++) {
+				for (int j = 0; j < currentLevel1vec[0].size(); j++) {
+					if (currentLevel1vec[i][j] == 1) {
+
+						//将数组坐标映射到实际坐标
+						Vec2 currentposition = { j * 160.0f + 515 ,790.0f - i * 140 };
+
+						//判断是否在格子范围内，如果是，则生成并放置
+						if (sqrt(pow(touchposition.x - currentposition.x, 2) + pow(touchposition.y - currentposition.y, 2)) < 70) {
+							auto newoperator = new Exuasiai;
+							newoperator->Exuasiaisprite->setPosition(Vec2(currentposition.x, currentposition.y + 70));
+							this->addChild(newoperator->Exuasiaisprite);
+							currentLevel1vec[i][j] = 11;
+							out = 1;
+							break;
+						}
+					}
+				}
+				if (out) {
+					break;
+				}
+			}
+			break;
+		default:
+			break;
+		}
+		IsSelectCard = 0;
+		choosedoperatornum = -1;
 	}
 
 	return false;

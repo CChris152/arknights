@@ -19,4 +19,6 @@ extern int killednum; //消灭敌人数量
 extern std::vector<std::string> Cards; //干员卡片名称
 extern std::vector<Sprite*> CardsSpr; //干员卡片精灵
 
+extern std::vector<std::vector<int>> Level1vec; //第一关的地图数组
+
 #endif // __AllData_H__

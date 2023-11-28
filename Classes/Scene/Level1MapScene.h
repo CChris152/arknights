@@ -32,6 +32,9 @@ private:
 
 	bool IsSelectCard; //是否处于已经选择了卡片的状态
 	float expensestimer; //费用计时器(1s = 1费用)
+	int choosedoperatornum; //选中的干员编号
+
+	std::vector<std::vector<int>> currentLevel1vec;
 };
 
 
