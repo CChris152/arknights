@@ -4,6 +4,7 @@
 #define __Level1Map_Scene_H__
 
 #include "cocos2d.h"
+#include "Logic/GameLogic.h"
 
 USING_NS_CC;
 
@@ -23,6 +24,8 @@ public:
 
 	void menuBackCallback(cocos2d::Ref* pSender);
 
+	GameLogic* gamelogic; //绑定的游戏逻辑
+
 	CREATE_FUNC(Level1Map);
 
 private:
@@ -34,7 +37,7 @@ private:
 	float expensestimer; //费用计时器(1s = 1费用)
 	int choosedoperatornum; //选中的干员编号
 
-	std::vector<std::vector<int>> currentLevel1vec;
+	std::vector<std::vector<int>> currentLevel1vec; //数组地图
 };
 
 

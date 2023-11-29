@@ -72,6 +72,10 @@ bool Level1Map::init()
 		this->addChild(card, 0);
 		CardsSpr.push_back(card);
 	}
+	
+	//添加逻辑
+	gamelogic = new GameLogic(this);
+	this->addChild(gamelogic);
 
 	//update开始运行
 	this->scheduleUpdate();
@@ -87,10 +91,13 @@ void Level1Map::init_data()
 	killednum = 0;
 
 	CardsSpr.clear();
+	AllEnemy.clear();
 
 	IsSelectCard = 0;
 	expensestimer = 0;
 	choosedoperatornum = -1;
+
+	CurrentLevel = 1;
 
 	currentLevel1vec = { { 1, 1, 1, 1, 1, 1, 1},
 						 { 0, 1, 0, 0, 0, 0, 0},
@@ -127,8 +134,11 @@ bool Level1Map::onTouchBegan(Touch* touch, Event* unused_event)
 		//判断是否在卡片范围，如果是，就切换状态
 		for (int i = 0; i < CardsSpr.size(); i++) {
 			auto position = CardsSpr[i]->getPosition();
-			if (abs(touchposition.x - position.x) < 80 && abs(touchposition.y - position.y) < 135) {
+			if (abs(touchposition.x - position.x) < 80 && abs(touchposition.y - position.y) < 135 && expenses >= CardsExpenses[i]) {
+				//使选择卡片产生动态效果
+				CardsSpr[i]->setPosition(Vec2(position.x, position.y + 50));
 				choosedoperatornum = i;
+				break;
 			}
 		}
 
@@ -157,6 +167,8 @@ bool Level1Map::onTouchBegan(Touch* touch, Event* unused_event)
 							newoperator->Exuasiaisprite->setPosition(Vec2(currentposition.x, currentposition.y + 70));
 							this->addChild(newoperator->Exuasiaisprite);
 							currentLevel1vec[i][j] = 11;
+							//减少费用
+							expenses -= CardsExpenses[choosedoperatornum];
 							out = 1;
 							break;
 						}
@@ -170,6 +182,8 @@ bool Level1Map::onTouchBegan(Touch* touch, Event* unused_event)
 		default:
 			break;
 		}
+		auto position = CardsSpr[choosedoperatornum]->getPosition();
+		CardsSpr[choosedoperatornum]->setPosition(Vec2(position.x, position.y - 50));
 		IsSelectCard = 0;
 		choosedoperatornum = -1;
 	}
