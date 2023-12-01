@@ -23,6 +23,14 @@ void LevelSelect::LevelCreate(int levelnum)
     level1menu->setPosition(Vec2::ZERO);
     this->addChild(level1menu, 1);
 
+    auto UnlockedLevel2 = Sprite::create("pictures/UnlockedLevel2.jpg");
+    UnlockedLevel2->setPosition(Vec2(origin.x + visibleSize.width / 2 + 300 , origin.y + visibleSize.height / 4 * 3));
+    this->addChild(UnlockedLevel2, 0);
+   
+    auto UnlockedLevel3 = Sprite::create("pictures/UnlockedLevel3.jpg");
+    UnlockedLevel3->setPosition(Vec2(origin.x + visibleSize.width / 2 + 600, origin.y + visibleSize.height / 4 * 3));
+    this->addChild(UnlockedLevel3, 0);
+
     //创建第关卡2图标
     if (levelnum >= 1) {
         auto Level2Button = MenuItemImage::create("pictures/Level2.png", "pictures/Level2.png", CC_CALLBACK_1(LevelSelect::menuCloseCallback, this));
