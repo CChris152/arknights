@@ -72,13 +72,6 @@ void Alphaworm::update(float update_time)
 		killednum++;
 	}
 
-	if (IsDead) {
-		//将图片变透明
-		AlphawormSprite->setOpacity(0);
-		AlphawormLabel->setOpacity(0);
-		this->unscheduleUpdate();
-	}
-
 	//更新位置
 	float currentspeed = this->getspeed();
 	currentSprposition.x += this->xvec * currentspeed;
@@ -86,6 +79,13 @@ void Alphaworm::update(float update_time)
 	AlphawormSprite->setPosition(Vec2(currentSprposition.x, currentSprposition.y));
 	AlphawormLabel->setPosition(Vec2(currentSprposition.x, currentSprposition.y + 50));
 	AlphawormLabel->setString(std::to_string(this->getcurrentHP()) + "/" + std::to_string(this->getmaxHP()));
+
+	if (IsDead) {
+		//将图片变透明
+		AlphawormSprite->removeFromParent();
+		AlphawormLabel->removeFromParent();
+		this->unscheduleUpdate();
+	}
 }
 
 void Alphaworm::setRoad(std::vector<std::vector<int>> currentRoad)

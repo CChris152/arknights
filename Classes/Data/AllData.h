@@ -5,6 +5,7 @@
 
 #include "cocos2d.h"
 #include "Sprite/EnemyBase.h"
+#include "Sprite/OperatorBase.h"
 #include <vector>
 
 USING_NS_CC;
@@ -23,6 +24,9 @@ extern std::vector<Sprite*> CardsSpr; //干员卡片精灵
 extern std::vector<int> CardsExpenses; //干员卡片部署费用
 
 extern std::vector<Enemy*> AllEnemy; //生成的敌人
+extern std::vector<Operator*> AllOperator; //生成的干员
+extern std::vector<Sprite*> Allenemy; //生成的敌人精灵
+extern std::vector<Sprite*> Alloperator; //生成的干员精灵
 
 extern std::vector<std::vector<int>> Level1vec; //第一关的地图数组
 extern std::vector<std::vector<int>> Level1Road; //第一关的敌人行动路径

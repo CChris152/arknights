@@ -16,6 +16,7 @@ public:
 	virtual void update(float update_time);
 
 	Scene* scece; //绑定的场景
+	int victoryorfail; //胜利或失败（-1为失败，0为关卡中，1为胜利）
 	float gametimer; //计时器
 };
 

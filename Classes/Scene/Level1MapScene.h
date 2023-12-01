@@ -11,16 +11,14 @@ USING_NS_CC;
 class Level1Map : public cocos2d::Scene
 {
 public:
-	static cocos2d::Scene* createScene();
-
 	virtual bool init();
 	void init_data();
 
 	virtual void update(float update_time);
 
 	bool onTouchBegan(Touch* touch, Event* unused_event); //鼠标事件函数
-	void onTouchMoved(Touch* touch, Event* unused_event);
-	void onTouchEnded(Touch* touch, Event* unused_event);
+
+	void BackCall(); //返回上一个场景
 
 	void menuBackCallback(cocos2d::Ref* pSender);
 

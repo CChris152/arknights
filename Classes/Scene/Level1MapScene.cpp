@@ -4,11 +4,7 @@
 #include "Sprite/ExusiaiOperator.h"
 #include <vector>
 #include <cmath>
-
-Scene* Level1Map::createScene()
-{
-	return Level1Map::create();
-}
+#include <algorithm>
 
 bool Level1Map::init()
 {
@@ -26,19 +22,12 @@ bool Level1Map::init()
 	//鼠标监听
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = CC_CALLBACK_2(Level1Map::onTouchBegan, this);
-	listener->onTouchMoved = CC_CALLBACK_2(Level1Map::onTouchMoved, this);
-	listener->onTouchEnded = CC_CALLBACK_2(Level1Map::onTouchEnded, this);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
 	//背景图
 	auto level1map = Sprite::create("pictures/Level1map.png");
 	level1map->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(level1map, 0);
-
-	//测量锚点
-	auto BlackDot = Sprite::create("BlackDot.png");
-	BlackDot->setPosition(Vec2(origin.x+995, origin.y+370));
-	this->addChild(BlackDot, 0);
 
 	//返回按钮
 	auto back = MenuItemImage::create("pictures/Back.png", "pictures/Back.png", CC_CALLBACK_1(Level1Map::menuBackCallback, this)); 
@@ -54,8 +43,8 @@ bool Level1Map::init()
 	this->addChild(expenseslabel, 1);
 
 	//消灭敌人数量
-	killednumlabel= Label::createWithTTF(std::to_string(killednum), "fonts/Marker Felt.ttf", 30);
-	killednumlabel->setPosition(Vec2(origin.x + visibleSize.width / 2 - 105, origin.y + visibleSize.height - 70));
+	killednumlabel = Label::createWithTTF(std::to_string(killednum) + "/" + std::to_string(allenemynum), "fonts/Marker Felt.ttf", 30);
+	killednumlabel->setPosition(Vec2(origin.x + visibleSize.width / 2 - 95, origin.y + visibleSize.height - 70));
 	killednumlabel->setColor(Color3B::BLACK);
 	this->addChild(killednumlabel, 1);
 
@@ -92,6 +81,9 @@ void Level1Map::init_data()
 
 	CardsSpr.clear();
 	AllEnemy.clear();
+	AllOperator.clear();
+	Allenemy.clear();
+	Alloperator.clear();
 
 	IsSelectCard = 0;
 	expensestimer = 0;
@@ -107,6 +99,15 @@ void Level1Map::init_data()
 
 void Level1Map::update(float update_time)
 {
+	//判断是否结束
+	if (gamelogic->victoryorfail == -1) {
+		BackCall();
+	}
+	if (gamelogic->victoryorfail == 1) {
+		FinishLevelNum = std::max(FinishLevelNum, 1);
+		BackCall();
+	}
+
 	//费用刷新
 	if (expensestimer >= 1) {
 		if (expenses < 99) {
@@ -120,7 +121,7 @@ void Level1Map::update(float update_time)
 
 	//更改数字
 	expenseslabel->setString(std::to_string(expenses));
-	killednumlabel->setString(std::to_string(killednum));
+	killednumlabel->setString(std::to_string(killednum) + "/" + std::to_string(allenemynum));
 	BaseHPlabel->setString(std::to_string(BaseHP));
 }
 
@@ -163,10 +164,13 @@ bool Level1Map::onTouchBegan(Touch* touch, Event* unused_event)
 
 						//判断是否在格子范围内，如果是，则生成并放置
 						if (sqrt(pow(touchposition.x - currentposition.x, 2) + pow(touchposition.y - currentposition.y, 2)) < 70) {
-							auto newoperator = new Exuasiai;
+							auto newoperator = new Exuasiai(AllOperator.size());
 							newoperator->Exuasiaisprite->setPosition(Vec2(currentposition.x, currentposition.y + 70));
+							AllOperator.push_back(newoperator);
+							Alloperator.push_back(newoperator->Exuasiaisprite);
 							this->addChild(newoperator->Exuasiaisprite);
 							currentLevel1vec[i][j] = 11;
+
 							//减少费用
 							expenses -= CardsExpenses[choosedoperatornum];
 							out = 1;
@@ -191,18 +195,23 @@ bool Level1Map::onTouchBegan(Touch* touch, Event* unused_event)
 	return false;
 }
 
-void Level1Map::onTouchMoved(Touch* touch, Event* unused_event)
+void Level1Map::BackCall()
 {
-	;
-}
+	//将场上的精灵全部关停
+	for (auto it : AllOperator) {
+		it->unscheduleUpdate();
+	}
 
-void Level1Map::onTouchEnded(Touch* touch, Event* unused_event)
-{
-	;
+	AllEnemy.clear();
+	AllOperator.clear();
+	Allenemy.clear();
+	Alloperator.clear();
+
+	//返回关卡选择页面
+	Director::getInstance()->replaceScene(LevelSelect::create());
 }
 
 void Level1Map::menuBackCallback(cocos2d::Ref* pSender)
 {
-	//返回关卡选择页面
-	Director::getInstance()->replaceScene(LevelSelect::create());
+	BackCall();
 }

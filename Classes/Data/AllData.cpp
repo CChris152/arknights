@@ -14,6 +14,9 @@ std::vector<Sprite*> CardsSpr;
 std::vector<int> CardsExpenses = { 12 };
 
 std::vector<Enemy*> AllEnemy;
+std::vector<Operator*> AllOperator;
+std::vector<Sprite*> Allenemy;
+std::vector<Sprite*> Alloperator;
 
 std::vector<std::vector<int>> Level1vec = { { 1, 1, 1, 1, 1, 1, 1},
                                             { 0, 1, 0, 0, 0, 0, 0},

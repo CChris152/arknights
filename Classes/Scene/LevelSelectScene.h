@@ -10,8 +10,6 @@ USING_NS_CC;
 class LevelSelect : public cocos2d::Scene
 {
 public:
-    static cocos2d::Scene* createScene();
-
     virtual bool init();
 
     void setFinishLevelNum(int num); //设置完成关卡数量函数

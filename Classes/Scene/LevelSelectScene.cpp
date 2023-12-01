@@ -4,11 +4,6 @@
 
 USING_NS_CC;
 
-Scene* LevelSelect::createScene()
-{
-	return LevelSelect::create();
-}
-
 void LevelSelect::setFinishLevelNum(int num)
 {
     FinishLevelNum = num;
