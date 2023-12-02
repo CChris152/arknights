@@ -31,4 +31,6 @@ extern std::vector<Sprite*> Alloperator; //生成的干员精灵
 extern std::vector<std::vector<int>> Level1vec; //第一关的地图数组
 extern std::vector<std::vector<int>> Level1Road; //第一关的敌人行动路径
 
+extern std::vector<std::vector<std::vector<int>>> EnemyWave; //所有关卡出现的敌人波次
+
 #endif // __AllData_H__
