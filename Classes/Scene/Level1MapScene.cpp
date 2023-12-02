@@ -201,11 +201,11 @@ void Level1Map::BackCall()
 	for (auto it : AllOperator) {
 		it->unscheduleUpdate();
 	}
-
-	AllEnemy.clear();
-	AllOperator.clear();
-	Allenemy.clear();
-	Alloperator.clear();
+	for (auto it : AllEnemy) {
+		if (it->IsDead == 0) {
+			it->IsDead = 1;
+		}
+	}
 
 	//返回关卡选择页面
 	Director::getInstance()->replaceScene(LevelSelect::create());
