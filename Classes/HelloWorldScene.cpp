@@ -1,5 +1,6 @@
 #include "HelloWorldScene.h"
 #include "Scene/LevelSelectScene.h"
+#include "editor-support\cocostudio\SimpleAudioEngine.h"
 
 USING_NS_CC;
 
@@ -83,6 +84,9 @@ bool HelloWorld::init()
         this->addChild(label, 1);
     }
     
+    //±³¾°ÒôÀÖ
+    CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("musics/LifeFlow.mp3", true);
+
     return true;
 }
 

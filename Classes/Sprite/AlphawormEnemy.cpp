@@ -80,8 +80,16 @@ void Alphaworm::update(float update_time)
 	AlphawormLabel->setPosition(Vec2(currentSprposition.x, currentSprposition.y + 50));
 	AlphawormLabel->setString(std::to_string(this->getcurrentHP()) + "/" + std::to_string(this->getmaxHP()));
 
+	//图像翻转
+	if (xvec < 0) {
+		this->AlphawormSprite->setFlippedX(true);
+	}
+	if (xvec > 0){
+		this->AlphawormSprite->setFlippedX(false);
+	}
+
 	if (IsDead) {
-		//将图片变透明
+		//将精灵删除
 		AlphawormSprite->removeFromParent();
 		AlphawormLabel->removeFromParent();
 		this->unscheduleUpdate();

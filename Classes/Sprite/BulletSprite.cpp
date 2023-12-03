@@ -1,6 +1,7 @@
 #include "BulletSprite.h"
 #include "Data/AllData.h"
 #include <cmath>
+#define PI acos(-1)
 
 Bullet::Bullet(int Start, int End)
 {
@@ -20,7 +21,7 @@ Bullet::Bullet(int Start, int End)
 void Bullet::update(float update_time)
 {
 	//如果目标死亡
-	if (AllEnemy[endenemy]->IsDead) {
+	if (endenemy >= AllEnemy.size() || AllEnemy[endenemy]->IsDead) {
 		IsDestroyed = 1;
 	}
 	else {
@@ -36,6 +37,9 @@ void Bullet::update(float update_time)
 		float vecx = (to.x - from.x) / sqrt(pow(to.x - from.x, 2) + pow(to.y - from.y, 2));
 		float vecy = (to.y - from.y) / sqrt(pow(to.x - from.x, 2) + pow(to.y - from.y, 2));
 		bulletSprite->setPosition(Vec2(from.x + static_cast<int>(vecx * this->speed), from.y + static_cast<int>(vecy * this->speed)));
+
+		//改变角度朝向
+		bulletSprite->setRotation(atan(vecx / vecy)*180.0f/PI);
 	}
 
 	//销毁

@@ -34,7 +34,7 @@ void GameLogic::update(float update_time)
 	}
 	
 	//依据波次出现敌人
-	if (currentwave != enemywave.size() || enemywave[currentwave][2] != 0) {
+	if (currentwave != enemywave.size()) {
 		if (gametimer1 < enemywave[currentwave][0]) {
 			gametimer1 += update_time;
 		}
@@ -48,6 +48,8 @@ void GameLogic::update(float update_time)
 					auto newenemy = new Alphaworm;
 					AllEnemy.push_back(newenemy);
 					Allenemy.push_back(newenemy->AlphawormSprite);
+					this->addChild(newenemy->AlphawormSprite);
+					this->addChild(newenemy->AlphawormLabel);
 					break;
 				}
 				default:

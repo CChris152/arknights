@@ -41,12 +41,19 @@ void Exuasiai::update(float update_time)
 			if (AllEnemy[i]->IsDead) {
 				continue;
 			}
-
 			//ÅÐ¶ÏÊÇ·ñÔÚ¹¥»÷·¶Î§ÄÚ
 			Vec2 From = Exuasiaisprite->getPosition();
 			Vec2 To = Allenemy[i]->getPosition();
 			if (sqrt(pow(To.x - From.x, 2) + pow(To.y - From.y, 2)) <= this->getAttackRange()) {
+				//Í¼Ïñ·­×ª
+				if (To.x - From.x < 0) {
+					this->Exuasiaisprite->setFlippedX(true);
+				}
+				else {
+					this->Exuasiaisprite->setFlippedX(false);
+				}
 				Bullet* newbullet = new Bullet(this->getNumbering(), i);
+				AttackEffect.push_back(newbullet);
 				(this->Exuasiaisprite->getParent())->addChild(newbullet->bulletSprite);
 				Exuasiaitimer = 0;
 				break;

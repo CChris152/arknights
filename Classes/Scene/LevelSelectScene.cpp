@@ -1,6 +1,7 @@
 #include "LevelSelectScene.h"
 #include "Data/AllData.h"
 #include "Level1MapScene.h"
+#include "editor-support\cocostudio\SimpleAudioEngine.h"
 
 USING_NS_CC;
 
@@ -14,15 +15,7 @@ void LevelSelect::LevelCreate(int levelnum)
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    //创建第关卡1图标
-    auto Level1Button = MenuItemImage::create("pictures/Level1.png","pictures/Level1.png",CC_CALLBACK_1(LevelSelect::menuToLevel1Callback, this));
-    float x = origin.x + visibleSize.width / 2;
-    float y = origin.y + visibleSize.height / 4 * 3;
-    Level1Button->setPosition(Vec2(x, y));
-    auto level1menu = Menu::create(Level1Button, NULL);
-    level1menu->setPosition(Vec2::ZERO);
-    this->addChild(level1menu, 1);
-
+    //先创建封锁的关卡图片，然后再添加解锁的图片按钮
     auto UnlockedLevel2 = Sprite::create("pictures/UnlockedLevel2.jpg");
     UnlockedLevel2->setPosition(Vec2(origin.x + visibleSize.width / 2 + 300 , origin.y + visibleSize.height / 4 * 3));
     this->addChild(UnlockedLevel2, 0);
@@ -31,14 +24,21 @@ void LevelSelect::LevelCreate(int levelnum)
     UnlockedLevel3->setPosition(Vec2(origin.x + visibleSize.width / 2 + 600, origin.y + visibleSize.height / 4 * 3));
     this->addChild(UnlockedLevel3, 0);
 
+    //创建第关卡1图标
+    auto Level1Button = MenuItemImage::create("pictures/Level1.png", "pictures/Level1.png", CC_CALLBACK_1(LevelSelect::menuToLevel1Callback, this));
+    float x = origin.x + visibleSize.width / 2;
+    float y = origin.y + visibleSize.height / 4 * 3;
+    Level1Button->setPosition(Vec2(x, y));
+    auto level1menu = Menu::create(Level1Button, NULL);
+    level1menu->setPosition(Vec2::ZERO);
+    this->addChild(level1menu, 1);
+
     //创建第关卡2图标
     if (levelnum >= 1) {
         auto Level2Button = MenuItemImage::create("pictures/Level2.png", "pictures/Level2.png", CC_CALLBACK_1(LevelSelect::menuCloseCallback, this));
-
         float x = origin.x + visibleSize.width / 2 + 300;
         float y = origin.y + visibleSize.height / 4 * 3;
         Level2Button->setPosition(Vec2(x, y));
-
         auto level2menu = Menu::create(Level2Button, NULL);
         level2menu->setPosition(Vec2::ZERO);
         this->addChild(level2menu, 1);
@@ -47,11 +47,9 @@ void LevelSelect::LevelCreate(int levelnum)
     //创建第关卡3图标
     if (levelnum >= 2) {
         auto Level3Button = MenuItemImage::create("pictures/Level3.png", "pictures/Level3.png", CC_CALLBACK_1(LevelSelect::menuCloseCallback, this));
-
         float x = origin.x + visibleSize.width / 2 + 600;
         float y = origin.y + visibleSize.height / 4 * 3;
         Level3Button->setPosition(Vec2(x, y));
-
         auto level3menu = Menu::create(Level3Button, NULL);
         level3menu->setPosition(Vec2::ZERO);
         this->addChild(level3menu, 1);
@@ -91,6 +89,12 @@ bool LevelSelect::init()
         LevelCreate(2);
         break;
     }
+
+    //背景音乐
+    if (CocosDenshion::SimpleAudioEngine::getInstance()->isBackgroundMusicPlaying() == 0) {
+        CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("musics/LifeFlow.mp3", true);
+    }
+
     return true;
 }
 

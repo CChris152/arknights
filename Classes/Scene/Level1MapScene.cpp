@@ -2,6 +2,7 @@
 #include "Data/AllData.h"
 #include "LevelSelectScene.h"
 #include "Sprite/ExusiaiOperator.h"
+#include "editor-support\cocostudio\SimpleAudioEngine.h"
 #include <vector>
 #include <cmath>
 #include <algorithm>
@@ -31,7 +32,7 @@ bool Level1Map::init()
 
 	//返回按钮
 	auto back = MenuItemImage::create("pictures/Back.png", "pictures/Back.png", CC_CALLBACK_1(Level1Map::menuBackCallback, this)); 
-	back->setPosition(Vec2(origin.x + back->getContentSize().width / 2, visibleSize.height - back->getContentSize().height / 2 + origin.y));
+	back->setPosition(Vec2(origin.x + back->getContentSize().width / 2 + 70, visibleSize.height - back->getContentSize().height / 2 + origin.y - 25));
 	auto backmenu = Menu::create(back, NULL);
 	backmenu->setPosition(Vec2::ZERO);
 	this->addChild(backmenu, 1);
@@ -66,6 +67,10 @@ bool Level1Map::init()
 	gamelogic = new GameLogic(this);
 	this->addChild(gamelogic);
 
+	//背景音乐
+	CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("musics/TowerFierce.mp3", true);
+
 	//update开始运行
 	this->scheduleUpdate();
 	return true;
@@ -75,7 +80,7 @@ void Level1Map::init_data()
 {
 	Maptime = 0;
 	expenses = 0;
-	BaseHP = 10;
+	BaseHP = 3;
 	allenemynum = 10;
 	killednum = 0;
 
@@ -169,6 +174,7 @@ bool Level1Map::onTouchBegan(Touch* touch, Event* unused_event)
 							AllOperator.push_back(newoperator);
 							Alloperator.push_back(newoperator->Exuasiaisprite);
 							this->addChild(newoperator->Exuasiaisprite);
+
 							currentLevel1vec[i][j] = 11;
 
 							//减少费用
@@ -206,6 +212,26 @@ void Level1Map::BackCall()
 			it->IsDead = 1;
 		}
 	}
+
+	//防止内存泄漏
+	AllOperator.clear();
+	for (auto it : AllOperator) {
+		delete it;
+	}
+	AllOperator.clear();
+	AllEnemy.clear();
+	for (auto it : AllEnemy) {
+		delete it;
+	}
+	AllEnemy.clear();
+	AttackEffect.clear();
+	for (auto it : AttackEffect) {
+		delete it;
+	}
+	AttackEffect.clear();
+
+	//关停音乐
+	CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 
 	//返回关卡选择页面
 	Director::getInstance()->replaceScene(LevelSelect::create());

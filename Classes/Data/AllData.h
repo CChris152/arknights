@@ -27,6 +27,7 @@ extern std::vector<Enemy*> AllEnemy; //生成的敌人
 extern std::vector<Operator*> AllOperator; //生成的干员
 extern std::vector<Sprite*> Allenemy; //生成的敌人精灵
 extern std::vector<Sprite*> Alloperator; //生成的干员精灵
+extern std::vector<Sprite*> AttackEffect; //生成的攻击特效（子弹等）
 
 extern std::vector<std::vector<int>> Level1vec; //第一关的地图数组
 extern std::vector<std::vector<int>> Level1Road; //第一关的敌人行动路径
