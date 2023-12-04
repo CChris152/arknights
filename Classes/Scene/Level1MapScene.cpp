@@ -2,6 +2,7 @@
 #include "Data/AllData.h"
 #include "LevelSelectScene.h"
 #include "Sprite/ExusiaiOperator.h"
+#include "Sprite/Card.h"
 #include "editor-support\cocostudio\SimpleAudioEngine.h"
 #include <vector>
 #include <cmath>
@@ -55,12 +56,19 @@ bool Level1Map::init()
 	BaseHPlabel->setColor(Color3B::BLACK);
 	this->addChild(BaseHPlabel, 1);
 
-	//干员卡片
-	for (int i = 0; i < Cards.size();i++) {
-		auto card = Sprite::create("pictures/" + Cards[i] + "Card.png");
-		card->setPosition(Vec2(origin.x + visibleSize.width - 300 - (2 * i + 1) * card->getContentSize().width / 2, origin.y + card->getContentSize().height / 2));
-		this->addChild(card, 0);
-		CardsSpr.push_back(card);
+	//加入干员卡片
+	for (int i = 0; i < CardsNum.size();i++) {
+		switch (CardsNum[i])
+		{
+		case 0: {
+			Card* newcard = new Card("Exusiai", 12);
+			newcard->CardSprite->setPosition(Vec2(origin.x + visibleSize.width - 300 - (2 * i + 1) * newcard->CardSprite->getContentSize().width / 2, origin.y + newcard->CardSprite->getContentSize().height / 2));
+			this->addChild(newcard->CardSprite);
+			Cards.push_back(newcard);
+		}
+		default:
+			break;
+		}
 	}
 	
 	//添加逻辑
@@ -84,7 +92,7 @@ void Level1Map::init_data()
 	allenemynum = 10;
 	killednum = 0;
 
-	CardsSpr.clear();
+	Cards.clear();
 	AllEnemy.clear();
 	AllOperator.clear();
 	Allenemy.clear();
@@ -138,12 +146,12 @@ bool Level1Map::onTouchBegan(Touch* touch, Event* unused_event)
 	if (IsSelectCard == 0) {
 
 		//判断是否在卡片范围，如果是，就切换状态
-		for (int i = 0; i < CardsSpr.size(); i++) {
-			auto position = CardsSpr[i]->getPosition();
-			if (abs(touchposition.x - position.x) < 80 && abs(touchposition.y - position.y) < 135 && expenses >= CardsExpenses[i]) {
+		for (int i = 0; i < Cards.size(); i++) {
+			auto position = Cards[i]->CardSprite->getPosition();
+			if (abs(touchposition.x - position.x) < 80 && abs(touchposition.y - position.y) < 135 && expenses >= Cards[i]->getCardExpense()) {
 				//使选择卡片产生动态效果
-				CardsSpr[i]->setPosition(Vec2(position.x, position.y + 50));
-				choosedoperatornum = i;
+				Cards[i]->CardSprite->setPosition(Vec2(position.x, position.y + 50));
+				choosedoperatornum = CardsNum[i];
 				break;
 			}
 		}
@@ -178,7 +186,7 @@ bool Level1Map::onTouchBegan(Touch* touch, Event* unused_event)
 							currentLevel1vec[i][j] = 11;
 
 							//减少费用
-							expenses -= CardsExpenses[choosedoperatornum];
+							expenses -= Cards[choosedoperatornum]->getCardExpense();
 							out = 1;
 							break;
 						}
@@ -192,8 +200,8 @@ bool Level1Map::onTouchBegan(Touch* touch, Event* unused_event)
 		default:
 			break;
 		}
-		auto position = CardsSpr[choosedoperatornum]->getPosition();
-		CardsSpr[choosedoperatornum]->setPosition(Vec2(position.x, position.y - 50));
+		auto position = Cards[choosedoperatornum]->CardSprite->getPosition();
+		Cards[choosedoperatornum]->CardSprite->setPosition(Vec2(position.x, position.y - 50));
 		IsSelectCard = 0;
 		choosedoperatornum = -1;
 	}
@@ -229,6 +237,11 @@ void Level1Map::BackCall()
 		delete it;
 	}
 	AttackEffect.clear();
+	Cards.clear();
+	for (auto it : Cards) {
+		delete it;
+	}
+	Cards.clear();
 
 	//关停音乐
 	CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();

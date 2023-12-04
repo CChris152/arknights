@@ -51,7 +51,6 @@ void GameLogic::update(float update_time)
 					this->addChild(newenemy->AlphawormSprite);
 					this->addChild(newenemy->AlphawormBar);
 					this->addChild(newenemy->AlphawormBlood);
-					
 					break;
 				}
 				default:

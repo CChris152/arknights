@@ -6,6 +6,7 @@
 #include "cocos2d.h"
 #include "Sprite/EnemyBase.h"
 #include "Sprite/OperatorBase.h"
+#include "Sprite/Card.h"
 #include <vector>
 
 USING_NS_CC;
@@ -19,9 +20,8 @@ extern int BaseHP; //基地血量
 extern int allenemynum; //敌人总数
 extern int killednum; //消灭敌人数量
 
-extern std::vector<std::string> Cards; //干员卡片名称
-extern std::vector<Sprite*> CardsSpr; //干员卡片精灵
-extern std::vector<int> CardsExpenses; //干员卡片部署费用
+extern std::vector<int> CardsNum; //干员卡片编号
+extern std::vector<Card*> Cards; //干员卡片精灵
 
 extern std::vector<Enemy*> AllEnemy; //生成的敌人
 extern std::vector<Operator*> AllOperator; //生成的干员

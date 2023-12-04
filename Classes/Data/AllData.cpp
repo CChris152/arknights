@@ -9,9 +9,8 @@ int BaseHP;
 int allenemynum;
 int killednum = 0;
 
-std::vector<std::string> Cards = { "Exusiai" };
-std::vector<Sprite*> CardsSpr;
-std::vector<int> CardsExpenses = { 12 };
+std::vector<int> CardsNum = { 0 };
+std::vector<Card*> Cards;
 
 std::vector<Enemy*> AllEnemy;
 std::vector<Operator*> AllOperator;
