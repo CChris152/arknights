@@ -16,14 +16,16 @@ public:
 
 	virtual void EnemyInit(); //数值初始化
 	virtual void SpriteInit(); //精灵初始化
-	virtual void LabelInit(); //标签初始化
+	
 
 	virtual void update(float update_time);
 
 	virtual void setRoad(std::vector<std::vector<int>> currentRoad); //设置当前路径
 
 	Sprite* AlphawormSprite; //阿尔法源石虫精灵
-	Label* AlphawormLabel; //阿尔法源石虫血量标签
+	Sprite* AlphawormBar; //阿尔法源石虫血条框
+	Sprite* Blood; //血条
+	ProgressTimer* AlphawormBlood; //阿尔法源石虫血条
 
 private:
 	std::vector<std::vector<int>> Road; //移动路径
@@ -31,6 +33,7 @@ private:
 	int RoadStep; //当前运行的步数
 	int xvec; //x轴向量方向
 	int yvec; //y轴向量方向
+	float percentage;//阿尔法源石虫血量百分比
 };
 
 #endif // __ALPHAWORM_ENEMY_H__

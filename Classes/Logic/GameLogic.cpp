@@ -49,7 +49,9 @@ void GameLogic::update(float update_time)
 					AllEnemy.push_back(newenemy);
 					Allenemy.push_back(newenemy->AlphawormSprite);
 					this->addChild(newenemy->AlphawormSprite);
-					this->addChild(newenemy->AlphawormLabel);
+					this->addChild(newenemy->AlphawormBar);
+					this->addChild(newenemy->AlphawormBlood);
+					
 					break;
 				}
 				default:

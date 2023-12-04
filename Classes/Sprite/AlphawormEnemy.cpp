@@ -17,10 +17,9 @@ Alphaworm::Alphaworm()
 	default:
 		break;
 	}
-
+	
 	this->EnemyInit();
 	this->SpriteInit();
-	this->LabelInit();
 
 	this->scheduleUpdate();
 }
@@ -34,21 +33,27 @@ void Alphaworm::EnemyInit()
 	this->RoadStep = 0;
 	this->xvec = 0;
 	this->yvec = 0;
-
+	this->percentage = 1;
 	this->IsDead = 0;
 }
+
+
 
 void Alphaworm::SpriteInit()
 {
 	AlphawormSprite = Sprite::create("pictures/Alphaworm.png");
 	AlphawormSprite->setPosition(Vec2(this->Road[0][0], this->Road[0][1]));
+	AlphawormBar = Sprite::create("pictures/bar.png");   //创建进度框
+	AlphawormBar->setPosition(Vec2(this->Road[0][0], this->Road[0][1] + 50));
+	Blood = Sprite::create("pictures/Blood.png");  
+	AlphawormBlood = ProgressTimer::create(Blood); //创建AlphawormBlood对象
+	AlphawormBlood->setType(ProgressTimer::Type::BAR);        //类型：条状
+	//AlphawormBlood->setMidpoint(Vec2(0, 0.5));    //从右到左减少血量
+	//AlphawormBlood->setBarChangeRate(Vec2(1, 0));
+	AlphawormBlood->setPosition(Vec2(this->Road[0][0], this->Road[0][1] + 50));
+	AlphawormBlood->setPercentage(100 * percentage);
 }
 
-void Alphaworm::LabelInit()
-{
-	AlphawormLabel = Label::createWithTTF(std::to_string(this->getcurrentHP()) + "/" + std::to_string(this->getmaxHP()), "fonts/Marker Felt.ttf", 20);
-	AlphawormLabel->setPosition(Vec2(this->Road[0][0], this->Road[0][1] + 50));
-}
 
 void Alphaworm::update(float update_time)
 {
@@ -57,7 +62,7 @@ void Alphaworm::update(float update_time)
 		IsDead = 1;
 		killednum++;
 	}
-
+	
 	auto currentSprposition = this->AlphawormSprite->getPosition();
 	if (fabs(currentSprposition.x - this->Road[RoadStep][0])<=2 && fabs(currentSprposition.y - this->Road[RoadStep][1])<=2) {
 		this->xvec = this->Road[RoadStep][2];
@@ -72,13 +77,20 @@ void Alphaworm::update(float update_time)
 		killednum++;
 	}
 
-	//更新位置
+	this->percentage = (float)this->getcurrentHP()/ (float)this->getmaxHP();
+	//更新位置 
 	float currentspeed = this->getspeed();
 	currentSprposition.x += this->xvec * currentspeed;
 	currentSprposition.y += this->yvec * currentspeed;
 	AlphawormSprite->setPosition(Vec2(currentSprposition.x, currentSprposition.y));
-	AlphawormLabel->setPosition(Vec2(currentSprposition.x, currentSprposition.y + 50));
-	AlphawormLabel->setString(std::to_string(this->getcurrentHP()) + "/" + std::to_string(this->getmaxHP()));
+	
+	AlphawormBar->setPosition(Vec2(currentSprposition.x, currentSprposition.y + 50)); //设置框的位置
+	AlphawormBlood->setPosition(Vec2(currentSprposition.x , currentSprposition.y + 50));
+	AlphawormBlood->setType(ProgressTimer::Type::BAR);        //类型：条状
+	AlphawormBlood->setMidpoint(Vec2(0, 0.5));    //从右到左减少血量
+	AlphawormBlood->setBarChangeRate(Vec2(1, 0));
+	AlphawormBlood->setPercentage(100 * percentage);
+
 
 	//图像翻转
 	if (xvec < 0) {
@@ -91,7 +103,8 @@ void Alphaworm::update(float update_time)
 	if (IsDead) {
 		//将精灵删除
 		AlphawormSprite->removeFromParent();
-		AlphawormLabel->removeFromParent();
+		AlphawormBar->removeFromParent();
+		AlphawormBlood->removeFromParent();
 		this->unscheduleUpdate();
 	}
 }
