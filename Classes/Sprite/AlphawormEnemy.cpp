@@ -48,8 +48,6 @@ void Alphaworm::SpriteInit()
 	Blood = Sprite::create("pictures/Blood.png");  
 	AlphawormBlood = ProgressTimer::create(Blood); //创建AlphawormBlood对象
 	AlphawormBlood->setType(ProgressTimer::Type::BAR);        //类型：条状
-	//AlphawormBlood->setMidpoint(Vec2(0, 0.5));    //从右到左减少血量
-	//AlphawormBlood->setBarChangeRate(Vec2(1, 0));
 	AlphawormBlood->setPosition(Vec2(this->Road[0][0], this->Road[0][1] + 50));
 	AlphawormBlood->setPercentage(100 * percentage);
 }

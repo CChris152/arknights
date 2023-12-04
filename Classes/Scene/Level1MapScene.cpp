@@ -71,7 +71,7 @@ bool Level1Map::init()
 		}
 		case 1: 
 		{
-			Card* newcard = new Card("Hongxue", 12);
+			Card* newcard = new Card("Hongxue", 18);
 			newcard->CardSprite->setPosition(Vec2(origin.x + visibleSize.width - 300 - (2 * i + 1) * newcard->CardSprite->getContentSize().width / 2, origin.y + newcard->CardSprite->getContentSize().height / 2));
 			this->addChild(newcard->CardSprite);
 			Cards.push_back(newcard);

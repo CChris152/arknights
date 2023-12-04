@@ -17,9 +17,9 @@ Hongxue::Hongxue(int Numbering)
 void Hongxue::OperatorInit()
 {
 	this->setAttack(400);
-	this->setAttackSpeed(1);
-	this->setExpense(20);
-	this->setAttackRange(700);
+	this->setAttackSpeed(3);
+	this->setExpense(18);
+	this->setAttackRange(500);
 
 	this->Hongxuetimer = 0;
 }
