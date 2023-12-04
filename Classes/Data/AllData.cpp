@@ -9,7 +9,7 @@ int BaseHP;
 int allenemynum;
 int killednum = 0;
 
-std::vector<int> CardsNum = { 0 };
+std::vector<int> CardsNum = { 0 , 1 };
 std::vector<Card*> Cards;
 
 std::vector<Enemy*> AllEnemy;

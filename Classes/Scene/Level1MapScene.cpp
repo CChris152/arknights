@@ -2,6 +2,7 @@
 #include "Data/AllData.h"
 #include "LevelSelectScene.h"
 #include "Sprite/ExusiaiOperator.h"
+#include "Sprite/HongxueOperator.h"
 #include "Sprite/Card.h"
 #include "editor-support\cocostudio\SimpleAudioEngine.h"
 #include <vector>
@@ -60,12 +61,23 @@ bool Level1Map::init()
 	for (int i = 0; i < CardsNum.size();i++) {
 		switch (CardsNum[i])
 		{
-		case 0: {
+		case 0: 
+		{
 			Card* newcard = new Card("Exusiai", 12);
 			newcard->CardSprite->setPosition(Vec2(origin.x + visibleSize.width - 300 - (2 * i + 1) * newcard->CardSprite->getContentSize().width / 2, origin.y + newcard->CardSprite->getContentSize().height / 2));
 			this->addChild(newcard->CardSprite);
 			Cards.push_back(newcard);
+			break;
 		}
+		case 1: 
+		{
+			Card* newcard = new Card("Hongxue", 12);
+			newcard->CardSprite->setPosition(Vec2(origin.x + visibleSize.width - 300 - (2 * i + 1) * newcard->CardSprite->getContentSize().width / 2, origin.y + newcard->CardSprite->getContentSize().height / 2));
+			this->addChild(newcard->CardSprite);
+			Cards.push_back(newcard);
+			break;
+		}
+		
 		default:
 			break;
 		}
@@ -182,6 +194,36 @@ bool Level1Map::onTouchBegan(Touch* touch, Event* unused_event)
 							AllOperator.push_back(newoperator);
 							Alloperator.push_back(newoperator->Exuasiaisprite);
 							this->addChild(newoperator->Exuasiaisprite);
+
+							currentLevel1vec[i][j] = 11;
+
+							//减少费用
+							expenses -= Cards[choosedoperatornum]->getCardExpense();
+							out = 1;
+							break;
+						}
+					}
+				}
+				if (out) {
+					break;
+				}
+			}
+			break;
+		case 1:
+			for (int i = 0; i < currentLevel1vec.size(); i++) {
+				for (int j = 0; j < currentLevel1vec[0].size(); j++) {
+					if (currentLevel1vec[i][j] == 1) {
+
+						//将数组坐标映射到实际坐标
+						Vec2 currentposition = { j * 160.0f + 515 ,790.0f - i * 140 };
+
+						//判断是否在格子范围内，如果是，则生成并放置
+						if (sqrt(pow(touchposition.x - currentposition.x, 2) + pow(touchposition.y - currentposition.y, 2)) < 70) {
+							auto newoperator = new Hongxue(AllOperator.size());
+							newoperator->Hongxuesprite->setPosition(Vec2(currentposition.x, currentposition.y + 70));
+							AllOperator.push_back(newoperator);
+							Alloperator.push_back(newoperator->Hongxuesprite);
+							this->addChild(newoperator->Hongxuesprite);
 
 							currentLevel1vec[i][j] = 11;
 
