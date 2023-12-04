@@ -12,7 +12,7 @@ Arrow::Arrow(int Start, int End)
 	this->endenemy = End;
 	this->IsDestroyed = 0;
 	this->speed = 6;
-	arrowSprite = Sprite::create("pictures/arrow3.jpg");
+	arrowSprite = Sprite::create("pictures/Arrow.png");
 	arrowSprite->setPosition(Alloperator[startoperator]->getPosition());
 
 	this->scheduleUpdate();
@@ -39,7 +39,12 @@ void Arrow::update(float update_time)
 		arrowSprite->setPosition(Vec2(from.x + static_cast<int>(vecx * this->speed), from.y + static_cast<int>(vecy * this->speed)));
 
 		//改变角度朝向
-		arrowSprite->setRotation(atan(vecx / vecy) * 180.0f / PI);
+		if (vecy >= 0) {
+			arrowSprite->setRotation(atan(vecx / vecy) * 180.0f / PI);
+		}
+		else {
+			arrowSprite->setRotation(atan(vecx / vecy) * 180.0f / PI + 180);
+		}
 	}
 
 	//销毁

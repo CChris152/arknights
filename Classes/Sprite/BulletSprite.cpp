@@ -39,7 +39,12 @@ void Bullet::update(float update_time)
 		bulletSprite->setPosition(Vec2(from.x + static_cast<int>(vecx * this->speed), from.y + static_cast<int>(vecy * this->speed)));
 
 		//改变角度朝向
-		bulletSprite->setRotation(atan(vecx / vecy)*180.0f/PI);
+		if (vecy >= 0) {
+			bulletSprite->setRotation(atan(vecx / vecy) * 180.0f / PI);
+		}
+		else {
+			bulletSprite->setRotation(atan(vecx / vecy) * 180.0f / PI + 180);
+		}
 	}
 
 	//销毁
