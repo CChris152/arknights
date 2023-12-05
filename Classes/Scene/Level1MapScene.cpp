@@ -57,6 +57,11 @@ bool Level1Map::init()
 	BaseHPlabel->setColor(Color3B::BLACK);
 	this->addChild(BaseHPlabel, 1);
 
+	//加入铲子卡片
+	Shovel = Sprite::create("pictures/Shovel.png");
+	Shovel->setPosition(Vec2(origin.x + Shovel->getContentSize().width / 2 + 70, Shovel->getContentSize().height / 2 + origin.y + 25));
+	this->addChild(Shovel);
+
 	//加入干员卡片
 	for (int i = 0; i < CardsNum.size();i++) {
 		switch (CardsNum[i])
@@ -110,6 +115,7 @@ void Level1Map::init_data()
 	Allenemy.clear();
 	Alloperator.clear();
 
+	IsSelectShovel = 0;
 	IsSelectCard = 0;
 	expensestimer = 0;
 	choosedoperatornum = -1;
@@ -155,8 +161,37 @@ bool Level1Map::onTouchBegan(Touch* touch, Event* unused_event)
 	//获取鼠标坐标
 	auto touchposition = touch->getLocation();
 
+	//铲子选择状态判定
 	if (IsSelectCard == 0) {
+		if (IsSelectShovel == 0) {
+			auto position = Shovel->getPosition();
+			if (abs(touchposition.x - position.x) < Shovel->getContentSize().width / 2 && abs(touchposition.y - position.y) < Shovel->getContentSize().height / 2) {
+				//使选择卡片产生动态效果
+				Shovel->setPosition(Vec2(position.x, position.y + 50));
+				IsSelectShovel = 1;
+				return false;
+			}
+		}
+		else {
+			for (int i = 0; i < AllOperator.size(); i++) {
+				if (AllOperator[i]->IsDead == 0) {
+					auto position = Alloperator[i]->getPosition();
+					if (abs(touchposition.x - position.x) < Alloperator[i]->getContentSize().width / 2 && abs(touchposition.y - position.y) < Alloperator[i]->getContentSize().height / 2) {
+						AllOperator[i]->IsDead = 1;
+						expenses = std::min(99, AllOperator[i]->getExpense() / 2 + expenses);
+						break;
+					}
+				}
+			}
+			IsSelectShovel = 0;
+			auto position = Shovel->getPosition();
+			Shovel->setPosition(Vec2(position.x, position.y - 50));
+			return false;
+		}
+	}
 
+	//卡片选择状态判定
+	if (IsSelectCard == 0) {
 		//判断是否在卡片范围，如果是，就切换状态
 		for (int i = 0; i < Cards.size(); i++) {
 			auto position = Cards[i]->CardSprite->getPosition();
@@ -164,12 +199,9 @@ bool Level1Map::onTouchBegan(Touch* touch, Event* unused_event)
 				//使选择卡片产生动态效果
 				Cards[i]->CardSprite->setPosition(Vec2(position.x, position.y + 50));
 				choosedoperatornum = CardsNum[i];
+				IsSelectCard = 1;
 				break;
 			}
-		}
-
-		if (choosedoperatornum != -1) {
-			IsSelectCard = 1;
 		}
 	}
 	else {
@@ -177,6 +209,8 @@ bool Level1Map::onTouchBegan(Touch* touch, Event* unused_event)
 		//一个辅助判断的变量
 		bool out = 0;
 
+		int place;
+		for (place = 0; place < CardsNum.size() && CardsNum[place] != choosedoperatornum; place++) {}
 		//对于选中的不同卡片，给予不同的判定
 		switch (choosedoperatornum) {
 		case 0:
@@ -189,16 +223,16 @@ bool Level1Map::onTouchBegan(Touch* touch, Event* unused_event)
 
 						//判断是否在格子范围内，如果是，则生成并放置
 						if (sqrt(pow(touchposition.x - currentposition.x, 2) + pow(touchposition.y - currentposition.y, 2)) < 70) {
-							auto newoperator = new Exuasiai(AllOperator.size());
-							newoperator->Exuasiaisprite->setPosition(Vec2(currentposition.x, currentposition.y + 70));
+							auto newoperator = new Exusiai(AllOperator.size(), Vec2(i, j));
+							newoperator->Exusiaisprite->setPosition(Vec2(currentposition.x, currentposition.y + 70));
 							AllOperator.push_back(newoperator);
-							Alloperator.push_back(newoperator->Exuasiaisprite);
-							this->addChild(newoperator->Exuasiaisprite);
-
-							currentLevel1vec[i][j] = 11;
+							Alloperator.push_back(newoperator->Exusiaisprite);
+							this->addChild(newoperator->Exusiaisprite);
 
 							//减少费用
-							expenses -= Cards[choosedoperatornum]->getCardExpense();
+							expenses -= Cards[place]->getCardExpense();
+							currentLevel1vec[i][j] = 11;
+
 							out = 1;
 							break;
 						}
@@ -219,16 +253,16 @@ bool Level1Map::onTouchBegan(Touch* touch, Event* unused_event)
 
 						//判断是否在格子范围内，如果是，则生成并放置
 						if (sqrt(pow(touchposition.x - currentposition.x, 2) + pow(touchposition.y - currentposition.y, 2)) < 70) {
-							auto newoperator = new Hongxue(AllOperator.size());
+							auto newoperator = new Hongxue(AllOperator.size(), Vec2(i, j));
 							newoperator->Hongxuesprite->setPosition(Vec2(currentposition.x, currentposition.y + 70));
 							AllOperator.push_back(newoperator);
 							Alloperator.push_back(newoperator->Hongxuesprite);
 							this->addChild(newoperator->Hongxuesprite);
 
+							//减少费用
+							expenses -= Cards[place]->getCardExpense();
 							currentLevel1vec[i][j] = 11;
 
-							//减少费用
-							expenses -= Cards[choosedoperatornum]->getCardExpense();
 							out = 1;
 							break;
 						}
@@ -242,8 +276,8 @@ bool Level1Map::onTouchBegan(Touch* touch, Event* unused_event)
 		default:
 			break;
 		}
-		auto position = Cards[choosedoperatornum]->CardSprite->getPosition();
-		Cards[choosedoperatornum]->CardSprite->setPosition(Vec2(position.x, position.y - 50));
+		auto position = Cards[place]->CardSprite->getPosition();
+		Cards[place]->CardSprite->setPosition(Vec2(position.x, position.y - 50));
 		IsSelectCard = 0;
 		choosedoperatornum = -1;
 	}

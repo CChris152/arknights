@@ -1,13 +1,15 @@
 #include "HongxueOperator.h"
 #include "ArrowSprite.h"
 #include "Data/AllData.h"
+#include "Scene/Level1MapScene.h"
 #include <cmath>
 
-Hongxue::Hongxue(int Numbering)
+Hongxue::Hongxue(int Numbering, Vec2 VecPlace)
 {
 	Operator::onEnter();
 
 	this->setNumbering(Numbering);
+	this->setVecPlace(VecPlace);
 	this->OperatorInit();
 	this->SpriteInit();
 
@@ -16,11 +18,13 @@ Hongxue::Hongxue(int Numbering)
 
 void Hongxue::OperatorInit()
 {
+	this->setBlood(1800);
 	this->setAttack(400);
 	this->setAttackSpeed(3);
 	this->setExpense(18);
 	this->setAttackRange(500);
 
+	this->IsDead = 0;
 	this->Hongxuetimer = 0;
 }
 
@@ -31,6 +35,11 @@ void Hongxue::SpriteInit()
 
 void Hongxue::update(float update_time)
 {
+	//ÅÐ¶ÏÊÇ·ñËÀÍö
+	if (this->getBlood() <= 0) {
+		IsDead = 1;
+	}
+
 	//ÏÈÅÐ¶ÏÊÇ·ñ¿ÉÒÔ¹¥»÷
 	if (Hongxuetimer < this->getAttackSpeed()) {
 		Hongxuetimer += update_time;
@@ -59,5 +68,24 @@ void Hongxue::update(float update_time)
 				break;
 			}
 		}
+	}
+
+	//Èç¹ûËÀÍö
+	if (IsDead) {
+		this->Remove();
+		this->Hongxuesprite->removeFromParent();
+		this->unscheduleUpdate();
+	}
+}
+
+void Hongxue::Remove() {
+	Vec2 vecplace = this->getVecPlace();
+	switch (CurrentLevel)
+	{
+	case 1:
+		((Level1Map*)this->Hongxuesprite->getParent())->currentLevel1vec[vecplace.x][vecplace.y] -= 10;
+		break;
+	default:
+		break;
 	}
 }

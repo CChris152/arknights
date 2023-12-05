@@ -1,39 +1,48 @@
 #include "ExusiaiOperator.h"
 #include "BulletSprite.h"
 #include "Data/AllData.h"
+#include "Scene/Level1MapScene.h"
 #include <cmath>
 
-Exuasiai::Exuasiai(int Numbering)
+Exusiai::Exusiai(int Numbering, Vec2 VecPlace)
 {
 	Operator::onEnter();
 
 	this->setNumbering(Numbering);
+	this->setVecPlace(VecPlace);
 	this->OperatorInit();
 	this->SpriteInit();
 
 	this->scheduleUpdate();
 }
 
-void Exuasiai::OperatorInit()
+void Exusiai::OperatorInit()
 {
+	this->setBlood(1500);
 	this->setAttack(200);
 	this->setAttackSpeed(2);
 	this->setExpense(12);
 	this->setAttackRange(700);
 
-	this->Exuasiaitimer = 0;
+	this->IsDead = 0;
+	this->Exusiaitimer = 0;
 }
 
-void Exuasiai::SpriteInit()
+void Exusiai::SpriteInit()
 {
-	Exuasiaisprite = Sprite::create("pictures/Exusiai.png");
+	Exusiaisprite = Sprite::create("pictures/Exusiai.png");
 }
 
-void Exuasiai::update(float update_time)
+void Exusiai::update(float update_time)
 {
+	//ÅÐ¶ÏÊÇ·ñËÀÍö
+	if (this->getBlood() <= 0) {
+		IsDead = 1;
+	}
+
 	//ÏÈÅÐ¶ÏÊÇ·ñ¿ÉÒÔ¹¥»÷
-	if (Exuasiaitimer < this->getAttackSpeed()) {
-		Exuasiaitimer += update_time;
+	if (Exusiaitimer < this->getAttackSpeed()) {
+		Exusiaitimer += update_time;
 	}
 	else {
 		//±éÀúµÐÈË
@@ -42,22 +51,41 @@ void Exuasiai::update(float update_time)
 				continue;
 			}
 			//ÅÐ¶ÏÊÇ·ñÔÚ¹¥»÷·¶Î§ÄÚ
-			Vec2 From = Exuasiaisprite->getPosition();
+			Vec2 From = Exusiaisprite->getPosition();
 			Vec2 To = Allenemy[i]->getPosition();
 			if (sqrt(pow(To.x - From.x, 2) + pow(To.y - From.y, 2)) <= this->getAttackRange()) {
 				//Í¼Ïñ·­×ª
 				if (To.x - From.x < 0) {
-					this->Exuasiaisprite->setFlippedX(true);
+					this->Exusiaisprite->setFlippedX(true);
 				}
 				else {
-					this->Exuasiaisprite->setFlippedX(false);
+					this->Exusiaisprite->setFlippedX(false);
 				}
 				Bullet* newbullet = new Bullet(this->getNumbering(), i);
 				AttackEffect.push_back(newbullet);
-				(this->Exuasiaisprite->getParent())->addChild(newbullet->bulletSprite);
-				Exuasiaitimer = 0;
+				(this->Exusiaisprite->getParent())->addChild(newbullet->bulletSprite);
+				Exusiaitimer = 0;
 				break;
 			}
 		}
+	}
+
+	//Èç¹ûËÀÍö
+	if (IsDead) {
+		this->Remove();
+		this->Exusiaisprite->removeFromParent();
+		this->unscheduleUpdate();
+	}
+}
+
+void Exusiai::Remove() {
+	Vec2 vecplace = this->getVecPlace();
+	switch (CurrentLevel)
+	{
+	case 1:
+		((Level1Map*)this->Exusiaisprite->getParent())->currentLevel1vec[vecplace.x][vecplace.y] -= 10;
+		break;
+	default:
+		break;
 	}
 }

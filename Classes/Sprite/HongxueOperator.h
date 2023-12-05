@@ -10,13 +10,15 @@ USING_NS_CC;
 class Hongxue :public Operator
 {
 public:
-	Hongxue(int Numbering); //设置编号
+	Hongxue(int Numbering, Vec2 VecPlace); //设置编号和位置
 	~Hongxue() = default;
 
 	virtual void update(float update_time);
 
 	virtual void OperatorInit(); //数值初始化
 	virtual void SpriteInit(); //精灵初始化
+
+	void Remove(); //数组移除函数
 
 	Sprite* Hongxuesprite; //鸿雪精灵
 

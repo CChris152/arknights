@@ -1,4 +1,5 @@
 #include "OperatorBase.h"
+#include "Data/AllData.h"
 
 void Operator::OperatorInit()
 {
@@ -8,6 +9,11 @@ void Operator::OperatorInit()
 void Operator::SpriteInit()
 {
 	//µÈ´ýÖØÐ´
+}
+
+void Operator::setBlood(int Blood)
+{
+	this->blood = Blood;
 }
 
 void Operator::setAttack(int Attack)
@@ -35,6 +41,21 @@ void Operator::setNumbering(int Numbering)
 	this->numbering = Numbering;
 }
 
+void Operator::setVecPlace(Vec2 VecPlace)
+{
+	this->vecplace = VecPlace;
+}
+
+void Operator::decreaseBlood(int DecreaseBlood)
+{
+	this->blood -= DecreaseBlood;
+}
+
+int Operator::getBlood()
+{
+	return blood;
+}
+
 int Operator::getAttack()
 {
 	return attack;
@@ -58,4 +79,9 @@ int Operator::getAttackRange()
 int Operator::getNumbering()
 {
 	return numbering;
+}
+
+Vec2 Operator::getVecPlace()
+{
+	return vecplace;
 }

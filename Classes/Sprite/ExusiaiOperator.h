@@ -8,21 +8,23 @@
 
 USING_NS_CC;
 
-class Exuasiai :public Operator
+class Exusiai :public Operator
 {
 public:
-	Exuasiai(int Numbering); //设置编号
-	~Exuasiai() = default;
+	Exusiai(int Numbering, Vec2 VecPlace); //设置编号和位置
+	~Exusiai() = default;
 
 	virtual void update(float update_time);
 
 	virtual void OperatorInit(); //数值初始化
 	virtual void SpriteInit(); //精灵初始化
 
-	Sprite* Exuasiaisprite; //能天使精灵
+	void Remove(); //数组移除函数
+
+	Sprite* Exusiaisprite; //能天使精灵
 
 private:
-	float Exuasiaitimer; //计时器
+	float Exusiaitimer; //计时器
 };
 
 

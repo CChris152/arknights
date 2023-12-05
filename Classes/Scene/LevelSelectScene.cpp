@@ -1,6 +1,7 @@
 #include "LevelSelectScene.h"
 #include "Data/AllData.h"
 #include "Level1MapScene.h"
+#include "GameplayMenu.h"
 #include "editor-support\cocostudio\SimpleAudioEngine.h"
 
 USING_NS_CC;
@@ -70,12 +71,12 @@ bool LevelSelect::init()
     levelselect->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
     this->addChild(levelselect, 0);
 
-    ////程序退出图标
-    auto closeItem = MenuItemImage::create("CloseNormal.png","CloseSelected.png",CC_CALLBACK_1(LevelSelect::menuCloseCallback, this));
-    closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width / 2, origin.y + closeItem->getContentSize().height / 2));
-    auto closemenu = Menu::create(closeItem, NULL);
-    closemenu->setPosition(Vec2::ZERO);
-    this->addChild(closemenu, 0);
+    //返回按钮
+    auto back = MenuItemImage::create("pictures/Back.png", "pictures/Back.png", CC_CALLBACK_1(LevelSelect::menuBackCallback, this));
+    back->setPosition(Vec2(origin.x + back->getContentSize().width / 2 + 70, visibleSize.height - back->getContentSize().height / 2 + origin.y - 25));
+    auto backmenu = Menu::create(back, NULL);
+    backmenu->setPosition(Vec2::ZERO);
+    this->addChild(backmenu, 1);
 
     //通过不同的关数来添加不同的关卡
     switch (FinishLevelNum) { 
@@ -96,6 +97,11 @@ bool LevelSelect::init()
     }
 
     return true;
+}
+
+void LevelSelect::menuBackCallback(cocos2d::Ref* pSender)
+{
+    Director::getInstance()->replaceScene(GameplayMenu::create());
 }
 
 void LevelSelect::menuCloseCallback(cocos2d::Ref* pSender)

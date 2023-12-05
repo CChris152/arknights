@@ -1,5 +1,5 @@
 #include "HelloWorldScene.h"
-#include "Scene/LevelSelectScene.h"
+#include "Scene/GameplayMenu.h"
 #include "editor-support\cocostudio\SimpleAudioEngine.h"
 
 USING_NS_CC;
@@ -93,7 +93,7 @@ bool HelloWorld::init()
 
 void HelloWorld::menuNextCallback(cocos2d::Ref* pSender)
 {
-    auto nextScene = LevelSelect::create();
+    auto nextScene = GameplayMenu::create();
     Director::getInstance()->replaceScene(TransitionSlideInT::create(1.0f / 60, nextScene));
 }
 
