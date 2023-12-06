@@ -1,7 +1,7 @@
 #include "HongxueOperator.h"
 #include "ArrowSprite.h"
 #include "Data/AllData.h"
-#include "Scene/Level1MapScene.h"
+#include "Scene/LevelMapScene.h"
 #include <cmath>
 
 Hongxue::Hongxue(int Numbering, Vec2 VecPlace)
@@ -83,7 +83,7 @@ void Hongxue::Remove() {
 	switch (CurrentLevel)
 	{
 	case 1:
-		((Level1Map*)this->Hongxuesprite->getParent())->currentLevel1vec[vecplace.x][vecplace.y] -= 10;
+		((LevelMap*)this->Hongxuesprite->getParent())->currentLevelvec[vecplace.x][vecplace.y] -= 10;
 		break;
 	default:
 		break;

@@ -1,4 +1,4 @@
-#include "Level1MapScene.h"
+#include "LevelMapScene.h"
 #include "Data/AllData.h"
 #include "LevelSelectScene.h"
 #include "Sprite/ExusiaiOperator.h"
@@ -9,7 +9,10 @@
 #include <cmath>
 #include <algorithm>
 
-bool Level1Map::init()
+const std::vector<int> LevelBaseHP = { 3 };
+const std::vector<int> Levelallenemynum = { 10 };
+
+bool LevelMap::init()
 {
 	//数据初始化
 	init_data();
@@ -24,7 +27,7 @@ bool Level1Map::init()
 
 	//鼠标监听
 	auto listener = EventListenerTouchOneByOne::create();
-	listener->onTouchBegan = CC_CALLBACK_2(Level1Map::onTouchBegan, this);
+	listener->onTouchBegan = CC_CALLBACK_2(LevelMap::onTouchBegan, this);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
 	//背景图
@@ -33,7 +36,7 @@ bool Level1Map::init()
 	this->addChild(level1map, 0);
 
 	//返回按钮
-	auto back = MenuItemImage::create("pictures/Back.png", "pictures/Back.png", CC_CALLBACK_1(Level1Map::menuBackCallback, this)); 
+	auto back = MenuItemImage::create("pictures/Back.png", "pictures/Back.png", CC_CALLBACK_1(LevelMap::menuBackCallback, this)); 
 	back->setPosition(Vec2(origin.x + back->getContentSize().width / 2 + 70, visibleSize.height - back->getContentSize().height / 2 + origin.y - 25));
 	auto backmenu = Menu::create(back, NULL);
 	backmenu->setPosition(Vec2::ZERO);
@@ -57,10 +60,17 @@ bool Level1Map::init()
 	BaseHPlabel->setColor(Color3B::BLACK);
 	this->addChild(BaseHPlabel, 1);
 
-	//加入铲子卡片
+	//铲子卡片
 	Shovel = Sprite::create("pictures/Shovel.png");
 	Shovel->setPosition(Vec2(origin.x + Shovel->getContentSize().width / 2 + 70, Shovel->getContentSize().height / 2 + origin.y + 25));
 	this->addChild(Shovel);
+
+	//暂停按钮
+	Stop = MenuItemImage::create("pictures/Stop.png", "pictures/Stop.png", CC_CALLBACK_1(LevelMap::menuStopCallback, this));
+	Stop->setPosition(Vec2(origin.x + visibleSize.width - Stop->getContentSize().width / 2 - 70, visibleSize.height - Stop->getContentSize().height / 2 + origin.y - 25));
+	auto stopmenu = Menu::create(Stop, NULL);
+	stopmenu->setPosition(Vec2::ZERO);
+	this->addChild(stopmenu);
 
 	//加入干员卡片
 	for (int i = 0; i < CardsNum.size();i++) {
@@ -82,7 +92,6 @@ bool Level1Map::init()
 			Cards.push_back(newcard);
 			break;
 		}
-		
 		default:
 			break;
 		}
@@ -101,12 +110,11 @@ bool Level1Map::init()
 	return true;
 }
 
-void Level1Map::init_data()
+void LevelMap::init_data()
 {
-	Maptime = 0;
 	expenses = 0;
-	BaseHP = 3;
-	allenemynum = 10;
+	BaseHP = LevelBaseHP[CurrentLevel - 1];
+	allenemynum = Levelallenemynum[CurrentLevel - 1];
 	killednum = 0;
 
 	Cards.clear();
@@ -115,20 +123,34 @@ void Level1Map::init_data()
 	Allenemy.clear();
 	Alloperator.clear();
 
+	IsStop = 0;
 	IsSelectShovel = 0;
 	IsSelectCard = 0;
 	expensestimer = 0;
 	choosedoperatornum = -1;
 
-	CurrentLevel = 1;
-
-	currentLevel1vec = { { 1, 1, 1, 1, 1, 1, 1},
-						 { 0, 1, 0, 0, 0, 0, 0},
-						 { 0, 0, 0, 1, 0, 0, 0},
-						 { 1, 1, 1, 1, 1, 1, 1} };
+	switch (CurrentLevel)
+	{
+	case 1:
+		setLevelvec(Level1vec);
+		break;
+	default:
+		break;
+	}
 }
 
-void Level1Map::update(float update_time)
+void LevelMap::setLevelvec(std::vector<std::vector<int>> Levelvec)
+{
+	for (int i = 0; i < Levelvec.size(); i++) {
+		std::vector<int> one;
+		for (int j = 0; j < Levelvec[0].size(); j++) {
+			one.push_back(Levelvec[i][j]);
+		}
+		currentLevelvec.push_back(one);
+	}
+}
+
+void LevelMap::update(float update_time)
 {
 	//判断是否结束
 	if (gamelogic->victoryorfail == -1) {
@@ -156,7 +178,7 @@ void Level1Map::update(float update_time)
 	BaseHPlabel->setString(std::to_string(BaseHP));
 }
 
-bool Level1Map::onTouchBegan(Touch* touch, Event* unused_event)
+bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 {
 	//获取鼠标坐标
 	auto touchposition = touch->getLocation();
@@ -214,12 +236,20 @@ bool Level1Map::onTouchBegan(Touch* touch, Event* unused_event)
 		//对于选中的不同卡片，给予不同的判定
 		switch (choosedoperatornum) {
 		case 0:
-			for (int i = 0; i < currentLevel1vec.size(); i++) {
-				for (int j = 0; j < currentLevel1vec[0].size(); j++) {
-					if (currentLevel1vec[i][j] == 1) {
+			for (int i = 0; i < currentLevelvec.size(); i++) {
+				for (int j = 0; j < currentLevelvec[0].size(); j++) {
+					if (currentLevelvec[i][j] == 1) {
 
 						//将数组坐标映射到实际坐标
-						Vec2 currentposition = { j * 160.0f + 515 ,790.0f - i * 140 };
+						Vec2 currentposition;
+						switch (CurrentLevel)
+						{
+						case 1:
+							currentposition = Level1MapTransform(i, j);
+							break;
+						default:
+							break;
+						}
 
 						//判断是否在格子范围内，如果是，则生成并放置
 						if (sqrt(pow(touchposition.x - currentposition.x, 2) + pow(touchposition.y - currentposition.y, 2)) < 70) {
@@ -231,7 +261,7 @@ bool Level1Map::onTouchBegan(Touch* touch, Event* unused_event)
 
 							//减少费用
 							expenses -= Cards[place]->getCardExpense();
-							currentLevel1vec[i][j] = 11;
+							currentLevelvec[i][j] += 10;
 
 							out = 1;
 							break;
@@ -244,12 +274,20 @@ bool Level1Map::onTouchBegan(Touch* touch, Event* unused_event)
 			}
 			break;
 		case 1:
-			for (int i = 0; i < currentLevel1vec.size(); i++) {
-				for (int j = 0; j < currentLevel1vec[0].size(); j++) {
-					if (currentLevel1vec[i][j] == 1) {
+			for (int i = 0; i < currentLevelvec.size(); i++) {
+				for (int j = 0; j < currentLevelvec[0].size(); j++) {
+					if (currentLevelvec[i][j] == 1) {
 
 						//将数组坐标映射到实际坐标
-						Vec2 currentposition = { j * 160.0f + 515 ,790.0f - i * 140 };
+						Vec2 currentposition;
+						switch (CurrentLevel)
+						{
+						case 1:
+							currentposition = Level1MapTransform(i, j);
+							break;
+						default:
+							break;
+						}
 
 						//判断是否在格子范围内，如果是，则生成并放置
 						if (sqrt(pow(touchposition.x - currentposition.x, 2) + pow(touchposition.y - currentposition.y, 2)) < 70) {
@@ -261,7 +299,7 @@ bool Level1Map::onTouchBegan(Touch* touch, Event* unused_event)
 
 							//减少费用
 							expenses -= Cards[place]->getCardExpense();
-							currentLevel1vec[i][j] = 11;
+							currentLevelvec[i][j] += 10;
 
 							out = 1;
 							break;
@@ -285,7 +323,7 @@ bool Level1Map::onTouchBegan(Touch* touch, Event* unused_event)
 	return false;
 }
 
-void Level1Map::BackCall()
+void LevelMap::BackCall()
 {
 	//将场上的精灵全部关停
 	for (auto it : AllOperator) {
@@ -322,11 +360,30 @@ void Level1Map::BackCall()
 	//关停音乐
 	CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 
+	//关掉暂停
+	Director::getInstance()->resume();
+
 	//返回关卡选择页面
 	Director::getInstance()->replaceScene(LevelSelect::create());
 }
 
-void Level1Map::menuBackCallback(cocos2d::Ref* pSender)
+void LevelMap::menuBackCallback(cocos2d::Ref* pSender)
 {
 	BackCall();
+}
+
+void LevelMap::menuStopCallback(cocos2d::Ref* pSender)
+{
+	if (IsStop) {
+		Stop->setNormalImage(Sprite::create("pictures/Stop.png"));
+		Stop->setSelectedImage(Sprite::create("pictures/Stop.png"));
+		IsStop = 0;
+		Director::getInstance()->resume();
+	}
+	else {
+		Stop->setNormalImage(Sprite::create("pictures/Continue.png"));
+		Stop->setSelectedImage(Sprite::create("pictures/Continue.png"));
+		IsStop = 1;
+		Director::getInstance()->pause();
+	}
 }

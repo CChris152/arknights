@@ -14,7 +14,6 @@ USING_NS_CC;
 extern int FinishLevelNum; //已完成的关卡数量
 extern int CurrentLevel; //当前执行的关卡
 
-extern int Maptime; //地图计时器
 extern int expenses; //费用
 extern int BaseHP; //基地血量
 extern int allenemynum; //敌人总数
@@ -32,6 +31,8 @@ extern std::vector<Sprite*> AttackEffect; //生成的攻击特效（子弹等）
 extern std::vector<std::vector<int>> Level1vec; //第一关的地图数组
 extern std::vector<std::vector<int>> Level1Road; //第一关的敌人行动路径
 
-extern std::vector<std::vector<std::vector<int>>> EnemyWave; //所有关卡出现的敌人波次
+extern std::vector<std::vector<int>> Level1EnemyWave; //所有关卡出现的敌人波次
+
+Vec2 Level1MapTransform(int i, int j);
 
 #endif // __AllData_H__

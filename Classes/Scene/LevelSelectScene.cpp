@@ -1,6 +1,6 @@
 #include "LevelSelectScene.h"
 #include "Data/AllData.h"
-#include "Level1MapScene.h"
+#include "LevelMapScene.h"
 #include "GameplayMenu.h"
 #include "editor-support\cocostudio\SimpleAudioEngine.h"
 
@@ -111,5 +111,6 @@ void LevelSelect::menuCloseCallback(cocos2d::Ref* pSender)
 
 void LevelSelect::menuToLevel1Callback(cocos2d::Ref* pSender)
 {
-    Director::getInstance()->replaceScene(Level1Map::create());
+    CurrentLevel = 1;
+    Director::getInstance()->replaceScene(LevelMap::create());
 }

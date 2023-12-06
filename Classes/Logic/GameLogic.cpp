@@ -5,12 +5,13 @@
 GameLogic::GameLogic(Scene* currentscene)
 {
 	//将当前关卡敌人波次进行复制
-	for (int i = 0; i < EnemyWave[0].size(); i++) {
-		std::vector<int> one;
-		for (int j = 0; j < EnemyWave[0][0].size(); j++) {
-			one.push_back(EnemyWave[CurrentLevel - 1][i][j]);
-		}
-		this->enemywave.push_back(one);
+	switch (CurrentLevel)
+	{
+	case 1:
+		setEnemyWave(Level1EnemyWave);
+		break;
+	default:
+		break;
 	}
 
 	this->currentwave = 0;
@@ -19,6 +20,17 @@ GameLogic::GameLogic(Scene* currentscene)
 	this->scece = currentscene;
 	this->victoryorfail = 0;
 	this->scheduleUpdate();
+}
+
+void GameLogic::setEnemyWave(std::vector<std::vector<int>> EnemyWave)
+{
+	for (int i = 0; i < EnemyWave.size(); i++) {
+		std::vector<int> one;
+		for (int j = 0; j < EnemyWave[0].size(); j++) {
+			one.push_back(EnemyWave[i][j]);
+		}
+		this->enemywave.push_back(one);
+	}
 }
 
 void GameLogic::update(float update_time)

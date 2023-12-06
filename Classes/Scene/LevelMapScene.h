@@ -8,7 +8,7 @@
 
 USING_NS_CC;
 
-class Level1Map : public cocos2d::Scene
+class LevelMap : public cocos2d::Scene
 {
 public:
 	virtual bool init();
@@ -18,22 +18,27 @@ public:
 
 	bool onTouchBegan(Touch* touch, Event* unused_event); //鼠标事件函数
 
+	void setLevelvec(std::vector<std::vector<int>> Levelvec); //设置数组地图
+
 	void BackCall(); //返回上一个场景
 
-	void menuBackCallback(cocos2d::Ref* pSender);
+	void menuBackCallback(cocos2d::Ref* pSender); //返回按钮
+	void menuStopCallback(cocos2d::Ref* pSender); //暂停按钮
 
-	std::vector<std::vector<int>> currentLevel1vec; //数组地图
+	std::vector<std::vector<int>> currentLevelvec; //数组地图
 
 	GameLogic* gamelogic; //绑定的游戏逻辑
 
-	CREATE_FUNC(Level1Map);
+	CREATE_FUNC(LevelMap);
 
 private:
 	Label* expenseslabel; //三个场景中可改动的数据标签
 	Label* killednumlabel;
 	Label* BaseHPlabel;
 	Sprite* Shovel; //铲子精灵
+	MenuItemImage* Stop; //暂停按钮
 
+	bool IsStop; //是否暂停
 	bool IsSelectShovel; //是否处于已经选择了铲子的状态
 	bool IsSelectCard; //是否处于已经选择了卡片的状态
 	float expensestimer; //费用计时器(1s = 1费用)

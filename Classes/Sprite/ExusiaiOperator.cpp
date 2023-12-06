@@ -1,7 +1,7 @@
 #include "ExusiaiOperator.h"
 #include "BulletSprite.h"
 #include "Data/AllData.h"
-#include "Scene/Level1MapScene.h"
+#include "Scene/LevelMapScene.h"
 #include <cmath>
 
 Exusiai::Exusiai(int Numbering, Vec2 VecPlace)
@@ -83,7 +83,7 @@ void Exusiai::Remove() {
 	switch (CurrentLevel)
 	{
 	case 1:
-		((Level1Map*)this->Exusiaisprite->getParent())->currentLevel1vec[vecplace.x][vecplace.y] -= 10;
+		((LevelMap*)this->Exusiaisprite->getParent())->currentLevelvec[vecplace.x][vecplace.y] -= 10;
 		break;
 	default:
 		break;
