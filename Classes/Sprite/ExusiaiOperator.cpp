@@ -23,6 +23,7 @@ void Exusiai::OperatorInit()
 	this->setAttackSpeed(2);
 	this->setExpense(12);
 	this->setAttackRange(700);
+	this->setAttackType(physical);
 
 	this->IsDead = 0;
 	this->Exusiaitimer = 0;
@@ -80,12 +81,5 @@ void Exusiai::update(float update_time)
 
 void Exusiai::Remove() {
 	Vec2 vecplace = this->getVecPlace();
-	switch (CurrentLevel)
-	{
-	case 1:
-		((LevelMap*)this->Exusiaisprite->getParent())->currentLevelvec[vecplace.x][vecplace.y] -= 10;
-		break;
-	default:
-		break;
-	}
+    ((LevelMap*)this->Exusiaisprite->getParent())->currentLevelvec[vecplace.x][vecplace.y] -= 10;
 }

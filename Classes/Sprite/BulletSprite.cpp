@@ -1,6 +1,7 @@
 #include "BulletSprite.h"
 #include "Data/AllData.h"
 #include <cmath>
+#include <algorithm>
 #define PI acos(-1)
 
 Bullet::Bullet(int Start, int End)
@@ -29,7 +30,20 @@ void Bullet::update(float update_time)
 		Vec2 from = bulletSprite->getPosition();
 		Vec2 to = Allenemy[endenemy]->getPosition();
 		if (sqrt(pow(to.x - from.x, 2) + pow(to.y - from.y, 2)) <= 20) {
-			AllEnemy[endenemy]->decreaseHP(AllOperator[startoperator]->getAttack());
+			switch(AllOperator[startoperator]->getAttackType())
+			{
+			//保底伤害为5
+			case physical:
+				//物理伤害为：干员伤害-敌人物理防御
+				AllEnemy[endenemy]->decreaseHP(std::max(AllOperator[startoperator]->getAttack() - AllEnemy[endenemy]->getPhysicalDefense(), 5));
+				break;
+			case magical:
+				//魔法伤害为：干员伤害*（100-敌人魔法防御）/100
+				AllEnemy[endenemy]->decreaseHP(std::max(AllOperator[startoperator]->getAttack() * (100 - AllEnemy[endenemy]->getMagicalDefense()) / 100, 5));
+				break;
+			default:
+				break;
+			}
 			IsDestroyed = 1;
 		}
 

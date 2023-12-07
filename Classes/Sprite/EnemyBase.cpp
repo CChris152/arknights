@@ -15,6 +15,11 @@ void Enemy::LabelInit()
 	//µÈ´ýÖØÐ´
 }
 
+void Enemy::setAttack(int Attack)
+{
+	this->attack = Attack;
+}
+
 void Enemy::setmaxHP(int MaxHP)
 {
 	this->maxHP = MaxHP;
@@ -35,6 +40,21 @@ void Enemy::setspeed(float Speed)
 	this->speed = Speed;
 }
 
+void Enemy::setPhysicalDefense(int PhysicalDefense)
+{
+	this->physicaldefense = PhysicalDefense;
+}
+
+void Enemy::setMagicalDefense(int MagicalDefense)
+{
+	this->magicaldefense = MagicalDefense;
+}
+
+int Enemy::getAttack()
+{
+	return this->attack;
+}
+
 int Enemy::getmaxHP()
 {
 	return this->maxHP;
@@ -50,3 +70,12 @@ float Enemy::getspeed()
 	return this->speed;
 }
 
+int Enemy::getPhysicalDefense()
+{
+	return this->physicaldefense;
+}
+
+int Enemy::getMagicalDefense()
+{
+	return this->magicaldefense;
+}

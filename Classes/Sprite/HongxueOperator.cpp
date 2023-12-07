@@ -23,6 +23,7 @@ void Hongxue::OperatorInit()
 	this->setAttackSpeed(3);
 	this->setExpense(18);
 	this->setAttackRange(500);
+	this->setAttackType(physical);
 
 	this->IsDead = 0;
 	this->Hongxuetimer = 0;
@@ -80,12 +81,5 @@ void Hongxue::update(float update_time)
 
 void Hongxue::Remove() {
 	Vec2 vecplace = this->getVecPlace();
-	switch (CurrentLevel)
-	{
-	case 1:
-		((LevelMap*)this->Hongxuesprite->getParent())->currentLevelvec[vecplace.x][vecplace.y] -= 10;
-		break;
-	default:
-		break;
-	}
+	((LevelMap*)this->Hongxuesprite->getParent())->currentLevelvec[vecplace.x][vecplace.y] -= 10;
 }

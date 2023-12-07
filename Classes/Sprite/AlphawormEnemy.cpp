@@ -26,9 +26,12 @@ Alphaworm::Alphaworm()
 
 void Alphaworm::EnemyInit()
 {
+	this->setAttack(100);
 	this->setmaxHP(1000);
 	this->setcurrentHP(1000);
 	this->setspeed(1.0f);
+	this->setPhysicalDefense(50);
+	this->setMagicalDefense(10);
 
 	this->RoadStep = 0;
 	this->xvec = 0;

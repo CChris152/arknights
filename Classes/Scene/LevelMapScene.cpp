@@ -31,7 +31,7 @@ bool LevelMap::init()
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
 	//背景图
-	auto level1map = Sprite::create("pictures/Level1map.png");
+	auto level1map = Sprite::create("pictures/Level" + std::to_string(CurrentLevel) + "map.png");
 	level1map->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(level1map, 0);
 
@@ -201,6 +201,9 @@ bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 					if (abs(touchposition.x - position.x) < Alloperator[i]->getContentSize().width / 2 && abs(touchposition.y - position.y) < Alloperator[i]->getContentSize().height / 2) {
 						AllOperator[i]->IsDead = 1;
 						expenses = std::min(99, AllOperator[i]->getExpense() / 2 + expenses);
+						AllOperator[i]->unscheduleUpdate();
+						Alloperator[i]->removeFromParent();
+						currentLevelvec[AllOperator[i]->getVecPlace().x][AllOperator[i]->getVecPlace().y] -= 10;
 						break;
 					}
 				}
@@ -208,6 +211,8 @@ bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 			IsSelectShovel = 0;
 			auto position = Shovel->getPosition();
 			Shovel->setPosition(Vec2(position.x, position.y - 50));
+			//刷新费用
+			expenseslabel->setString(std::to_string(expenses));
 			return false;
 		}
 	}
@@ -319,6 +324,9 @@ bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 		IsSelectCard = 0;
 		choosedoperatornum = -1;
 	}
+
+	//刷新费用
+	expenseslabel->setString(std::to_string(expenses));
 
 	return false;
 }

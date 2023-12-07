@@ -7,6 +7,11 @@
 
 USING_NS_CC;
 
+enum AttackType {
+	physical,
+	magical
+};
+
 class Operator :public cocos2d::Sprite
 {
 public:
@@ -24,6 +29,8 @@ public:
 	virtual void setNumbering(int Numbering); //设置费用
 	virtual void setVecPlace(Vec2 VecPlace); //设置数组坐标
 
+	virtual void setAttackType(AttackType attacktype_); //设置攻击种类
+
 	virtual void decreaseBlood(int DecreaseBlood); //扣除血量
 
 	virtual int getBlood(); //得到血量
@@ -34,6 +41,8 @@ public:
 	virtual int getNumbering(); //得到编号
 	virtual Vec2 getVecPlace(); //得到数组坐标
 
+	virtual AttackType getAttackType(); //得到攻击种类
+
 	bool IsDead; //是否死亡
 
 private:
@@ -42,6 +51,8 @@ private:
 	float attackspeed; //攻速
 	int expense; //费用
 	int attackrange; //攻击范围
+
+	AttackType attacktype; //攻击种类
 
 	int numbering; //编号
 

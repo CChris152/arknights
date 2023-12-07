@@ -46,6 +46,11 @@ void Operator::setVecPlace(Vec2 VecPlace)
 	this->vecplace = VecPlace;
 }
 
+void Operator::setAttackType(AttackType attacktype_)
+{
+	this->attacktype = attacktype_;
+}
+
 void Operator::decreaseBlood(int DecreaseBlood)
 {
 	this->blood -= DecreaseBlood;
@@ -84,4 +89,9 @@ int Operator::getNumbering()
 Vec2 Operator::getVecPlace()
 {
 	return vecplace;
+}
+
+AttackType Operator::getAttackType()
+{
+	return attacktype;
 }
