@@ -3,6 +3,7 @@
 #include "LevelSelectScene.h"
 #include "Sprite/ExusiaiOperator.h"
 #include "Sprite/HongxueOperator.h"
+#include "Sprite/QiubaiOperator.h"
 #include "Sprite/Card.h"
 #include "editor-support\cocostudio\SimpleAudioEngine.h"
 #include <vector>
@@ -87,6 +88,14 @@ bool LevelMap::init()
 		case 1: 
 		{
 			Card* newcard = new Card("Hongxue", 18);
+			newcard->CardSprite->setPosition(Vec2(origin.x + visibleSize.width - 300 - (2 * i + 1) * newcard->CardSprite->getContentSize().width / 2, origin.y + newcard->CardSprite->getContentSize().height / 2));
+			this->addChild(newcard->CardSprite);
+			Cards.push_back(newcard);
+			break;
+		}
+		case 2:
+		{
+			Card* newcard = new Card("Qiubai", 15);
 			newcard->CardSprite->setPosition(Vec2(origin.x + visibleSize.width - 300 - (2 * i + 1) * newcard->CardSprite->getContentSize().width / 2, origin.y + newcard->CardSprite->getContentSize().height / 2));
 			this->addChild(newcard->CardSprite);
 			Cards.push_back(newcard);
@@ -204,6 +213,9 @@ bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 						AllOperator[i]->unscheduleUpdate();
 						Alloperator[i]->removeFromParent();
 						currentLevelvec[AllOperator[i]->getVecPlace().x][AllOperator[i]->getVecPlace().y] -= 10;
+						for (auto it : AllOperator[i]->stoppedenemynum) {
+							AllEnemy[it]->IsStopped = 0;
+						}
 						break;
 					}
 				}
@@ -282,8 +294,6 @@ bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 			for (int i = 0; i < currentLevelvec.size(); i++) {
 				for (int j = 0; j < currentLevelvec[0].size(); j++) {
 					if (currentLevelvec[i][j] == 1) {
-
-						//将数组坐标映射到实际坐标
 						Vec2 currentposition;
 						switch (CurrentLevel)
 						{
@@ -293,14 +303,43 @@ bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 						default:
 							break;
 						}
-
-						//判断是否在格子范围内，如果是，则生成并放置
 						if (sqrt(pow(touchposition.x - currentposition.x, 2) + pow(touchposition.y - currentposition.y, 2)) < 70) {
 							auto newoperator = new Hongxue(AllOperator.size(), Vec2(i, j));
 							newoperator->Hongxuesprite->setPosition(Vec2(currentposition.x, currentposition.y + 70));
 							AllOperator.push_back(newoperator);
 							Alloperator.push_back(newoperator->Hongxuesprite);
 							this->addChild(newoperator->Hongxuesprite);
+							expenses -= Cards[place]->getCardExpense();
+							currentLevelvec[i][j] += 10;
+							out = 1;
+							break;
+						}
+					}
+				}
+				if (out) {
+					break;
+				}
+			}
+			break;
+		case 2:
+			for (int i = 0; i < currentLevelvec.size(); i++) {
+				for (int j = 0; j < currentLevelvec[0].size(); j++) {
+					if (currentLevelvec[i][j] == 0) {
+						Vec2 currentposition;
+						switch (CurrentLevel)
+						{
+						case 1:
+							currentposition = Level1MapTransform(i, j);
+							break;
+						default:
+							break;
+						}
+						if (sqrt(pow(touchposition.x - currentposition.x, 2) + pow(touchposition.y - currentposition.y, 2)) < 70) {
+							auto newoperator = new Qiubai(AllOperator.size(), Vec2(i, j));
+							newoperator->Qiubaisprite->setPosition(Vec2(currentposition.x, currentposition.y + 70));
+							AllOperator.push_back(newoperator);
+							Alloperator.push_back(newoperator->Qiubaisprite);
+							this->addChild(newoperator->Qiubaisprite);
 
 							//减少费用
 							expenses -= Cards[place]->getCardExpense();

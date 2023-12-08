@@ -18,12 +18,14 @@ Exusiai::Exusiai(int Numbering, Vec2 VecPlace)
 
 void Exusiai::OperatorInit()
 {
-	this->setBlood(1500);
+	this->setBlood(1200);
 	this->setAttack(200);
 	this->setAttackSpeed(2);
 	this->setExpense(12);
 	this->setAttackRange(700);
 	this->setAttackType(physical);
+	this->setMaxStopNum(1);
+	this->setCurrentStopNum(0);
 
 	this->IsDead = 0;
 	this->Exusiaitimer = 0;

@@ -27,6 +27,7 @@ Alphaworm::Alphaworm()
 void Alphaworm::EnemyInit()
 {
 	this->setAttack(100);
+	this->setAttackSpeed(3.0f);
 	this->setmaxHP(1000);
 	this->setcurrentHP(1000);
 	this->setspeed(1.0f);
@@ -38,6 +39,10 @@ void Alphaworm::EnemyInit()
 	this->yvec = 0;
 	this->percentage = 1;
 	this->IsDead = 0;
+	this->IsStopped = 0;
+	this->stoppedoperatornum = -1;
+
+	this->Alphawormtimer = 0;
 }
 
 
@@ -79,19 +84,37 @@ void Alphaworm::update(float update_time)
 	}
 
 	this->percentage = (float)this->getcurrentHP()/ (float)this->getmaxHP();
+
+	//攻击判定
+	if (Alphawormtimer < this->getAttackSpeed()) {
+		Alphawormtimer += update_time;
+	}
+	else {
+		if (this->stoppedoperatornum != -1) {
+			AllOperator[stoppedoperatornum]->decreaseBlood(this->getAttack());
+			Alphawormtimer = 0;
+		}
+	}
+
 	//更新位置 
-	float currentspeed = this->getspeed();
-	currentSprposition.x += this->xvec * currentspeed;
-	currentSprposition.y += this->yvec * currentspeed;
-	AlphawormSprite->setPosition(Vec2(currentSprposition.x, currentSprposition.y));
-	
-	AlphawormBar->setPosition(Vec2(currentSprposition.x, currentSprposition.y + 50)); //设置框的位置
-	AlphawormBlood->setPosition(Vec2(currentSprposition.x , currentSprposition.y + 50));
+	if (IsStopped == 0) {
+		float currentspeed = this->getspeed();
+		currentSprposition.x += this->xvec * currentspeed;
+		currentSprposition.y += this->yvec * currentspeed;
+		AlphawormSprite->setPosition(Vec2(currentSprposition.x, currentSprposition.y));
+
+		AlphawormBar->setPosition(Vec2(currentSprposition.x, currentSprposition.y + 50)); //设置框的位置
+		AlphawormBlood->setPosition(Vec2(currentSprposition.x, currentSprposition.y + 50));
+	}
+	else {
+
+	}
+
+	//血条变化
 	AlphawormBlood->setType(ProgressTimer::Type::BAR);        //类型：条状
 	AlphawormBlood->setMidpoint(Vec2(0, 0.5));    //从右到左减少血量
 	AlphawormBlood->setBarChangeRate(Vec2(1, 0));
 	AlphawormBlood->setPercentage(100 * percentage);
-
 
 	//图像翻转
 	if (xvec < 0) {
@@ -101,7 +124,9 @@ void Alphaworm::update(float update_time)
 		this->AlphawormSprite->setFlippedX(false);
 	}
 
+	//死亡判定
 	if (IsDead) {
+		this->IsStopped = 0;
 		//将精灵删除
 		AlphawormSprite->removeFromParent();
 		AlphawormBar->removeFromParent();

@@ -34,6 +34,8 @@ private:
 	int xvec; //x轴向量方向
 	int yvec; //y轴向量方向
 	float percentage;//阿尔法源石虫血量百分比
+
+	float Alphawormtimer; //计时器
 };
 
 #endif // __ALPHAWORM_ENEMY_H__

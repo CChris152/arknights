@@ -51,6 +51,16 @@ void Operator::setAttackType(AttackType attacktype_)
 	this->attacktype = attacktype_;
 }
 
+void Operator::setMaxStopNum(int MaxStopNum)
+{
+	this->maxstopnum = MaxStopNum;
+}
+
+void Operator::setCurrentStopNum(int CurrentStopNum)
+{
+	this->currentstopnum = CurrentStopNum;
+}
+
 void Operator::decreaseBlood(int DecreaseBlood)
 {
 	this->blood -= DecreaseBlood;
@@ -94,4 +104,14 @@ Vec2 Operator::getVecPlace()
 AttackType Operator::getAttackType()
 {
 	return attacktype;
+}
+
+int Operator::getMaxStopNum()
+{
+	return maxstopnum;
+}
+
+int Operator::getCurrentStopNum()
+{
+	return currentstopnum;
 }

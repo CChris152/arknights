@@ -20,6 +20,11 @@ void Enemy::setAttack(int Attack)
 	this->attack = Attack;
 }
 
+void Enemy::setAttackSpeed(float AttackSpeed)
+{
+	this->attackspeed = AttackSpeed;
+}
+
 void Enemy::setmaxHP(int MaxHP)
 {
 	this->maxHP = MaxHP;
@@ -53,6 +58,11 @@ void Enemy::setMagicalDefense(int MagicalDefense)
 int Enemy::getAttack()
 {
 	return this->attack;
+}
+
+float Enemy::getAttackSpeed()
+{
+	return this->attackspeed;
 }
 
 int Enemy::getmaxHP()

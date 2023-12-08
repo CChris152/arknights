@@ -28,6 +28,8 @@ public:
 	virtual void setAttackRange(int AttackRange); //设置攻击范围
 	virtual void setNumbering(int Numbering); //设置费用
 	virtual void setVecPlace(Vec2 VecPlace); //设置数组坐标
+	virtual void setMaxStopNum(int MaxStopNum); //设置最大阻挡数
+	virtual void setCurrentStopNum(int CurrentStopNum); //设置当前阻挡数
 
 	virtual void setAttackType(AttackType attacktype_); //设置攻击种类
 
@@ -40,10 +42,14 @@ public:
 	virtual int getAttackRange(); //得到攻击范围
 	virtual int getNumbering(); //得到编号
 	virtual Vec2 getVecPlace(); //得到数组坐标
+	virtual int getMaxStopNum(); //得到最大阻挡数
+	virtual int getCurrentStopNum(); //得到当前阻挡数
 
 	virtual AttackType getAttackType(); //得到攻击种类
 
 	bool IsDead; //是否死亡
+
+	std::vector<int> stoppedenemynum; //被阻挡的敌人编号
 
 private:
 	int blood; //血量
@@ -51,6 +57,8 @@ private:
 	float attackspeed; //攻速
 	int expense; //费用
 	int attackrange; //攻击范围
+	int maxstopnum; //最大阻挡数
+	int currentstopnum; //当前阻挡数
 
 	AttackType attacktype; //攻击种类
 

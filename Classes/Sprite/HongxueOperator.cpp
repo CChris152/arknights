@@ -18,12 +18,14 @@ Hongxue::Hongxue(int Numbering, Vec2 VecPlace)
 
 void Hongxue::OperatorInit()
 {
-	this->setBlood(1800);
-	this->setAttack(400);
+	this->setBlood(1200);
+	this->setAttack(500);
 	this->setAttackSpeed(3);
 	this->setExpense(18);
 	this->setAttackRange(500);
 	this->setAttackType(physical);
+	this->setMaxStopNum(1);
+	this->setCurrentStopNum(0);
 
 	this->IsDead = 0;
 	this->Hongxuetimer = 0;
