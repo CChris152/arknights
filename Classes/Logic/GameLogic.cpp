@@ -1,5 +1,6 @@
 #include "GameLogic.h"
 #include "Sprite/AlphawormEnemy.h"
+#include "Sprite/SeagliderEnemy.h"
 #include "Data/AllData.h"
 
 GameLogic::GameLogic(Scene* currentscene)
@@ -63,6 +64,15 @@ void GameLogic::update(float update_time)
 					this->addChild(newenemy->AlphawormSprite);
 					this->addChild(newenemy->AlphawormBar);
 					this->addChild(newenemy->AlphawormBlood);
+					break;
+				}
+				case 1: {
+					auto newenemy = new Seaglider;
+					AllEnemy.push_back(newenemy);
+					Allenemy.push_back(newenemy->SeagliderSprite);
+					this->addChild(newenemy->SeagliderSprite);
+					this->addChild(newenemy->SeagliderBar);
+					this->addChild(newenemy->SeagliderBlood);
 					break;
 				}
 				default:

@@ -19,7 +19,7 @@ Hongxue::Hongxue(int Numbering, Vec2 VecPlace)
 void Hongxue::OperatorInit()
 {
 	this->setBlood(1200);
-	this->setAttack(500);
+	this->setAttack(700);
 	this->setAttackSpeed(3);
 	this->setExpense(18);
 	this->setAttackRange(500);

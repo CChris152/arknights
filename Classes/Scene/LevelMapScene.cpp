@@ -11,7 +11,7 @@
 #include <algorithm>
 
 const std::vector<int> LevelBaseHP = { 3 };
-const std::vector<int> Levelallenemynum = { 10 };
+const std::vector<int> Levelallenemynum = { 11 };
 
 bool LevelMap::init()
 {

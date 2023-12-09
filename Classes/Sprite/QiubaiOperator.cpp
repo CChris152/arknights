@@ -22,7 +22,7 @@ void Qiubai::OperatorInit()
 {
 	this->setBlood(1500);
 	this->setAttack(300);
-	this->setAttackSpeed(2);
+	this->setAttackSpeed(3);
 	this->setExpense(15);
 	this->setAttackRange(200);
 	this->setAttackType(physical);

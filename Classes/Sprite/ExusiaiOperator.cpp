@@ -20,7 +20,7 @@ void Exusiai::OperatorInit()
 {
 	this->setBlood(1200);
 	this->setAttack(200);
-	this->setAttackSpeed(2);
+	this->setAttackSpeed(1);
 	this->setExpense(12);
 	this->setAttackRange(700);
 	this->setAttackType(physical);
