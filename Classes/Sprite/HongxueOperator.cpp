@@ -18,7 +18,8 @@ Hongxue::Hongxue(int Numbering, Vec2 VecPlace)
 
 void Hongxue::OperatorInit()
 {
-	this->setBlood(1200);
+	this->setMaxHP(1200);
+	this->setCurrentHP(1200);
 	this->setAttack(700);
 	this->setAttackSpeed(3);
 	this->setExpense(18);
@@ -39,7 +40,7 @@ void Hongxue::SpriteInit()
 void Hongxue::update(float update_time)
 {
 	//ÅÐ¶ÏÊÇ·ñËÀÍö
-	if (this->getBlood() <= 0) {
+	if (this->getCurrentHP() <= 0) {
 		IsDead = 1;
 	}
 

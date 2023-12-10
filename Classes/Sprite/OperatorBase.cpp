@@ -11,9 +11,14 @@ void Operator::SpriteInit()
 	//µÈ´ýÖØÐ´
 }
 
-void Operator::setBlood(int Blood)
+void Operator::setMaxHP(int MaxHP)
 {
-	this->blood = Blood;
+	this->maxHP = MaxHP;
+}
+
+void Operator::setCurrentHP(int CurrentHP)
+{
+	this->currentHP = CurrentHP;
 }
 
 void Operator::setAttack(int Attack)
@@ -63,12 +68,17 @@ void Operator::setCurrentStopNum(int CurrentStopNum)
 
 void Operator::decreaseBlood(int DecreaseBlood)
 {
-	this->blood -= DecreaseBlood;
+	this->currentHP -= DecreaseBlood;
 }
 
-int Operator::getBlood()
+int Operator::getMaxHP()
 {
-	return blood;
+	return maxHP;
+}
+
+int Operator::getCurrentHP()
+{
+	return currentHP;
 }
 
 int Operator::getAttack()

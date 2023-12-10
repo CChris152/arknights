@@ -23,6 +23,9 @@ public:
 	void Remove(); //数组移除函数
 
 	Sprite* Qiubaisprite; //能天使精灵
+	Sprite* QiubaiBar;    //血条框
+	ProgressTimer* QiubaiBlood;  //血量显示
+	float Qiubaipercentage;
 
 private:
 	float Qiubaitimer; //计时器

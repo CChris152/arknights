@@ -20,7 +20,8 @@ Qiubai::Qiubai(int Numbering, Vec2 VecPlace)
 
 void Qiubai::OperatorInit()
 {
-	this->setBlood(1500);
+	this->setMaxHP(1500);
+	this->setCurrentHP(1500);
 	this->setAttack(300);
 	this->setAttackSpeed(3);
 	this->setExpense(15);
@@ -29,6 +30,8 @@ void Qiubai::OperatorInit()
 	this->setMaxStopNum(2);
 	this->setCurrentStopNum(0);
 
+	this->Qiubaipercentage = 1;
+
 	this->IsDead = 0;
 	this->Qiubaitimer = 0;
 }
@@ -36,14 +39,30 @@ void Qiubai::OperatorInit()
 void Qiubai::SpriteInit()
 {
 	Qiubaisprite = Sprite::create("pictures/Qiubai.png");
+	QiubaiBar= Sprite::create("pictures/bar.png");
+	QiubaiBar->setPosition(Qiubaisprite->getPosition().x+ Qiubaisprite->getContentSize().width / 3, Qiubaisprite->getPosition().y+ Qiubaisprite->getContentSize().height + 50);
+	Qiubaisprite->addChild(QiubaiBar);
+	OperatorBlood = Sprite::create("pictures/Blood.png");
+	QiubaiBlood = ProgressTimer::create(OperatorBlood); 
+	QiubaiBlood->setType(ProgressTimer::Type::BAR);        
+	QiubaiBlood->setPosition(QiubaiBar->getContentSize().width/2, QiubaiBar->getContentSize().height/2);
+	QiubaiBlood->setPercentage(100 * Qiubaipercentage);
+	QiubaiBar->addChild(QiubaiBlood);
 }
 
 void Qiubai::update(float update_time)
 {
 	//判断是否死亡
-	if (this->getBlood() <= 0) {
+	if (this->getCurrentHP() <= 0) {
 		IsDead = 1;
 	}
+
+	this->Qiubaipercentage = (float)this->getCurrentHP() / (float)this->getMaxHP();
+	QiubaiBlood->setType(ProgressTimer::Type::BAR);  
+	QiubaiBlood->setMidpoint(Vec2(0, 0.5));    //从右到左减少血量
+	QiubaiBlood->setBarChangeRate(Vec2(1, 0));
+	QiubaiBlood->setPercentage(100 * Qiubaipercentage);
+	
 
 	//先判断是否可以攻击
 	if (Qiubaitimer < this->getAttackSpeed()) {

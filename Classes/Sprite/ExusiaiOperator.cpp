@@ -18,7 +18,8 @@ Exusiai::Exusiai(int Numbering, Vec2 VecPlace)
 
 void Exusiai::OperatorInit()
 {
-	this->setBlood(1200);
+	this->setMaxHP(1200);
+	this->setCurrentHP(1200);
 	this->setAttack(200);
 	this->setAttackSpeed(1);
 	this->setExpense(12);
@@ -39,7 +40,7 @@ void Exusiai::SpriteInit()
 void Exusiai::update(float update_time)
 {
 	//ÅÐ¶ÏÊÇ·ñËÀÍö
-	if (this->getBlood() <= 0) {
+	if (this->getCurrentHP() <= 0) {
 		IsDead = 1;
 	}
 
