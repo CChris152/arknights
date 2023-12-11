@@ -22,6 +22,9 @@ public:
 	void Remove(); //数组移除函数
 
 	Sprite* Exusiaisprite; //能天使精灵
+	Sprite* ExusiaiBar;    //血条框
+	ProgressTimer* ExusiaiBlood;  //血量显示
+	float Exusiaipercentage;
 
 private:
 	float Exusiaitimer; //计时器

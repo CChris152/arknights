@@ -40,7 +40,7 @@ void Qiubai::SpriteInit()
 {
 	Qiubaisprite = Sprite::create("pictures/Qiubai.png");
 	QiubaiBar= Sprite::create("pictures/bar.png");
-	QiubaiBar->setPosition(Qiubaisprite->getPosition().x+ Qiubaisprite->getContentSize().width / 3, Qiubaisprite->getPosition().y+ Qiubaisprite->getContentSize().height + 50);
+	QiubaiBar->setPosition(Qiubaisprite->getPosition().x+ Qiubaisprite->getContentSize().width / 3, Qiubaisprite->getPosition().y+ Qiubaisprite->getContentSize().height + 15);
 	Qiubaisprite->addChild(QiubaiBar);
 	OperatorBlood = Sprite::create("pictures/Blood.png");
 	QiubaiBlood = ProgressTimer::create(OperatorBlood); 

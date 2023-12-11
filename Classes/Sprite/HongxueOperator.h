@@ -21,6 +21,9 @@ public:
 	void Remove(); //数组移除函数
 
 	Sprite* Hongxuesprite; //鸿雪精灵
+	Sprite* HongxueBar;    //血条框
+	ProgressTimer* HongxueBlood;  //血量显示
+	float Hongxuepercentage;
 
 private:
 	float Hongxuetimer; //计时器

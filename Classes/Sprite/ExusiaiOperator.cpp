@@ -28,14 +28,26 @@ void Exusiai::OperatorInit()
 	this->setMaxStopNum(1);
 	this->setCurrentStopNum(0);
 
+	this->Exusiaipercentage = 1;
+
 	this->IsDead = 0;
 	this->Exusiaitimer = 0;
 }
 
 void Exusiai::SpriteInit()
 {
-	Exusiaisprite = Sprite::create("pictures/Exusiai.png");
+	Exusiaisprite = Sprite::create("pictures/Exusiai.png"); 
+	ExusiaiBar = Sprite::create("pictures/bar.png");
+	ExusiaiBar->setPosition(Exusiaisprite->getPosition().x + Exusiaisprite->getContentSize().width / 2, Exusiaisprite->getPosition().y + Exusiaisprite->getContentSize().height + 15);
+	Exusiaisprite->addChild(ExusiaiBar);
+	OperatorBlood = Sprite::create("pictures/Blood.png");
+	ExusiaiBlood = ProgressTimer::create(OperatorBlood);
+	ExusiaiBlood->setType(ProgressTimer::Type::BAR);
+	ExusiaiBlood->setPosition(ExusiaiBar->getContentSize().width / 2, ExusiaiBar->getContentSize().height / 2);
+	ExusiaiBlood->setPercentage(100 * Exusiaipercentage);
+	ExusiaiBar->addChild(ExusiaiBlood);
 }
+
 
 void Exusiai::update(float update_time)
 {
@@ -43,6 +55,12 @@ void Exusiai::update(float update_time)
 	if (this->getCurrentHP() <= 0) {
 		IsDead = 1;
 	}
+
+	this->Exusiaipercentage = (float)this->getCurrentHP() / (float)this->getMaxHP();
+	ExusiaiBlood->setType(ProgressTimer::Type::BAR);
+	ExusiaiBlood->setMidpoint(Vec2(0, 0.5));    //从右到左减少血量
+	ExusiaiBlood->setBarChangeRate(Vec2(1, 0));
+	ExusiaiBlood->setPercentage(100 * Exusiaipercentage);
 
 	//先判断是否可以攻击
 	if (Exusiaitimer < this->getAttackSpeed()) {

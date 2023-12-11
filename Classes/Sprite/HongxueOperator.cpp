@@ -28,6 +28,8 @@ void Hongxue::OperatorInit()
 	this->setMaxStopNum(1);
 	this->setCurrentStopNum(0);
 
+	this->Hongxuepercentage = 1;
+
 	this->IsDead = 0;
 	this->Hongxuetimer = 0;
 }
@@ -35,6 +37,15 @@ void Hongxue::OperatorInit()
 void Hongxue::SpriteInit()
 {
 	Hongxuesprite = Sprite::create("pictures/Hongxue.png");
+	HongxueBar = Sprite::create("pictures/bar.png");
+	HongxueBar->setPosition(Hongxuesprite->getPosition().x + Hongxuesprite->getContentSize().width / 2, Hongxuesprite->getPosition().y + Hongxuesprite->getContentSize().height + 15);
+	Hongxuesprite->addChild(HongxueBar);
+	OperatorBlood = Sprite::create("pictures/Blood.png");
+	HongxueBlood = ProgressTimer::create(OperatorBlood);
+	HongxueBlood->setType(ProgressTimer::Type::BAR);
+	HongxueBlood->setPosition(HongxueBar->getContentSize().width / 2, HongxueBar->getContentSize().height / 2);
+	HongxueBlood->setPercentage(100 * Hongxuepercentage);
+	HongxueBar->addChild(HongxueBlood);
 }
 
 void Hongxue::update(float update_time)
@@ -43,6 +54,12 @@ void Hongxue::update(float update_time)
 	if (this->getCurrentHP() <= 0) {
 		IsDead = 1;
 	}
+
+	this->Hongxuepercentage = (float)this->getCurrentHP() / (float)this->getMaxHP();
+	HongxueBlood->setType(ProgressTimer::Type::BAR);
+	HongxueBlood->setMidpoint(Vec2(0, 0.5));    //从右到左减少血量
+	HongxueBlood->setBarChangeRate(Vec2(1, 0));
+	HongxueBlood->setPercentage(100 * Hongxuepercentage);
 
 	//先判断是否可以攻击
 	if (Hongxuetimer < this->getAttackSpeed()) {
