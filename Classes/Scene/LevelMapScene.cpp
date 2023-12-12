@@ -10,8 +10,8 @@
 #include <cmath>
 #include <algorithm>
 
-const std::vector<int> LevelBaseHP = { 3 };
-const std::vector<int> Levelallenemynum = { 11 };
+const std::vector<int> LevelBaseHP = { 3,3 };
+const std::vector<int> Levelallenemynum = { 11,11 };
 
 bool LevelMap::init()
 {
@@ -81,7 +81,7 @@ bool LevelMap::init()
 		{
 			Card* newcard = new Card("Exusiai", 12);
 			newcard->CardSprite->setPosition(Vec2(origin.x + visibleSize.width - 300 - (2 * i + 1) * newcard->CardSprite->getContentSize().width / 2, origin.y + newcard->CardSprite->getContentSize().height / 2));
-			this->addChild(newcard->CardSprite);
+			this->addChild(newcard->CardSprite, 100);
 			Cards.push_back(newcard);
 			break;
 		}
@@ -89,7 +89,7 @@ bool LevelMap::init()
 		{
 			Card* newcard = new Card("Hongxue", 18);
 			newcard->CardSprite->setPosition(Vec2(origin.x + visibleSize.width - 300 - (2 * i + 1) * newcard->CardSprite->getContentSize().width / 2, origin.y + newcard->CardSprite->getContentSize().height / 2));
-			this->addChild(newcard->CardSprite);
+			this->addChild(newcard->CardSprite, 100);
 			Cards.push_back(newcard);
 			break;
 		}
@@ -97,7 +97,7 @@ bool LevelMap::init()
 		{
 			Card* newcard = new Card("Qiubai", 15);
 			newcard->CardSprite->setPosition(Vec2(origin.x + visibleSize.width - 300 - (2 * i + 1) * newcard->CardSprite->getContentSize().width / 2, origin.y + newcard->CardSprite->getContentSize().height / 2));
-			this->addChild(newcard->CardSprite);
+			this->addChild(newcard->CardSprite, 100);
 			Cards.push_back(newcard);
 			break;
 		}
@@ -105,7 +105,7 @@ bool LevelMap::init()
 			break;
 		}
 	}
-	
+
 	//Ìí¼ÓÂß¼­
 	gamelogic = new GameLogic(this);
 	this->addChild(gamelogic);
@@ -142,6 +142,9 @@ void LevelMap::init_data()
 	{
 	case 1:
 		setLevelvec(Level1vec);
+		break;
+	case 2:
+		setLevelvec(Level2vec);
 		break;
 	default:
 		break;
@@ -264,6 +267,9 @@ bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 						case 1:
 							currentposition = Level1MapTransform(i, j);
 							break;
+						case 2:
+							currentposition = Level2MapTransform(i, j);
+							break;
 						default:
 							break;
 						}
@@ -300,6 +306,9 @@ bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 						case 1:
 							currentposition = Level1MapTransform(i, j);
 							break;
+						case 2:
+							currentposition = Level2MapTransform(i, j);
+							break;
 						default:
 							break;
 						}
@@ -330,6 +339,9 @@ bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 						{
 						case 1:
 							currentposition = Level1MapTransform(i, j);
+							break;
+						case 2:
+							currentposition = Level2MapTransform(i, j);
 							break;
 						default:
 							break;

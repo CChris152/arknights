@@ -1,6 +1,6 @@
 #include "AllData.h"
 
-int FinishLevelNum = 0;
+int FinishLevelNum = 1;
 int CurrentLevel = -1;
 
 int expenses = 0;
@@ -21,7 +21,6 @@ std::vector<std::vector<int>> Level1vec = { { 1, 1, 1, 1, 1, 1, 1},
                                             { 0, 1, 0, 0, 0, 0, 0},
                                             { 0, 0, 0, 1, 0, 0, 0},
                                             { 1, 1, 1, 1, 1, 1, 1} };
-
 std::vector<std::vector<int>> Level1Road = { {1635,510,-1,0},   //解释：前两位为坐标，后两位为方向向量
                                              {1155,510,0,1},
                                              {1155,650,-1,0},
@@ -30,10 +29,27 @@ std::vector<std::vector<int>> Level1Road = { {1635,510,-1,0},   //解释：前两位为
                                              {515,510,0,1},
                                              {515,650,-1,0},
                                              {355,650,0,0} };
-
 std::vector<std::vector<int>> Level1EnemyWave = { {5,0,1}, {6,0,2}, {10,0,3}, {15,0,4} ,{25,1,1} }; //解释：第一个数字为间隔秒数，第二个数字为敌人种类，第三个数字为敌人数量
+
+std::vector<std::vector<int>> Level2vec = { { 1, 1, 1, 1, 1, 1, 1, 1},
+                                            { 1, 0, 0, 1, 0, 0, 0, 0},
+                                            { 0, 0, 0, 0, 0, 1, 1, 0},
+                                            { 1, 1, 1, 1, 1, 1, 1, 0} };
+std::vector<std::vector<int>> Level2Road = { {253,525,1,0},
+                                             {1078,525,0,1},
+                                             {1078,665,1,0},
+                                             {1573,665,0,-1},
+                                             {1573,245,0,0} };
+std::vector<std::vector<int>> Level2EnemyWave = { {5,0,1}, {6,0,2}, {10,0,3}, {15,0,4} ,{25,1,1} };
+
+std::vector<std::vector<int>> AllBaseVec = { {355,650},{1573,245} };
 
 Vec2 Level1MapTransform(int i, int j)
 {
     return Vec2(j * 160.0f + 515, 790.0f - i * 140);
+}
+
+Vec2 Level2MapTransform(int i, int j)
+{
+    return Vec2(j * 165.0f + 418, 805.0f - i * 140);
 }

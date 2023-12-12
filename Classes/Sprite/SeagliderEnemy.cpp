@@ -14,6 +14,9 @@ Seaglider::Seaglider()
 	case 1:
 		this->setRoad(Level1Road);
 		break;
+	case 2:
+		this->setRoad(Level2Road);
+		break;
 	default:
 		break;
 	}

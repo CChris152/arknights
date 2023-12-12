@@ -30,9 +30,15 @@ extern std::vector<Sprite*> AttackEffect; //生成的攻击特效（子弹等）
 
 extern std::vector<std::vector<int>> Level1vec; //第一关的地图数组
 extern std::vector<std::vector<int>> Level1Road; //第一关的敌人行动路径
+extern std::vector<std::vector<int>> Level1EnemyWave; //第一关出现的敌人波次
 
-extern std::vector<std::vector<int>> Level1EnemyWave; //所有关卡出现的敌人波次
+extern std::vector<std::vector<int>> Level2vec; //第二关的地图数组
+extern std::vector<std::vector<int>> Level2Road; //第二关的敌人行动路径
+extern std::vector<std::vector<int>> Level2EnemyWave; //第二关出现的敌人波次
 
-Vec2 Level1MapTransform(int i, int j);
+extern std::vector<std::vector<int>> AllBaseVec; //所用关卡基地的坐标
+
+Vec2 Level1MapTransform(int i, int j); //第一关的坐标转换函数
+Vec2 Level2MapTransform(int i, int j); //第二关的坐标转换函数
 
 #endif // __AllData_H__

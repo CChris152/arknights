@@ -67,6 +67,8 @@ void Exusiai::update(float update_time)
 		Exusiaitimer += update_time;
 	}
 	else {
+		int mindistance = INT_MAX; //所有敌人中与基地的最短距离
+		int enemynum = -1; //敌人序号
 		//遍历敌人
 		for (int i = 0; i < AllEnemy.size(); i++) {
 			if (AllEnemy[i]->IsDead) {
@@ -76,19 +78,26 @@ void Exusiai::update(float update_time)
 			Vec2 From = Exusiaisprite->getPosition();
 			Vec2 To = Allenemy[i]->getPosition();
 			if (sqrt(pow(To.x - From.x, 2) + pow(To.y - From.y, 2)) <= this->getAttackRange()) {
-				//图像翻转
-				if (To.x - From.x < 0) {
-					this->Exusiaisprite->setFlippedX(true);
+				if (sqrt(pow(To.x - AllBaseVec[CurrentLevel - 1][0], 2) + pow(To.y - AllBaseVec[CurrentLevel - 1][1], 2)) <= mindistance) {
+					mindistance = sqrt(pow(To.x - AllBaseVec[CurrentLevel - 1][0], 2) + pow(To.y - AllBaseVec[CurrentLevel - 1][1], 2));
+					enemynum = i;
 				}
-				else {
-					this->Exusiaisprite->setFlippedX(false);
-				}
-				Bullet* newbullet = new Bullet(this->getNumbering(), i);
-				AttackEffect.push_back(newbullet);
-				(this->Exusiaisprite->getParent())->addChild(newbullet->bulletSprite);
-				Exusiaitimer = 0;
-				break;
 			}
+		}
+		if (enemynum >= 0) {
+			//图像翻转
+			Vec2 From = Exusiaisprite->getPosition();
+			Vec2 To = Allenemy[enemynum]->getPosition();
+			if (To.x - From.x < 0) {
+				this->Exusiaisprite->setFlippedX(true);
+			}
+			else {
+				this->Exusiaisprite->setFlippedX(false);
+			}
+			Bullet* newbullet = new Bullet(this->getNumbering(), enemynum);
+			AttackEffect.push_back(newbullet);
+			(this->Exusiaisprite->getParent())->addChild(newbullet->bulletSprite);
+			Exusiaitimer = 0;
 		}
 	}
 

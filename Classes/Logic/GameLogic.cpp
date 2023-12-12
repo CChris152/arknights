@@ -11,6 +11,8 @@ GameLogic::GameLogic(Scene* currentscene)
 	case 1:
 		setEnemyWave(Level1EnemyWave);
 		break;
+	case 2:
+		setEnemyWave(Level2EnemyWave);
 	default:
 		break;
 	}
