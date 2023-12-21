@@ -36,9 +36,15 @@ extern std::vector<std::vector<int>> Level2vec; //第二关的地图数组
 extern std::vector<std::vector<int>> Level2Road; //第二关的敌人行动路径
 extern std::vector<std::vector<int>> Level2EnemyWave; //第二关出现的敌人波次
 
+extern std::vector<std::vector<int>> Level3vec; //第三关的地图数组
+extern std::vector<std::vector<int>> Level3Road; //第三关的敌人行动路径
+extern std::vector<std::vector<int>> Level3EnemyWave; //第三关出现的敌人波次
+
 extern std::vector<std::vector<int>> AllBaseVec; //所用关卡基地的坐标
 
 Vec2 Level1MapTransform(int i, int j); //第一关的坐标转换函数
 Vec2 Level2MapTransform(int i, int j); //第二关的坐标转换函数
+Vec2 Level3MapTransform(int i, int j); //第三关的坐标转换函数
+
 
 #endif // __AllData_H__

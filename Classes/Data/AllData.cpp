@@ -1,6 +1,6 @@
 #include "AllData.h"
 
-int FinishLevelNum = 1;
+int FinishLevelNum = 2;
 int CurrentLevel = -1;
 
 int expenses = 0;
@@ -42,7 +42,20 @@ std::vector<std::vector<int>> Level2Road = { {253,525,1,0},
                                              {1573,245,0,0} };
 std::vector<std::vector<int>> Level2EnemyWave = { {5,0,1}, {6,0,2}, {10,0,3}, {15,0,4} ,{25,1,1} };
 
-std::vector<std::vector<int>> AllBaseVec = { {355,650},{1573,245} };
+std::vector<std::vector<int>> Level3vec = { { -1, 1, 1, 1, 1, 1, 1, 1},
+                                            { -1, 0, 0, 0, 0, 0, 0, 1},
+                                            { 0, 0, 0, 1, 1, 0, 0, 0},
+                                            { 0, 0, 1, 1, 1, 1, 0, 0},
+                                            { -1, 1, 1, 1, 1, 1, 1, 1} };
+std::vector<std::vector<int>> Level3Road = { {238,460,1,0},
+                                             {588,460,0,1},
+                                             {588,740,1,0},
+                                             {1373,740,0,-1},
+                                             {1373,460,1,0},
+                                             {1723,460,0,0} };
+std::vector<std::vector<int>> Level3EnemyWave = { {5,0,1}, {6,0,2}, {10,0,3}, {15,0,4} ,{25,1,1} };
+
+std::vector<std::vector<int>> AllBaseVec = { {355,650},{1573,245} ,{1723,460} };
 
 Vec2 Level1MapTransform(int i, int j)
 {
@@ -52,4 +65,9 @@ Vec2 Level1MapTransform(int i, int j)
 Vec2 Level2MapTransform(int i, int j)
 {
     return Vec2(j * 165.0f + 418, 805.0f - i * 140);
+}
+
+Vec2 Level3MapTransform(int i, int j)
+{
+    return Vec2(j * 160.0f + 420.5f, 870.0f - i * 132);
 }

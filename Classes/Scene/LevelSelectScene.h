@@ -18,6 +18,7 @@ public:
     void menuCloseCallback(cocos2d::Ref* pSender); //程序关闭
     void menuToLevel1Callback(cocos2d::Ref* pSender); //进入关卡1
     void menuToLevel2Callback(cocos2d::Ref* pSender); //进入关卡2
+    void menuToLevel3Callback(cocos2d::Ref* pSender); //进入关卡3
 
     void LevelCreate(int levelnum); //关卡按钮生成函数
 

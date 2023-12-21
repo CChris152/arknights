@@ -47,7 +47,7 @@ void LevelSelect::LevelCreate(int levelnum)
 
     //创建第关卡3图标
     if (levelnum >= 2) {
-        auto Level3Button = MenuItemImage::create("pictures/Level3.png", "pictures/Level3.png", CC_CALLBACK_1(LevelSelect::menuCloseCallback, this));
+        auto Level3Button = MenuItemImage::create("pictures/Level3.png", "pictures/Level3.png", CC_CALLBACK_1(LevelSelect::menuToLevel3Callback, this));
         float x = origin.x + visibleSize.width / 2 + 600;
         float y = origin.y + visibleSize.height / 4 * 3;
         Level3Button->setPosition(Vec2(x, y));
@@ -118,5 +118,11 @@ void LevelSelect::menuToLevel1Callback(cocos2d::Ref* pSender)
 void LevelSelect::menuToLevel2Callback(cocos2d::Ref* pSender)
 {
     CurrentLevel = 2;
+    Director::getInstance()->replaceScene(LevelMap::create());
+}
+
+void LevelSelect::menuToLevel3Callback(cocos2d::Ref* pSender)
+{
+    CurrentLevel = 3;
     Director::getInstance()->replaceScene(LevelMap::create());
 }

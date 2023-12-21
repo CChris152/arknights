@@ -10,8 +10,8 @@
 #include <cmath>
 #include <algorithm>
 
-const std::vector<int> LevelBaseHP = { 3,3 };
-const std::vector<int> Levelallenemynum = { 11,11 };
+const std::vector<int> LevelBaseHP = { 3,3,3};
+const std::vector<int> Levelallenemynum = { 11,11,11 };
 
 bool LevelMap::init()
 {
@@ -60,6 +60,11 @@ bool LevelMap::init()
 	BaseHPlabel->setPosition(Vec2(origin.x + visibleSize.width / 2 + 200, origin.y + visibleSize.height - 70));
 	BaseHPlabel->setColor(Color3B::BLACK);
 	this->addChild(BaseHPlabel, 1);
+
+	//ºÚµã
+	BlackDot= Sprite::create("BlackDot.png");
+	BlackDot->setPosition(Vec2(origin.x + 480, origin.y + 840));
+	this->addChild(BlackDot);
 
 	//²ù×Ó¿¨Æ¬
 	Shovel = Sprite::create("pictures/Shovel.png");
@@ -145,6 +150,9 @@ void LevelMap::init_data()
 		break;
 	case 2:
 		setLevelvec(Level2vec);
+		break;
+	case 3:
+		setLevelvec(Level3vec);
 		break;
 	default:
 		break;
@@ -270,6 +278,9 @@ bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 						case 2:
 							currentposition = Level2MapTransform(i, j);
 							break;
+						case 3:
+							currentposition = Level3MapTransform(i, j);
+							break;
 						default:
 							break;
 						}
@@ -309,6 +320,9 @@ bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 						case 2:
 							currentposition = Level2MapTransform(i, j);
 							break;
+						case 3:
+							currentposition = Level3MapTransform(i, j);
+							break;
 						default:
 							break;
 						}
@@ -342,6 +356,9 @@ bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 							break;
 						case 2:
 							currentposition = Level2MapTransform(i, j);
+							break;
+						case 3:
+							currentposition = Level3MapTransform(i, j);
 							break;
 						default:
 							break;

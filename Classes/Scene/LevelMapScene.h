@@ -37,6 +37,7 @@ private:
 	Label* BaseHPlabel;
 	Sprite* Shovel; //铲子精灵
 	MenuItemImage* Stop; //暂停按钮
+	Sprite* BlackDot;
 
 	bool IsStop; //是否暂停
 	bool IsSelectShovel; //是否处于已经选择了铲子的状态
