@@ -2,8 +2,14 @@
 
 Card::Card(std::string Name, int CardExpense)
 {
+	Sprite::onEnter();
+
+	IsCD = 1;
+
 	name = Name;
 	cardexpense = CardExpense;
+	CD = 5.0f;
+	Cardtimer = 0;
 
 	//加入图片
 	CardSprite = Sprite::create("pictures/" + Name + "Card.png");
@@ -19,10 +25,37 @@ Card::Card(std::string Name, int CardExpense)
 	cardexpenseslabel->setPosition(Vec2(CardSprite->getContentSize().width / 2, CardSprite->getContentSize().height / 2 + 75));
 	cardexpenseslabel->setColor(Color3B::BLACK);
 	CardSprite->addChild(cardexpenseslabel);
+
+	//加入黑色CD进度条
+	BlackCD = Sprite::create("pictures/BlackCD.png");
+	BlackCD->setOpacity(80);
+	BlackCDTimer = ProgressTimer::create(BlackCD);
+	BlackCDTimer->setType(ProgressTimer::Type::BAR);
+	BlackCDTimer->setMidpoint(Vec2(0, 1));
+	BlackCDTimer->setBarChangeRate(Vec2(0, 1));
+	BlackCDTimer->setPercentage(100.0f);
+	BlackCDTimer->setPosition(CardSprite->getContentSize().width / 2, CardSprite->getContentSize().height / 2);
+	CardSprite->addChild(BlackCDTimer);
+
+	this->scheduleUpdate();
 }
 
 int Card::getCardExpense()
 {
 	return cardexpense;
+}
+
+void Card::update(float update_time)
+{
+	if (IsCD) {
+		if (Cardtimer >= CD) {
+			Cardtimer = 0;
+			IsCD = 0;
+		}
+		else {
+			Cardtimer += update_time;
+			BlackCDTimer->setPercentage(100.0f - Cardtimer / CD * 100.0f);
+		}
+	}
 }
 

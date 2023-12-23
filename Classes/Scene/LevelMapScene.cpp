@@ -61,11 +61,6 @@ bool LevelMap::init()
 	BaseHPlabel->setColor(Color3B::BLACK);
 	this->addChild(BaseHPlabel, 1);
 
-	//黑点
-	BlackDot= Sprite::create("BlackDot.png");
-	BlackDot->setPosition(Vec2(origin.x + 480, origin.y + 840));
-	this->addChild(BlackDot);
-
 	//铲子卡片
 	Shovel = Sprite::create("pictures/Shovel.png");
 	Shovel->setPosition(Vec2(origin.x + Shovel->getContentSize().width / 2 + 70, Shovel->getContentSize().height / 2 + origin.y + 25));
@@ -245,7 +240,7 @@ bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 		//判断是否在卡片范围，如果是，就切换状态
 		for (int i = 0; i < Cards.size(); i++) {
 			auto position = Cards[i]->CardSprite->getPosition();
-			if (abs(touchposition.x - position.x) < 80 && abs(touchposition.y - position.y) < 135 && expenses >= Cards[i]->getCardExpense()) {
+			if (abs(touchposition.x - position.x) < 80 && abs(touchposition.y - position.y) < 135 && expenses >= Cards[i]->getCardExpense() && Cards[i]->IsCD == 0) {
 				//使选择卡片产生动态效果
 				Cards[i]->CardSprite->setPosition(Vec2(position.x, position.y + 50));
 				choosedoperatornum = CardsNum[i];
@@ -267,7 +262,6 @@ bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 			for (int i = 0; i < currentLevelvec.size(); i++) {
 				for (int j = 0; j < currentLevelvec[0].size(); j++) {
 					if (currentLevelvec[i][j] == 1) {
-
 						//将数组坐标映射到实际坐标
 						Vec2 currentposition;
 						switch (CurrentLevel)
@@ -284,7 +278,6 @@ bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 						default:
 							break;
 						}
-
 						//判断是否在格子范围内，如果是，则生成并放置
 						if (sqrt(pow(touchposition.x - currentposition.x, 2) + pow(touchposition.y - currentposition.y, 2)) < 70) {
 							auto newoperator = new Exusiai(AllOperator.size(), Vec2(i, j));
@@ -297,6 +290,7 @@ bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 							expenses -= Cards[place]->getCardExpense();
 							currentLevelvec[i][j] += 10;
 
+							Cards[place]->IsCD = 1;
 							out = 1;
 							break;
 						}
@@ -334,6 +328,7 @@ bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 							this->addChild(newoperator->Hongxuesprite);
 							expenses -= Cards[place]->getCardExpense();
 							currentLevelvec[i][j] += 10;
+							Cards[place]->IsCD = 1;
 							out = 1;
 							break;
 						}
@@ -369,11 +364,9 @@ bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 							AllOperator.push_back(newoperator);
 							Alloperator.push_back(newoperator->Qiubaisprite);
 							this->addChild(newoperator->Qiubaisprite);
-
-							//减少费用
 							expenses -= Cards[place]->getCardExpense();
 							currentLevelvec[i][j] += 10;
-
+							Cards[place]->IsCD = 1;
 							out = 1;
 							break;
 						}
