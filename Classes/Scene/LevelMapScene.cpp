@@ -4,6 +4,7 @@
 #include "Sprite/ExusiaiOperator.h"
 #include "Sprite/HongxueOperator.h"
 #include "Sprite/QiubaiOperator.h"
+#include "Sprite/EyjafjallaOperator.h"
 #include "Sprite/Card.h"
 #include "editor-support\cocostudio\SimpleAudioEngine.h"
 #include <vector>
@@ -101,6 +102,14 @@ bool LevelMap::init()
 			Cards.push_back(newcard);
 			break;
 		}
+		case 3:
+		{
+			Card* newcard = new Card("Eyjafjalla", 23);
+			newcard->CardSprite->setPosition(Vec2(origin.x + visibleSize.width - 300 - (2 * i + 1) * newcard->CardSprite->getContentSize().width / 2, origin.y + newcard->CardSprite->getContentSize().height / 2));
+			this->addChild(newcard->CardSprite, 100);
+			Cards.push_back(newcard);
+			break;
+		}
 		default:
 			break;
 		}
@@ -121,7 +130,7 @@ bool LevelMap::init()
 
 void LevelMap::init_data()
 {
-	expenses = 0;
+	expenses = 50;
 	BaseHP = LevelBaseHP[CurrentLevel - 1];
 	allenemynum = Levelallenemynum[CurrentLevel - 1];
 	killednum = 0;
@@ -364,6 +373,44 @@ bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 							AllOperator.push_back(newoperator);
 							Alloperator.push_back(newoperator->Qiubaisprite);
 							this->addChild(newoperator->Qiubaisprite);
+							expenses -= Cards[place]->getCardExpense();
+							currentLevelvec[i][j] += 10;
+							Cards[place]->IsCD = 1;
+							out = 1;
+							break;
+						}
+					}
+				}
+				if (out) {
+					break;
+				}
+			}
+			break;
+		case 3:
+			for (int i = 0; i < currentLevelvec.size(); i++) {
+				for (int j = 0; j < currentLevelvec[0].size(); j++) {
+					if (currentLevelvec[i][j] == 1) {
+						Vec2 currentposition;
+						switch (CurrentLevel)
+						{
+						case 1:
+							currentposition = Level1MapTransform(i, j);
+							break;
+						case 2:
+							currentposition = Level2MapTransform(i, j);
+							break;
+						case 3:
+							currentposition = Level3MapTransform(i, j);
+							break;
+						default:
+							break;
+						}
+						if (sqrt(pow(touchposition.x - currentposition.x, 2) + pow(touchposition.y - currentposition.y, 2)) < 70) {
+							auto newoperator = new Eyjafjalla(AllOperator.size(), Vec2(i, j));
+							newoperator->Eyjafjallasprite->setPosition(Vec2(currentposition.x, currentposition.y + 70));
+							AllOperator.push_back(newoperator);
+							Alloperator.push_back(newoperator->Eyjafjallasprite);
+							this->addChild(newoperator->Eyjafjallasprite);
 							expenses -= Cards[place]->getCardExpense();
 							currentLevelvec[i][j] += 10;
 							Cards[place]->IsCD = 1;
