@@ -1,10 +1,13 @@
 #include "GameplayMenu.h"
-#include "Scene/LevelSelectScene.h"
+#include "LevelSelectScene.h"
+#include "OperatorRecruitScene.h"
+#include "Data/AllData.h"
+#include "editor-support\cocostudio\SimpleAudioEngine.h"
 
 USING_NS_CC;
 
 std::vector<std::string> buttonLabels = { "Level Selection",
-										  "Operation Recruitment",
+										  "Operator Recruitment",
 										  "Collection Book",
 										  "Gameplay Introduction" };
 
@@ -68,6 +71,20 @@ bool GameplayMenu::init() {
 	closemenu->setPosition(Vec2::ZERO);
 	this->addChild(closemenu, 0);
 
+	//合成玉计数器
+	auto JadeCount = Sprite::create("pictures/JadeCount.png");
+	JadeCount->setPosition(visibleSize.width - 130, visibleSize.height - 60);
+	this->addChild(JadeCount);
+	auto JadeNum = Label::createWithTTF(std::to_string(Jade), "fonts/Marker Felt.ttf", 50);
+	JadeNum->setPosition(visibleSize.width - 95, visibleSize.height - 65);
+	JadeNum->setColor(Color3B::BLACK);
+	this->addChild(JadeNum);
+
+	//背景音乐
+	if (CocosDenshion::SimpleAudioEngine::getInstance()->isBackgroundMusicPlaying() == 0) {
+		CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("musics/LifeFlow.mp3", true);
+	}
+
 	TextButtonCreat();
 	return true;
 }
@@ -84,7 +101,7 @@ void GameplayMenu::menuToLevelSelecScene(cocos2d::Ref* pSender)
 
 void GameplayMenu::menuToOperatorRecruitment(cocos2d::Ref* pSender)
 {
-    //跳转至干员寻访
+	Director::getInstance()->replaceScene(OperatorRecruit::create());
 }
 void GameplayMenu::menuToCOllectionBook(cocos2d::Ref* pSender)
 {

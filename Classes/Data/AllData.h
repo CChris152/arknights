@@ -11,6 +11,8 @@
 
 USING_NS_CC;
 
+extern int Jade; //所持有的合成玉数量
+
 extern int FinishLevelNum; //已完成的关卡数量
 extern int CurrentLevel; //当前执行的关卡
 

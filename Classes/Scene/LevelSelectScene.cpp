@@ -91,6 +91,15 @@ bool LevelSelect::init()
         break;
     }
 
+    //合成玉计数器
+    auto JadeCount = Sprite::create("pictures/JadeCount.png");
+    JadeCount->setPosition(visibleSize.width - 130, visibleSize.height - 60);
+    this->addChild(JadeCount);
+    auto JadeNum = Label::createWithTTF(std::to_string(Jade), "fonts/Marker Felt.ttf", 50);
+    JadeNum->setPosition(visibleSize.width - 95, visibleSize.height - 65);
+    JadeNum->setColor(Color3B::BLACK);
+    this->addChild(JadeNum);
+
     //背景音乐
     if (CocosDenshion::SimpleAudioEngine::getInstance()->isBackgroundMusicPlaying() == 0) {
         CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("musics/LifeFlow.mp3", true);

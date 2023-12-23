@@ -1,5 +1,7 @@
 #include "AllData.h"
 
+int Jade = 100;
+
 int FinishLevelNum = 2;
 int CurrentLevel = -1;
 

@@ -444,6 +444,11 @@ bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 
 void LevelMap::BackCall()
 {
+	//如果胜利将加合成玉
+	if (this->gamelogic->victoryorfail == 1) {
+		Jade += CurrentLevel * 10;
+	}
+
 	//将场上的精灵全部关停
 	for (auto it : AllOperator) {
 		it->unscheduleUpdate();
