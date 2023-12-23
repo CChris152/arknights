@@ -12,7 +12,7 @@
 #include <algorithm>
 
 const std::vector<int> LevelBaseHP = { 3,3,3};
-const std::vector<int> Levelallenemynum = { 11,11,11 };
+const std::vector<int> Levelallenemynum = { 11,14,20 };
 
 bool LevelMap::init()
 {
@@ -338,6 +338,7 @@ bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 							expenses -= Cards[place]->getCardExpense();
 							currentLevelvec[i][j] += 10;
 							Cards[place]->IsCD = 1;
+							Cards[place]->BlackCDTimer->setPercentage(100.0f);
 							out = 1;
 							break;
 						}
@@ -376,6 +377,7 @@ bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 							expenses -= Cards[place]->getCardExpense();
 							currentLevelvec[i][j] += 10;
 							Cards[place]->IsCD = 1;
+							Cards[place]->BlackCDTimer->setPercentage(100.0f);
 							out = 1;
 							break;
 						}
@@ -414,6 +416,7 @@ bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 							expenses -= Cards[place]->getCardExpense();
 							currentLevelvec[i][j] += 10;
 							Cards[place]->IsCD = 1;
+							Cards[place]->BlackCDTimer->setPercentage(100.0f);
 							out = 1;
 							break;
 						}

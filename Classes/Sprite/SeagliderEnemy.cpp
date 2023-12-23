@@ -48,6 +48,8 @@ void Seaglider::EnemyInit()
 	this->IsStopped = 0;
 	this->stoppedoperatornum = -1;
 
+	movetype = walk;
+
 	this->Seaglidertimer = 0;
 }
 

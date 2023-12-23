@@ -73,7 +73,7 @@ void Qiubai::update(float update_time)
 		int enemynum = -1; //µĞÈËĞòºÅ
 		//±éÀúµĞÈË
 		for (int i = 0; i < AllEnemy.size(); i++) {
-			if (AllEnemy[i]->IsDead) {
+			if (AllEnemy[i]->IsDead || AllEnemy[i]->movetype == fly) {
 				continue;
 			}
 			//ÅĞ¶ÏÊÇ·ñÔÚ¹¥»÷·¶Î§ÄÚ
@@ -117,7 +117,7 @@ void Qiubai::update(float update_time)
 	//×èµ²ÅĞ¶Ï
 	if (this->getCurrentStopNum() < this->getMaxStopNum()) {
 		for (int i = 0; i < AllEnemy.size(); i++) {
-			if (AllEnemy[i]->IsDead || AllEnemy[i]->IsStopped == 1) {
+			if (AllEnemy[i]->IsDead || AllEnemy[i]->IsStopped == 1 || AllEnemy[i]->movetype == fly) {
 				continue;
 			}
 			//ÅĞ¶ÏÊÇ·ñÔÚ×èµ²·¶Î§ÄÚ

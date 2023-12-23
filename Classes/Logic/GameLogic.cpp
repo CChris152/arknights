@@ -1,6 +1,7 @@
 #include "GameLogic.h"
 #include "Sprite/AlphawormEnemy.h"
 #include "Sprite/SeagliderEnemy.h"
+#include "Sprite/D4Enemy.h"
 #include "Data/AllData.h"
 
 GameLogic::GameLogic(Scene* currentscene)
@@ -13,8 +14,10 @@ GameLogic::GameLogic(Scene* currentscene)
 		break;
 	case 2:
 		setEnemyWave(Level2EnemyWave);
+		break;
 	case 3:
 		setEnemyWave(Level3EnemyWave);
+		break;
 	default:
 		break;
 	}
@@ -77,6 +80,15 @@ void GameLogic::update(float update_time)
 					this->addChild(newenemy->SeagliderSprite);
 					this->addChild(newenemy->SeagliderBar);
 					this->addChild(newenemy->SeagliderBlood);
+					break;
+				}
+				case 2: {
+					auto newenemy = new D4;
+					AllEnemy.push_back(newenemy);
+					Allenemy.push_back(newenemy->D4Sprite);
+					this->addChild(newenemy->D4Sprite);
+					this->addChild(newenemy->D4Bar);
+					this->addChild(newenemy->D4Blood);
 					break;
 				}
 				default:

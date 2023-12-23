@@ -8,6 +8,11 @@
 
 USING_NS_CC;
 
+enum MoveType {
+	walk, //行走
+	fly //飞行
+};
+
 class Enemy :public cocos2d::Sprite
 {
 public:
@@ -38,6 +43,7 @@ public:
 	bool IsDead; //是否已经死亡
 	bool IsStopped; //是否被阻挡
 	int stoppedoperatornum; //被阻挡的干员编号
+	MoveType movetype; //移动方式
 
 private:
 	int attack; //攻击力

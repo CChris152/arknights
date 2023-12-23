@@ -19,14 +19,14 @@ public:
 
 	bool IsCD; //是否处于CD中
 
+	Sprite* BlackCD; //黑色CD
+	ProgressTimer* BlackCDTimer; //黑色CD进度条
+
 private:
 	std::string name; //干员名称
 	int cardexpense; //卡片费用
 	float CD; //卡片冷却时间
 	float Cardtimer; //卡片计时器
-
-	Sprite* BlackCD; //黑色CD
-	ProgressTimer* BlackCDTimer; //黑色CD进度条
 };
 
 #endif // __CARD_BASE_H__

@@ -48,6 +48,8 @@ void Alphaworm::EnemyInit()
 	this->IsStopped = 0;
 	this->stoppedoperatornum = -1;
 
+	movetype = walk;
+
 	this->Alphawormtimer = 0;
 }
 
