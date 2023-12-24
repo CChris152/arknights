@@ -176,15 +176,6 @@ void LevelMap::setLevelvec(std::vector<std::vector<int>> Levelvec)
 
 void LevelMap::update(float update_time)
 {
-	//ÅÐ¶ÏÊÇ·ñ½áÊø
-	if (gamelogic->victoryorfail == -1) {
-		BackCall();
-	}
-	if (gamelogic->victoryorfail == 1) {
-		FinishLevelNum = std::max(FinishLevelNum, 1);
-		BackCall();
-	}
-
 	//·ÑÓÃË¢ÐÂ
 	if (expensestimer >= 1) {
 		if (expenses < 99) {
@@ -200,6 +191,16 @@ void LevelMap::update(float update_time)
 	expenseslabel->setString(std::to_string(expenses));
 	killednumlabel->setString(std::to_string(killednum) + "/" + std::to_string(allenemynum));
 	BaseHPlabel->setString(std::to_string(BaseHP));
+
+	//ÅÐ¶ÏÊÇ·ñ½áÊø
+	if (gamelogic->victoryorfail == -1) {
+		BackCall();
+	}
+	if (gamelogic->victoryorfail == 1) {
+		FinishLevelNum = std::max(FinishLevelNum, 1);
+		BackCall();
+	}
+
 }
 
 bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
@@ -458,6 +459,9 @@ void LevelMap::BackCall()
 			it->IsDead = 1;
 		}
 	}
+	for (auto it : Cards) {
+		it->unscheduleUpdate();
+	}
 
 	//·ÀÖ¹ÄÚ´æÐ¹Â©
 	AllOperator.clear();
@@ -480,6 +484,9 @@ void LevelMap::BackCall()
 		delete it;
 	}
 	Cards.clear();
+
+	this->unscheduleUpdate();
+	this->removeAllChildren();
 
 	//¹ØÍ£ÒôÀÖ
 	CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();

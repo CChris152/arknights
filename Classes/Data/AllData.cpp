@@ -1,6 +1,6 @@
 #include "AllData.h"
 
-int Jade = 100;
+int Jade = 1000;
 
 int FinishLevelNum = 2;
 int CurrentLevel = -1;
@@ -10,9 +10,11 @@ int BaseHP;
 int allenemynum;
 int killednum = 0;
 
-std::vector<int> CardsNum = { 0 , 1 , 2 , 3};
-std::vector<Card*> Cards;
+std::vector<int> CardsNum = { 0 };
+std::vector<int> LackCards = { 1, 2, 3 };
+std::vector<std::string> OperatorName = { "Exusiai","Hongxue","Qiubai","Eyjafjalla" };
 
+std::vector<Card*> Cards;
 std::vector<Enemy*> AllEnemy;
 std::vector<Operator*> AllOperator;
 std::vector<Sprite*> Allenemy;

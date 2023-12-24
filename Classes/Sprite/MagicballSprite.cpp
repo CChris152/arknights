@@ -13,7 +13,7 @@ Magicball::Magicball(int Start, int End)
 	this->IsDestroyed = 0;
 	this->speed = 6;
 	this->attackRange = 100;
-	magicballSprite = Sprite::create("pictures/Arrow.png");
+	magicballSprite = Sprite::create("pictures/Magicball.png");
 	magicballSprite->setPosition(Alloperator[startoperator]->getPosition());
 
 	this->scheduleUpdate();

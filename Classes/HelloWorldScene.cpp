@@ -17,6 +17,9 @@ static void problemLoading(const char* filename)
 
 bool HelloWorld::init()
 {
+    unsigned seed = time(0);
+    srand(seed);
+
     if ( !Scene::init() )
     {
         return false;

@@ -64,7 +64,7 @@ bool GameplayMenu::init() {
 	auto Gameplay_menu = Sprite::create("pictures/GameplayMenu.png");
 	Gameplay_menu->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(Gameplay_menu, 0);
-	////程序退出图标
+	//程序退出图标
 	auto closeItem = MenuItemImage::create("CloseNormal.png", "CloseSelected.png", CC_CALLBACK_1(GameplayMenu::menuCloseCallback, this));
 	closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width / 2, origin.y + closeItem->getContentSize().height / 2));
 	auto closemenu = Menu::create(closeItem, NULL);

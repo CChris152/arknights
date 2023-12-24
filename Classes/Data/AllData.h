@@ -22,8 +22,10 @@ extern int allenemynum; //敌人总数
 extern int killednum; //消灭敌人数量
 
 extern std::vector<int> CardsNum; //干员卡片编号
-extern std::vector<Card*> Cards; //干员卡片精灵
+extern std::vector<int> LackCards; //缺少的干员卡片编号
+extern std::vector<std::string> OperatorName; //干员名称
 
+extern std::vector<Card*> Cards; //干员卡片精灵
 extern std::vector<Enemy*> AllEnemy; //生成的敌人
 extern std::vector<Operator*> AllOperator; //生成的干员
 extern std::vector<Sprite*> Allenemy; //生成的敌人精灵
