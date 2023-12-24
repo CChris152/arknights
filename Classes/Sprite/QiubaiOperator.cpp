@@ -2,6 +2,7 @@
 #include "SwordSprite.h"
 #include "Data/AllData.h"
 #include "Scene/LevelMapScene.h"
+#include "editor-support\cocostudio\SimpleAudioEngine.h"
 #include <cmath>
 
 #define PI acos(-1)
@@ -98,8 +99,9 @@ void Qiubai::update(float update_time)
 			}
 			Sword* newsword = new Sword(this->getNumbering(), enemynum);
 			AttackEffect.push_back(newsword);
-			(this->Qiubaisprite->getParent())->addChild(newsword->swordSprite);
+			(this->Qiubaisprite->getParent())->addChild(newsword->swordSprite, 1000);
 			Qiubaitimer = 0;
+			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sound effect/sword.mp3", false);
 		}
 	}
 
@@ -123,7 +125,7 @@ void Qiubai::update(float update_time)
 			//ÅÐ¶ÏÊÇ·ñÔÚ×èµ²·¶Î§ÄÚ
 			Vec2 From = Qiubaisprite->getPosition();
 			Vec2 To = Allenemy[i]->getPosition();
-			if (sqrt(pow(To.x - From.x, 2) + pow(To.y - (From.y-70), 2)) <= 20) {
+			if (sqrt(pow(To.x - From.x, 2) + pow(To.y - (From.y-70), 2)) <= 40) {
 				AllEnemy[i]->IsStopped = 1;
 				this->setCurrentStopNum(this->getCurrentStopNum() + 1);
 				stoppedenemynum.push_back(i);

@@ -2,6 +2,7 @@
 #include "BulletSprite.h"
 #include "Data/AllData.h"
 #include "Scene/LevelMapScene.h"
+#include "editor-support\cocostudio\SimpleAudioEngine.h"
 #include <cmath>
 
 Exusiai::Exusiai(int Numbering, Vec2 VecPlace)
@@ -20,7 +21,7 @@ void Exusiai::OperatorInit()
 {
 	this->setMaxHP(1200);
 	this->setCurrentHP(1200);
-	this->setAttack(200);
+	this->setAttack(300);
 	this->setAttackSpeed(1);
 	this->setExpense(12);
 	this->setAttackRange(700);
@@ -96,8 +97,10 @@ void Exusiai::update(float update_time)
 			}
 			Bullet* newbullet = new Bullet(this->getNumbering(), enemynum);
 			AttackEffect.push_back(newbullet);
-			(this->Exusiaisprite->getParent())->addChild(newbullet->bulletSprite);
+			(this->Exusiaisprite->getParent())->addChild(newbullet->bulletSprite, 1000);
 			Exusiaitimer = 0;
+			//Ìí¼ÓÒôÐ§
+			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sound effect/bullet.mp3", false);
 		}
 	}
 

@@ -1,5 +1,6 @@
 #include "ArrowSprite.h"
 #include "Data/AllData.h"
+#include "editor-support\cocostudio\SimpleAudioEngine.h"
 #include <cmath>
 #define PI acos(-1)
 
@@ -41,6 +42,7 @@ void Arrow::update(float update_time)
 				break;
 			}
 			IsDestroyed = 1;
+			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sound effect/hit.mp3", false);
 		}
 
 		//¸üÐÂ×ø±ê

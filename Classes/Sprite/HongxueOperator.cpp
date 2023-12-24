@@ -2,6 +2,7 @@
 #include "ArrowSprite.h"
 #include "Data/AllData.h"
 #include "Scene/LevelMapScene.h"
+#include "editor-support\cocostudio\SimpleAudioEngine.h"
 #include <cmath>
 
 Hongxue::Hongxue(int Numbering, Vec2 VecPlace)
@@ -95,8 +96,9 @@ void Hongxue::update(float update_time)
 			}
 			Arrow* newarrow = new Arrow(this->getNumbering(), enemynum);
 			AttackEffect.push_back(newarrow);
-			(this->Hongxuesprite->getParent())->addChild(newarrow->arrowSprite);
+			(this->Hongxuesprite->getParent())->addChild(newarrow->arrowSprite, 1000);
 			Hongxuetimer = 0;
+			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sound effect/arrow.mp3", false);
 		}
 	}
 

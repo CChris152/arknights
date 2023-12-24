@@ -2,6 +2,7 @@
 #include "MagicballSprite.h"
 #include "Data/AllData.h"
 #include "Scene/LevelMapScene.h"
+#include "editor-support\cocostudio\SimpleAudioEngine.h"
 #include <cmath>
 
 Eyjafjalla::Eyjafjalla(int Numbering, Vec2 VecPlace)
@@ -95,8 +96,9 @@ void Eyjafjalla::update(float update_time)
 			}
 			Magicball* newmagicball = new Magicball(this->getNumbering(), enemynum);
 			AttackEffect.push_back(newmagicball);
-			(this->Eyjafjallasprite->getParent())->addChild(newmagicball->magicballSprite);
+			(this->Eyjafjallasprite->getParent())->addChild(newmagicball->magicballSprite, 1000);
 			Eyjafjallatimer = 0;
+			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sound effect/magicball.mp3", false);
 		}
 	}
 

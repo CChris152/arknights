@@ -52,12 +52,12 @@ std::vector<std::vector<int>> Level3vec = { { -1, 1, 1, 1, 1, 1, 1, 1},
                                             { 0, 0, 0, 1, 1, 0, 0, 0},
                                             { 0, 0, 1, 1, 1, 1, 0, 0},
                                             { -1, 1, 1, 1, 1, 1, 1, 1} };
-std::vector<std::vector<int>> Level3Road = { {238,460,1,0},
-                                             {588,460,0,1},
-                                             {588,740,1,0},
-                                             {1373,740,0,-1},
-                                             {1373,460,1,0},
-                                             {1723,460,0,0} };
+std::vector<std::vector<int>> Level3Road = { {268,460,1,0},
+                                             {618,460,0,1},
+                                             {618,740,1,0},
+                                             {1403,740,0,-1},
+                                             {1403,460,1,0},
+                                             {1753,460,0,0} };
 std::vector<std::vector<int>> Level3Fly = { {238,880},{588,880},{1723,460} };
 std::vector<std::vector<int>> Level3EnemyWave = { {5,0,1}, {2,2,1}, {4,0,2},{10,1,1}, {10,0,6}, {5,2,4} ,{10,1,5} };
 
@@ -70,10 +70,30 @@ Vec2 Level1MapTransform(int i, int j)
 
 Vec2 Level2MapTransform(int i, int j)
 {
-    return Vec2(j * 165.0f + 418, 805.0f - i * 140);
+    switch (i)
+    {
+    case 0:
+        return Vec2(j * 155.0f + 418, 805.0f - i * 140);
+        break;
+    case 1:
+        return Vec2(j * 160.0f + 418, 805.0f - i * 140);
+        break;
+    case 2:
+        return Vec2(j * 165.0f + 418, 805.0f - i * 140);
+        break;
+    case 3:
+        return Vec2(j * 170.0f + 418, 805.0f - i * 140);
+        break;
+    default:
+        break;
+    }
 }
+
+//j * 165.0f + 418, 805.0f - i * 140
 
 Vec2 Level3MapTransform(int i, int j)
 {
     return Vec2(j * 160.0f + 420.5f, 870.0f - i * 132);
 }
+
+//j * 160.0f + 420.5f, 870.0f - i * 132

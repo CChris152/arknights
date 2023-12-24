@@ -1,5 +1,6 @@
 #include "BulletSprite.h"
 #include "Data/AllData.h"
+#include "editor-support\cocostudio\SimpleAudioEngine.h"
 #include <cmath>
 #include <algorithm>
 #define PI acos(-1)
@@ -45,6 +46,7 @@ void Bullet::update(float update_time)
 				break;
 			}
 			IsDestroyed = 1;
+			CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sound effect/hit.mp3", false);
 		}
 
 		//¸üÐÂ×ø±ê

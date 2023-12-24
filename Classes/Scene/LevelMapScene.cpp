@@ -42,37 +42,37 @@ bool LevelMap::init()
 	back->setPosition(Vec2(origin.x + back->getContentSize().width / 2 + 70, visibleSize.height - back->getContentSize().height / 2 + origin.y - 25));
 	auto backmenu = Menu::create(back, NULL);
 	backmenu->setPosition(Vec2::ZERO);
-	this->addChild(backmenu, 1);
+	this->addChild(backmenu, 1000);
 
 	//费用数字
 	expenseslabel = Label::createWithTTF(std::to_string(expenses), "fonts/Marker Felt.ttf", 150);
 	expenseslabel->setPosition(Vec2(origin.x + visibleSize.width - 170, origin.y + 100));
 	expenseslabel->setColor(Color3B::BLACK);
-	this->addChild(expenseslabel, 1);
+	this->addChild(expenseslabel, 1000);
 
 	//消灭敌人数量
 	killednumlabel = Label::createWithTTF(std::to_string(killednum) + "/" + std::to_string(allenemynum), "fonts/Marker Felt.ttf", 30);
 	killednumlabel->setPosition(Vec2(origin.x + visibleSize.width / 2 - 95, origin.y + visibleSize.height - 70));
 	killednumlabel->setColor(Color3B::BLACK);
-	this->addChild(killednumlabel, 1);
+	this->addChild(killednumlabel, 1000);
 
 	//基地血量
 	BaseHPlabel = Label::createWithTTF(std::to_string(BaseHP), "fonts/Marker Felt.ttf", 30);
 	BaseHPlabel->setPosition(Vec2(origin.x + visibleSize.width / 2 + 200, origin.y + visibleSize.height - 70));
 	BaseHPlabel->setColor(Color3B::BLACK);
-	this->addChild(BaseHPlabel, 1);
+	this->addChild(BaseHPlabel, 1000);
 
 	//铲子卡片
 	Shovel = Sprite::create("pictures/Shovel.png");
 	Shovel->setPosition(Vec2(origin.x + Shovel->getContentSize().width / 2 + 70, Shovel->getContentSize().height / 2 + origin.y + 25));
-	this->addChild(Shovel);
+	this->addChild(Shovel, 1000);
 
 	//暂停按钮
 	Stop = MenuItemImage::create("pictures/Stop.png", "pictures/Stop.png", CC_CALLBACK_1(LevelMap::menuStopCallback, this));
 	Stop->setPosition(Vec2(origin.x + visibleSize.width - Stop->getContentSize().width / 2 - 70, visibleSize.height - Stop->getContentSize().height / 2 + origin.y - 25));
 	auto stopmenu = Menu::create(Stop, NULL);
 	stopmenu->setPosition(Vec2::ZERO);
-	this->addChild(stopmenu);
+	this->addChild(stopmenu, 1000);
 
 	//加入干员卡片
 	for (int i = 0; i < CardsNum.size();i++) {
@@ -82,7 +82,7 @@ bool LevelMap::init()
 		{
 			Card* newcard = new Card("Exusiai", 12);
 			newcard->CardSprite->setPosition(Vec2(origin.x + visibleSize.width - 300 - (2 * i + 1) * newcard->CardSprite->getContentSize().width / 2, origin.y + newcard->CardSprite->getContentSize().height / 2));
-			this->addChild(newcard->CardSprite, 100);
+			this->addChild(newcard->CardSprite, 1000);
 			Cards.push_back(newcard);
 			break;
 		}
@@ -90,7 +90,7 @@ bool LevelMap::init()
 		{
 			Card* newcard = new Card("Hongxue", 18);
 			newcard->CardSprite->setPosition(Vec2(origin.x + visibleSize.width - 300 - (2 * i + 1) * newcard->CardSprite->getContentSize().width / 2, origin.y + newcard->CardSprite->getContentSize().height / 2));
-			this->addChild(newcard->CardSprite, 100);
+			this->addChild(newcard->CardSprite, 1000);
 			Cards.push_back(newcard);
 			break;
 		}
@@ -98,7 +98,7 @@ bool LevelMap::init()
 		{
 			Card* newcard = new Card("Qiubai", 15);
 			newcard->CardSprite->setPosition(Vec2(origin.x + visibleSize.width - 300 - (2 * i + 1) * newcard->CardSprite->getContentSize().width / 2, origin.y + newcard->CardSprite->getContentSize().height / 2));
-			this->addChild(newcard->CardSprite, 100);
+			this->addChild(newcard->CardSprite, 1000);
 			Cards.push_back(newcard);
 			break;
 		}
@@ -106,7 +106,7 @@ bool LevelMap::init()
 		{
 			Card* newcard = new Card("Eyjafjalla", 23);
 			newcard->CardSprite->setPosition(Vec2(origin.x + visibleSize.width - 300 - (2 * i + 1) * newcard->CardSprite->getContentSize().width / 2, origin.y + newcard->CardSprite->getContentSize().height / 2));
-			this->addChild(newcard->CardSprite, 100);
+			this->addChild(newcard->CardSprite, 1000);
 			Cards.push_back(newcard);
 			break;
 		}
@@ -117,7 +117,7 @@ bool LevelMap::init()
 
 	//添加逻辑
 	gamelogic = new GameLogic(this);
-	this->addChild(gamelogic);
+	this->addChild(gamelogic, 600);
 
 	//背景音乐
 	CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
@@ -294,7 +294,7 @@ bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 							newoperator->Exusiaisprite->setPosition(Vec2(currentposition.x, currentposition.y + 70));
 							AllOperator.push_back(newoperator);
 							Alloperator.push_back(newoperator->Exusiaisprite);
-							this->addChild(newoperator->Exusiaisprite);
+							this->addChild(newoperator->Exusiaisprite, 1000 - newoperator->Exusiaisprite->getPosition().y / 2);
 
 							//减少费用
 							expenses -= Cards[place]->getCardExpense();
@@ -335,7 +335,7 @@ bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 							newoperator->Hongxuesprite->setPosition(Vec2(currentposition.x, currentposition.y + 70));
 							AllOperator.push_back(newoperator);
 							Alloperator.push_back(newoperator->Hongxuesprite);
-							this->addChild(newoperator->Hongxuesprite);
+							this->addChild(newoperator->Hongxuesprite, 1000 - newoperator->Hongxuesprite->getPosition().y / 2);
 							expenses -= Cards[place]->getCardExpense();
 							currentLevelvec[i][j] += 10;
 							Cards[place]->IsCD = 1;
@@ -374,7 +374,7 @@ bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 							newoperator->Qiubaisprite->setPosition(Vec2(currentposition.x, currentposition.y + 70));
 							AllOperator.push_back(newoperator);
 							Alloperator.push_back(newoperator->Qiubaisprite);
-							this->addChild(newoperator->Qiubaisprite);
+							this->addChild(newoperator->Qiubaisprite, 1000 - newoperator->Qiubaisprite->getPosition().y / 2);
 							expenses -= Cards[place]->getCardExpense();
 							currentLevelvec[i][j] += 10;
 							Cards[place]->IsCD = 1;
@@ -413,7 +413,7 @@ bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 							newoperator->Eyjafjallasprite->setPosition(Vec2(currentposition.x, currentposition.y + 70));
 							AllOperator.push_back(newoperator);
 							Alloperator.push_back(newoperator->Eyjafjallasprite);
-							this->addChild(newoperator->Eyjafjallasprite);
+							this->addChild(newoperator->Eyjafjallasprite, 1000 - newoperator->Eyjafjallasprite->getPosition().y / 2);
 							expenses -= Cards[place]->getCardExpense();
 							currentLevelvec[i][j] += 10;
 							Cards[place]->IsCD = 1;
@@ -455,13 +455,17 @@ void LevelMap::BackCall()
 		it->unscheduleUpdate();
 	}
 	for (auto it : AllEnemy) {
-		if (it->IsDead == 0) {
-			it->IsDead = 1;
-		}
+		it->unscheduleUpdate();
+	}
+	for (auto it : AttackEffect) {
+		it->unscheduleUpdate();
 	}
 	for (auto it : Cards) {
 		it->unscheduleUpdate();
 	}
+
+	//关停逻辑
+	gamelogic->unscheduleUpdate();
 
 	//防止内存泄漏
 	AllOperator.clear();
@@ -484,6 +488,14 @@ void LevelMap::BackCall()
 		delete it;
 	}
 	Cards.clear();
+
+	std::vector<Node*> logic;
+	logic.push_back(gamelogic);
+	logic.clear();
+	for (auto it : logic) {
+		delete it;
+	}
+	logic.clear();
 
 	this->unscheduleUpdate();
 	this->removeAllChildren();
