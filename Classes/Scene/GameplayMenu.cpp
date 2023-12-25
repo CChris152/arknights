@@ -1,7 +1,7 @@
 #include "GameplayMenu.h"
 #include "LevelSelectScene.h"
 #include "OperatorRecruitScene.h"
-#include "CollectionBook.h"
+#include "SelectBookScene.h"
 #include "Data/AllData.h"
 #include "editor-support\cocostudio\SimpleAudioEngine.h"
 
@@ -106,7 +106,7 @@ void GameplayMenu::menuToOperatorRecruitment(cocos2d::Ref* pSender)
 }
 void GameplayMenu::menuToCOllectionBook(cocos2d::Ref* pSender)
 {
-	Director::getInstance()->replaceScene(CollectionBook::create());
+	Director::getInstance()->replaceScene(SelectBookScene::create());
 }
 void GameplayMenu::menuToGameplayIntroduction(cocos2d::Ref* pSender)
 {

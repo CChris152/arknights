@@ -1,10 +1,8 @@
-#include "CollectionBook.h"
-#include "GameplayMenu.h"
-#include "Data/AllData.h"
-#include "Sprite/ExusiaiOperator.h"
+#include "OperatorBook.h"
+#include "SelectBookScene.h"
 #include "editor-support\cocostudio\SimpleAudioEngine.h"
 
-bool CollectionBook::init()
+bool OperatorBook::init()
 {
 	if (!Scene::init())
 	{
@@ -20,7 +18,7 @@ bool CollectionBook::init()
 	this->addChild(background);
 
 	//返回按钮
-	auto back = MenuItemImage::create("pictures/Back.png", "pictures/Back.png", CC_CALLBACK_1(CollectionBook::menuBackCallback, this));
+	auto back = MenuItemImage::create("pictures/Back.png", "pictures/Back.png", CC_CALLBACK_1(OperatorBook::menuBackCallback, this));
 	back->setPosition(back->getContentSize().width / 2 + 10, visibleSize.height - back->getContentSize().height / 2 - 25);
 	auto backmenu = Menu::create(back, NULL);
 	backmenu->setPosition(Vec2::ZERO);
@@ -54,38 +52,57 @@ bool CollectionBook::init()
 	}
 	this->addChild(drawNode);
 
-	//能天使图片
-	auto ExusiaiGuide = Sprite::create("pictures/ExusiaiGuide.png");
-	ExusiaiGuide->setPosition(ExusiaiGuide->getContentSize().width / 2 + start_x + 30, visibleSize.height - cellHeight / 2);
-	this->addChild(ExusiaiGuide);
-	//
-
+	//设置干员和敌人的信息
 	colOperatorInfo();
 
-	ExusiaiInfo->setPosition((cellWidth + ExusiaiGuide->getContentSize().width) / 2 + start_x + 30, visibleSize.height - cellHeight / 2);
+	//能天使[1,1]
+	auto ExusiaiGuide = Sprite::create("pictures/ExusiaiGuide.png");
+	ExusiaiGuide->setPosition(ExusiaiGuide->getContentSize().width / 2 + start_x + 15, visibleSize.height - cellHeight / 2);
+	this->addChild(ExusiaiGuide);
+	ExusiaiInfo->setPosition((cellWidth + ExusiaiGuide->getContentSize().width) / 2 + start_x + 15, visibleSize.height - cellHeight / 2);
 	ExusiaiInfo->setTextColor(Color4B::BLACK);
 	this->addChild(ExusiaiInfo);
 
-	ExusiaiInfo->removeAllComponents();
-	
+	//红雪[1,2]
+	auto HongxueGuide = Sprite::create("pictures/HongxueGuide.png");
+	HongxueGuide->setPosition(HongxueGuide->getContentSize().width / 2 + start_x + 15 + cellWidth, visibleSize.height - cellHeight / 2);
+	this->addChild(HongxueGuide);
+	HongxueInfo->setPosition((cellWidth + HongxueGuide->getContentSize().width) / 2 + start_x + 15 + cellWidth, visibleSize.height - cellHeight / 2);
+	HongxueInfo->setTextColor(Color4B::BLACK);
+	this->addChild(HongxueInfo);
+
+	//Qiubai[1,3]
+	auto QiubaiGuide = Sprite::create("pictures/QiubaiGuide.png");
+	QiubaiGuide->setPosition(QiubaiGuide->getContentSize().width / 2 + start_x + 15 + 2 * cellWidth, visibleSize.height - cellHeight / 2);
+	this->addChild(QiubaiGuide);
+	QiubaiInfo->setPosition((cellWidth + QiubaiGuide->getContentSize().width) / 2 + start_x + 15 + 2 * cellWidth, visibleSize.height - cellHeight / 2);
+	QiubaiInfo->setTextColor(Color4B::BLACK);
+	this->addChild(QiubaiInfo);
+
+	//Eyjafjalla[2,1]
+	auto EyjafjallaGuide = Sprite::create("pictures/EyjafjallaGuide.png");
+	EyjafjallaGuide->setPosition(EyjafjallaGuide->getContentSize().width / 2 + start_x + 15, visibleSize.height - cellHeight / 2 - cellHeight);
+	this->addChild(EyjafjallaGuide);
+	EyjafjallaInfo->setPosition((cellWidth + EyjafjallaGuide->getContentSize().width) / 2 + start_x + 15, visibleSize.height - cellHeight / 2 - cellHeight);
+	EyjafjallaInfo->setTextColor(Color4B::BLACK);
+	this->addChild(EyjafjallaInfo);
+
 
 	return true;
 }
 
-void CollectionBook::menuBackCallback(cocos2d::Ref* pSender)
+void OperatorBook::menuBackCallback(cocos2d::Ref* pSender)
 {
-	//关停音乐
-	CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-	Director::getInstance()->replaceScene(GameplayMenu::create());
+	Director::getInstance()->replaceScene(SelectBookScene::create());
 }
 
 //干员信息
-void CollectionBook::colOperatorInfo() {
+void OperatorBook::colOperatorInfo() {
 	ExusiaiInfo = Label::createWithTTF("", "fonts/arial.ttf", 36);
 	HongxueInfo = Label::createWithTTF("", "fonts/arial.ttf", 36);
 	QiubaiInfo = Label::createWithTTF("", "fonts/arial.ttf", 36);
 	EyjafjallaInfo = Label::createWithTTF("", "fonts/arial.ttf", 36);
-	
+
 	ExusiaiInfo->setString(R"(
     Name    : Exusiai
    Expense  : 12
@@ -125,40 +142,5 @@ MaxStopNum  : 2)");
 AttackSpeed : 4
 AttackRange : 500
 MaxStopNum  : 1)");
-
-}
-//敌人信息
-void CollectionBook::colEnemyInfo() {
-	AlphawormInfo = Label::createWithTTF("", "fonts/arial.ttf", 36);
-	SeagliderInfo = Label::createWithTTF("", "fonts/arial.ttf", 36);
-	D4Info = Label::createWithTTF("", "fonts/arial.ttf", 36);
-
-	AlphawormInfo->setString(R"(
-      Name      : Alphaworm
-      MaxHP     : 1000
-      Speed     : 1.0
-     Attack     : 100
-  AttackSpeed   : 3.0
-PhysicalDefense : 50
- MagicalDefense : 10)");
-
-	SeagliderInfo->setString(R"(
-      Name      : Seaglider
-      MaxHP     : 2500
-      Speed     : 2.0
-     Attack     : 400
-  AttackSpeed   : 2.0
-PhysicalDefense : 200
- MagicalDefense : 25)");
-
-	D4Info->setString(R"(
-      Name      : D4
-      MaxHP     : 1800
-      Speed     : 1.0
-     Attack     : 0
-  AttackSpeed   : 10.0
-PhysicalDefense : 300
- MagicalDefense : 5)");
-
 
 }
