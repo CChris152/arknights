@@ -93,7 +93,27 @@ Vec2 Level2MapTransform(int i, int j)
 
 Vec2 Level3MapTransform(int i, int j)
 {
-    return Vec2(j * 160.0f + 420.5f, 870.0f - i * 132);
+    switch (i)
+    {
+    case 0:
+        return Vec2(j * 143.0f + 490, 850);
+        break;
+    case 1:
+        return Vec2(j * 150.0f + 470, 715);
+        break;
+    case 2:
+        return Vec2(j * 156.0f + 445, 590);
+        break;
+    case 3:
+        return Vec2(j * 165.0f + 415, 450);
+        break;
+    case 4:
+        return Vec2(j * 180.0f + 360, 300);
+        break;
+    default:
+        break;
+    }
+    //return Vec2(j * 160.0f + 420.5f, 870.0f - i * 132);
 }
 
 //j * 160.0f + 420.5f, 870.0f - i * 132
