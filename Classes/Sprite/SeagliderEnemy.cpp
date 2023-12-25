@@ -59,6 +59,7 @@ void Seaglider::SpriteInit()
 {
 	SeagliderSprite = Sprite::create("pictures/Seaglider.png");
 	SeagliderSprite->setPosition(Vec2(this->Road[0][0], this->Road[0][1]));
+	this->spritevec = Vec2(SeagliderSprite->getPosition().x, SeagliderSprite->getPosition().y);
 	SeagliderBar = Sprite::create("pictures/bar.png");   //创建进度框
 	SeagliderBar->setPosition(Vec2(this->Road[0][0], this->Road[0][1] + 50));
 	Blood = Sprite::create("pictures/Blood.png");
@@ -77,10 +78,14 @@ void Seaglider::update(float update_time)
 		killednum++;
 	}
 
+	//更新方向
 	auto currentSprposition = this->SeagliderSprite->getPosition();
 	if (fabs(currentSprposition.x - this->Road[RoadStep][0]) <= 2 && fabs(currentSprposition.y - this->Road[RoadStep][1]) <= 2) {
-		this->xvec = this->Road[RoadStep][2];
-		this->yvec = this->Road[RoadStep][3];
+		if (RoadStep < this->Road.size() - 1) {
+			float distance = sqrt(pow(this->Road[RoadStep + 1][0] - this->Road[RoadStep][0], 2) + pow(this->Road[RoadStep + 1][1] - this->Road[RoadStep][1], 2));
+			this->xvec = (this->Road[RoadStep + 1][0] - this->Road[RoadStep][0]) * 1.0f / distance;
+			this->yvec = (this->Road[RoadStep + 1][1] - this->Road[RoadStep][1]) * 1.0f / distance;
+		}
 		RoadStep++;
 	}
 
@@ -110,6 +115,7 @@ void Seaglider::update(float update_time)
 		currentSprposition.x += this->xvec * currentspeed;
 		currentSprposition.y += this->yvec * currentspeed;
 		SeagliderSprite->setPosition(Vec2(currentSprposition.x, currentSprposition.y));
+		this->spritevec = Vec2(currentSprposition.x, currentSprposition.y);
 
 		SeagliderBar->setPosition(Vec2(currentSprposition.x, currentSprposition.y + 50)); //设置框的位置
 		SeagliderBlood->setPosition(Vec2(currentSprposition.x, currentSprposition.y + 50));

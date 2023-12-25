@@ -59,6 +59,7 @@ void Alphaworm::SpriteInit()
 {
 	AlphawormSprite = Sprite::create("pictures/Alphaworm.png");
 	AlphawormSprite->setPosition(Vec2(this->Road[0][0], this->Road[0][1]));
+	this->spritevec = Vec2(AlphawormSprite->getPosition().x, AlphawormSprite->getPosition().y);
 	AlphawormBar = Sprite::create("pictures/bar.png");   //创建进度框
 	AlphawormBar->setPosition(Vec2(this->Road[0][0], this->Road[0][1] + 50));
 	Blood = Sprite::create("pictures/Blood.png");  
@@ -77,10 +78,14 @@ void Alphaworm::update(float update_time)
 		killednum++;
 	}
 	
+	//更新方向
 	auto currentSprposition = this->AlphawormSprite->getPosition();
 	if (fabs(currentSprposition.x - this->Road[RoadStep][0])<=2 && fabs(currentSprposition.y - this->Road[RoadStep][1])<=2) {
-		this->xvec = this->Road[RoadStep][2];
-		this->yvec = this->Road[RoadStep][3];
+		if (RoadStep < this->Road.size() - 1) {
+			float distance = sqrt(pow(this->Road[RoadStep + 1][0] - this->Road[RoadStep][0], 2) + pow(this->Road[RoadStep + 1][1] - this->Road[RoadStep][1], 2));
+			this->xvec = (this->Road[RoadStep + 1][0] - this->Road[RoadStep][0]) * 1.0f / distance;
+			this->yvec = (this->Road[RoadStep + 1][1] - this->Road[RoadStep][1]) * 1.0f / distance;
+		}
 		RoadStep++;
 	}
 
@@ -110,6 +115,7 @@ void Alphaworm::update(float update_time)
 		currentSprposition.x += this->xvec * currentspeed;
 		currentSprposition.y += this->yvec * currentspeed;
 		AlphawormSprite->setPosition(Vec2(currentSprposition.x, currentSprposition.y));
+		this->spritevec = Vec2(currentSprposition.x, currentSprposition.y - 80);
 
 		AlphawormBar->setPosition(Vec2(currentSprposition.x, currentSprposition.y + 50)); //设置框的位置
 		AlphawormBlood->setPosition(Vec2(currentSprposition.x, currentSprposition.y + 50));

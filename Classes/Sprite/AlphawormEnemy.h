@@ -31,8 +31,8 @@ private:
 	std::vector<std::vector<int>> Road; //移动路径
 
 	int RoadStep; //当前运行的步数
-	int xvec; //x轴向量方向
-	int yvec; //y轴向量方向
+	float xvec; //x轴向量方向
+	float yvec; //y轴向量方向
 	float percentage;//阿尔法源石虫血量百分比
 
 	float Alphawormtimer; //计时器

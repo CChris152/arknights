@@ -44,6 +44,7 @@ public:
 	bool IsStopped; //是否被阻挡
 	int stoppedoperatornum; //被阻挡的干员编号
 	MoveType movetype; //移动方式
+	Vec2 spritevec; //精灵的地图位置
 
 private:
 	int attack; //攻击力

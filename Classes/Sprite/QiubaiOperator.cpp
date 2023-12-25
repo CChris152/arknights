@@ -124,7 +124,7 @@ void Qiubai::update(float update_time)
 			}
 			//ÅÐ¶ÏÊÇ·ñÔÚ×èµ²·¶Î§ÄÚ
 			Vec2 From = Qiubaisprite->getPosition();
-			Vec2 To = Allenemy[i]->getPosition();
+			Vec2 To = AllEnemy[i]->spritevec;
 			if (sqrt(pow(To.x - From.x, 2) + pow(To.y - (From.y-70), 2)) <= 40) {
 				AllEnemy[i]->IsStopped = 1;
 				this->setCurrentStopNum(this->getCurrentStopNum() + 1);

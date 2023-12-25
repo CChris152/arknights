@@ -2,6 +2,8 @@
 #include "Sprite/AlphawormEnemy.h"
 #include "Sprite/SeagliderEnemy.h"
 #include "Sprite/D4Enemy.h"
+#include "Sprite/DuEnemy.h"
+#include "Sprite/HugeuglyEnemy.h"
 #include "Data/AllData.h"
 
 GameLogic::GameLogic(Scene* currentscene)
@@ -89,6 +91,24 @@ void GameLogic::update(float update_time)
 					this->addChild(newenemy->D4Sprite);
 					this->addChild(newenemy->D4Bar);
 					this->addChild(newenemy->D4Blood);
+					break;
+				}
+				case 3: {
+					auto newenemy = new Du;
+					AllEnemy.push_back(newenemy);
+					Allenemy.push_back(newenemy->DuSprite);
+					this->addChild(newenemy->DuSprite);
+					this->addChild(newenemy->DuBar);
+					this->addChild(newenemy->DuBlood);
+					break;
+				}
+				case -1: {
+					auto newenemy = new Hugeugly;
+					AllEnemy.push_back(newenemy);
+					Allenemy.push_back(newenemy->HugeuglySprite);
+					this->addChild(newenemy->HugeuglySprite);
+					this->addChild(newenemy->HugeuglyBar);
+					this->addChild(newenemy->HugeuglyBlood);
 					break;
 				}
 				default:

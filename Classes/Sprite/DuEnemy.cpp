@@ -34,8 +34,8 @@ void Du::EnemyInit()
 {
 	this->setAttack(500);
 	this->setAttackSpeed(4.0f);
-	this->setmaxHP(1000);
-	this->setcurrentHP(1000);
+	this->setmaxHP(3500);
+	this->setcurrentHP(3500);
 	this->setspeed(1.0f);
 	this->setPhysicalDefense(100);
 	this->setMagicalDefense(75);
@@ -58,7 +58,9 @@ void Du::EnemyInit()
 void Du::SpriteInit()
 {
 	DuSprite = Sprite::create("pictures/Du.png");
-	DuSprite->setPosition(Vec2(this->Road[0][0], this->Road[0][1]));
+	DuSprite->setScale(0.5f, 0.5f);
+	DuSprite->setPosition(Vec2(this->Road[0][0], this->Road[0][1] + 30));
+	this->spritevec = Vec2(DuSprite->getPosition().x, DuSprite->getPosition().y - 30);
 	DuBar = Sprite::create("pictures/bar.png");   //创建进度框
 	DuBar->setPosition(Vec2(this->Road[0][0], this->Road[0][1] + 50));
 	Blood = Sprite::create("pictures/Blood.png");
@@ -78,9 +80,12 @@ void Du::update(float update_time)
 	}
 
 	auto currentSprposition = this->DuSprite->getPosition();
-	if (fabs(currentSprposition.x - this->Road[RoadStep][0]) <= 2 && fabs(currentSprposition.y - this->Road[RoadStep][1]) <= 2) {
-		this->xvec = this->Road[RoadStep][2];
-		this->yvec = this->Road[RoadStep][3];
+	if (fabs(currentSprposition.x - this->Road[RoadStep][0]) <= 2 && fabs(currentSprposition.y - 30 - this->Road[RoadStep][1]) <= 2) {
+		if (RoadStep < this->Road.size() - 1) {
+			float distance = sqrt(pow(this->Road[RoadStep + 1][0] - this->Road[RoadStep][0], 2) + pow(this->Road[RoadStep + 1][1] - this->Road[RoadStep][1], 2));
+			this->xvec = (this->Road[RoadStep + 1][0] - this->Road[RoadStep][0]) * 1.0f / distance;
+			this->yvec = (this->Road[RoadStep + 1][1] - this->Road[RoadStep][1]) * 1.0f / distance;
+		}
 		RoadStep++;
 	}
 
@@ -110,6 +115,7 @@ void Du::update(float update_time)
 		currentSprposition.x += this->xvec * currentspeed;
 		currentSprposition.y += this->yvec * currentspeed;
 		DuSprite->setPosition(Vec2(currentSprposition.x, currentSprposition.y));
+		this->spritevec = Vec2(currentSprposition.x, currentSprposition.y - 30);
 
 		DuBar->setPosition(Vec2(currentSprposition.x, currentSprposition.y + 50)); //设置框的位置
 		DuBlood->setPosition(Vec2(currentSprposition.x, currentSprposition.y + 50));

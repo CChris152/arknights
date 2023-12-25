@@ -62,10 +62,6 @@ bool LevelMap::init()
 	BaseHPlabel->setColor(Color3B::BLACK);
 	this->addChild(BaseHPlabel, 1000);
 
-	BlackDot= Sprite::create("BlackDot.png");
-	BlackDot->setPosition(Vec2(1750, 450));
-	this->addChild(BlackDot, 1000);
-
 	//²ù×Ó¿¨Æ¬
 	Shovel = Sprite::create("pictures/Shovel.png");
 	Shovel->setPosition(Vec2(origin.x + Shovel->getContentSize().width / 2 + 70, Shovel->getContentSize().height / 2 + origin.y + 25));
