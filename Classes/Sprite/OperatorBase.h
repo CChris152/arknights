@@ -27,7 +27,7 @@ public:
 	virtual void setAttackSpeed(float AttackSpeed); //设置攻速
 	virtual void setExpense(int Expense); //设置费用
 	virtual void setAttackRange(int AttackRange); //设置攻击范围
-	virtual void setNumbering(int Numbering); //设置费用
+	virtual void setNumbering(int Numbering); //设置编号
 	virtual void setVecPlace(Vec2 VecPlace); //设置数组坐标
 	virtual void setMaxStopNum(int MaxStopNum); //设置最大阻挡数
 	virtual void setCurrentStopNum(int CurrentStopNum); //设置当前阻挡数
