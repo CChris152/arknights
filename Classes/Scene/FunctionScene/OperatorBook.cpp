@@ -67,7 +67,7 @@ bool OperatorBook::init()
 	auto HongxueGuide = Sprite::create("pictures/HongxueGuide.png");
 	HongxueGuide->setPosition(HongxueGuide->getContentSize().width / 2 + start_x + 15 + cellWidth, visibleSize.height - cellHeight / 2);
 	this->addChild(HongxueGuide);
-	HongxueInfo->setPosition((cellWidth + HongxueGuide->getContentSize().width) / 2 + start_x + 15 + cellWidth, visibleSize.height - cellHeight / 2);
+	HongxueInfo->setPosition((HongxueGuide->getContentSize().width) / 2 + start_x + 15 + 2 * cellWidth, visibleSize.height - cellHeight / 2);
 	HongxueInfo->setTextColor(Color4B::BLACK);
 	this->addChild(HongxueInfo);
 
@@ -87,6 +87,13 @@ bool OperatorBook::init()
 	EyjafjallaInfo->setTextColor(Color4B::BLACK);
 	this->addChild(EyjafjallaInfo);
 
+	//Saria[2,2]
+	auto SariaGuide = Sprite::create("pictures/SariaGuide.png");
+	SariaGuide->setPosition(SariaGuide->getContentSize().width / 2 + start_x + 15+ cellWidth, visibleSize.height - cellHeight / 2 - cellHeight);
+	this->addChild(SariaGuide);
+	SariaInfo->setPosition((SariaGuide->getContentSize().width) / 2 + start_x + 15 + 2 * cellWidth, visibleSize.height - cellHeight / 2 - cellHeight);
+	EyjafjallaInfo->setTextColor(Color4B::BLACK);
+	this->addChild(SariaInfo);
 
 	return true;
 }
@@ -102,6 +109,7 @@ void OperatorBook::colOperatorInfo() {
 	HongxueInfo = Label::createWithTTF("", "fonts/arial.ttf", 36);
 	QiubaiInfo = Label::createWithTTF("", "fonts/arial.ttf", 36);
 	EyjafjallaInfo = Label::createWithTTF("", "fonts/arial.ttf", 36);
+	SariaInfo = Label::createWithTTF("", "fonts/arial.ttf", 36);
 
 	ExusiaiInfo->setString(R"(
     Name    : Exusiai
@@ -142,5 +150,15 @@ MaxStopNum  : 2)");
 AttackSpeed : 4
 AttackRange : 500
 MaxStopNum  : 1)");
+
+	SariaInfo->setString(R"(
+    Name    : Saria
+   Expense  : 25
+    MaxHP   : 1500
+ AttackType : magical
+   Attack   : 0
+AttackSpeed : 2
+AttackRange : 0
+MaxStopNum  : 3)");
 
 }

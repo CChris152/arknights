@@ -115,7 +115,7 @@ void Alphaworm::update(float update_time)
 		currentSprposition.x += this->xvec * currentspeed;
 		currentSprposition.y += this->yvec * currentspeed;
 		AlphawormSprite->setPosition(Vec2(currentSprposition.x, currentSprposition.y));
-		this->spritevec = Vec2(currentSprposition.x, currentSprposition.y - 80);
+		this->spritevec = Vec2(currentSprposition.x, currentSprposition.y);
 
 		AlphawormBar->setPosition(Vec2(currentSprposition.x, currentSprposition.y + 50)); //ÉèÖÃ¿òµÄÎ»ÖÃ
 		AlphawormBlood->setPosition(Vec2(currentSprposition.x, currentSprposition.y + 50));

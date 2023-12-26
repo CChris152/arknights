@@ -5,6 +5,7 @@
 #include "Sprite/Operator/HongxueOperator.h"
 #include "Sprite/Operator/QiubaiOperator.h"
 #include "Sprite/Operator/EyjafjallaOperator.h"
+#include "Sprite/Operator/SariaOperator.h"
 #include "Sprite/Card/Card.h"
 #include "editor-support\cocostudio\SimpleAudioEngine.h"
 #include <vector>
@@ -105,6 +106,14 @@ bool LevelMap::init()
 		case 3:
 		{
 			Card* newcard = new Card("Eyjafjalla", 23);
+			newcard->CardSprite->setPosition(Vec2(origin.x + visibleSize.width - 300 - (2 * i + 1) * newcard->CardSprite->getContentSize().width / 2, origin.y + newcard->CardSprite->getContentSize().height / 2));
+			this->addChild(newcard->CardSprite, 1000);
+			Cards.push_back(newcard);
+			break;
+		}
+		case 4:
+		{
+			Card* newcard = new Card("Saria", 25);
 			newcard->CardSprite->setPosition(Vec2(origin.x + visibleSize.width - 300 - (2 * i + 1) * newcard->CardSprite->getContentSize().width / 2, origin.y + newcard->CardSprite->getContentSize().height / 2));
 			this->addChild(newcard->CardSprite, 1000);
 			Cards.push_back(newcard);
@@ -415,6 +424,45 @@ bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 							AllOperator.push_back(newoperator);
 							Alloperator.push_back(newoperator->Eyjafjallasprite);
 							this->addChild(newoperator->Eyjafjallasprite, 1000 - newoperator->Eyjafjallasprite->getPosition().y / 2);
+							expenses -= Cards[place]->getCardExpense();
+							currentLevelvec[i][j] += 10;
+							Cards[place]->IsCD = 1;
+							Cards[place]->BlackCDTimer->setPercentage(100.0f);
+							out = 1;
+							break;
+						}
+					}
+				}
+				if (out) {
+					break;
+				}
+			}
+			break;
+		case 4:
+			for (int i = 0; i < currentLevelvec.size(); i++) {
+				for (int j = 0; j < currentLevelvec[0].size(); j++) {
+					if (currentLevelvec[i][j] == 0) {
+						Vec2 currentposition;
+						switch (CurrentLevel)
+						{
+						case 1:
+							currentposition = Level1MapTransform(i, j);
+							break;
+						case 2:
+							currentposition = Level2MapTransform(i, j);
+							break;
+						case 3:
+							currentposition = Level3MapTransform(i, j);
+							break;
+						default:
+							break;
+						}
+						if (sqrt(pow(touchposition.x - currentposition.x, 2) + pow(touchposition.y - currentposition.y, 2)) < 70) {
+							auto newoperator = new Saria(AllOperator.size(), Vec2(i, j));
+							newoperator->Sariasprite->setPosition(Vec2(currentposition.x, currentposition.y + 70));
+							AllOperator.push_back(newoperator);
+							Alloperator.push_back(newoperator->Sariasprite);
+							this->addChild(newoperator->Sariasprite, 1000 - newoperator->Sariasprite->getPosition().y / 2);
 							expenses -= Cards[place]->getCardExpense();
 							currentLevelvec[i][j] += 10;
 							Cards[place]->IsCD = 1;

@@ -85,6 +85,23 @@ bool EnemyBook::init()
 	D4Info->setTextColor(Color4B::BLACK);
 	this->addChild(D4Info);
 
+	//Du[2,1]
+	auto DuGuide = Sprite::create("pictures/Du.png");
+	DuGuide->setScale(customWidth / DuGuide->getContentSize().width, customHeight / DuGuide->getContentSize().height);
+	DuGuide->setPosition(DuGuide->getContentSize().width / 2 + start_x + 30 - 50, visibleSize.height - cellHeight / 2 - cellHeight);
+	this->addChild(DuGuide);
+	DuInfo->setPosition((cellWidth + DuGuide->getContentSize().width) / 2 + start_x + 15 - 50, visibleSize.height - cellHeight / 2 - cellHeight);
+	DuInfo->setTextColor(Color4B::BLACK);
+	this->addChild(DuInfo);
+	
+	//Hugeugly[2,2]
+	auto HugeuglyGuide = Sprite::create("pictures/Hugeugly.png");
+	HugeuglyGuide->setScale(customWidth / HugeuglyGuide->getContentSize().width, customHeight / DuGuide->getContentSize().height);
+	HugeuglyGuide->setPosition(HugeuglyGuide->getContentSize().width / 2 + start_x + 30  + cellWidth - 120, visibleSize.height - cellHeight / 2 - cellHeight);
+	this->addChild(HugeuglyGuide);
+	HugeuglyInfo->setPosition((cellWidth + DuGuide->getContentSize().width) / 2 + start_x + 15 + cellWidth - 60, visibleSize.height - cellHeight / 2 - cellHeight);
+	HugeuglyInfo->setTextColor(Color4B::BLACK);
+	this->addChild(HugeuglyInfo);
 	return true;
 }
 
@@ -98,6 +115,8 @@ void EnemyBook::colEnemyInfo() {
 	AlphawormInfo = Label::createWithTTF("", "fonts/arial.ttf", 36);
 	SeagliderInfo = Label::createWithTTF("", "fonts/arial.ttf", 36);
 	D4Info = Label::createWithTTF("", "fonts/arial.ttf", 36);
+	DuInfo = Label::createWithTTF("", "fonts/arial.ttf", 36);
+	HugeuglyInfo = Label::createWithTTF("", "fonts/arial.ttf", 36);
 
 	AlphawormInfo->setString(R"(
       Name      : Alphaworm
@@ -125,6 +144,24 @@ PhysicalDefense : 200
   AttackSpeed   : 10.0
 PhysicalDefense : 300
  MagicalDefense : 5)");
+
+	DuInfo->setString(R"(
+      Name      : Du
+      MaxHP     : 3500
+      Speed     : 1.0
+     Attack     : 500
+  AttackSpeed   : 4.0
+PhysicalDefense : 100
+ MagicalDefense : 75)");
+
+	HugeuglyInfo->setString(R"(
+      Name      : Hugeugly
+      MaxHP     : 20000
+      Speed     : 0.2
+     Attack     : 1000
+  AttackSpeed   : 5.0
+PhysicalDefense : 200
+ MagicalDefense : 40)");
 
 
 }
