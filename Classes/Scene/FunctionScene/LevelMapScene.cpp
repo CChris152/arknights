@@ -197,7 +197,8 @@ void LevelMap::update(float update_time)
 		BackCall();
 	}
 	if (gamelogic->victoryorfail == 1) {
-		FinishLevelNum = std::max(FinishLevelNum, 1);
+		FinishLevelNum = std::max(FinishLevelNum, CurrentLevel);
+		UserDefault::getInstance()->setIntegerForKey("FinishLevelNum", FinishLevelNum);
 		BackCall();
 	}
 
@@ -448,6 +449,7 @@ void LevelMap::BackCall()
 	//如果胜利将加合成玉
 	if (this->gamelogic->victoryorfail == 1) {
 		Jade += CurrentLevel * 10;
+		UserDefault::getInstance()->setIntegerForKey("Jade", Jade);
 	}
 
 	//将场上的精灵全部关停

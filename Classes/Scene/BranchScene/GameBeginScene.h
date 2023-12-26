@@ -14,6 +14,8 @@ public:
     void menuContinueGameCallback(cocos2d::Ref* pSender);
     void menuCloseCallback(cocos2d::Ref* pSender);
 
+    void datainit();
+
     CREATE_FUNC(GameBegin);
 };
 

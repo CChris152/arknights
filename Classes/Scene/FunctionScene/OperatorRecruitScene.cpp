@@ -90,6 +90,7 @@ void OperatorRecruit::menuRecruitCallback(cocos2d::Ref* pSender)
 {
 	if (Jade >= onetryjade) {
 		Jade -= onetryjade;
+		UserDefault::getInstance()->setIntegerForKey("Jade", Jade);
 		JadeNum->setString(std::to_string(Jade));
 		Recruit();
 	}
@@ -117,10 +118,22 @@ void OperatorRecruit::Recruit()
 			}
 			it++;
 		}
+		//存档中干员刷新
+		std::string cardsnum = "";
+		std::string lackcards = "";
+		for (int i = 0; i < CardsNum.size(); i++) {
+			cardsnum += static_cast<char>(CardsNum[i] + 48);
+		}
+		for (int i = 0; i < LackCards.size(); i++) {
+			lackcards += static_cast<char>(LackCards[i] + 48);
+		}
+		UserDefault::getInstance()->setStringForKey("cardsnum", cardsnum);
+		UserDefault::getInstance()->setStringForKey("lackcards", lackcards);
 	}
 	else {
 		int randomJade = rand() % 31 + 10;
 		Jade += randomJade;
+		UserDefault::getInstance()->setIntegerForKey("Jade", Jade);
 		JadeNum->setString(std::to_string(Jade));
 		prompt->setColor(Color3B::BLACK);
 		prompt->setString("You get " + std::to_string(randomJade) + " Jade");
