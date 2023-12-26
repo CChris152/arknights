@@ -1,7 +1,7 @@
 #include "HongxueOperator.h"
-#include "ArrowSprite.h"
+#include "Sprite/AttackEffect/ArrowSprite.h"
 #include "Data/AllData.h"
-#include "Scene/LevelMapScene.h"
+#include "Scene/FunctionScene/LevelMapScene.h"
 #include "editor-support\cocostudio\SimpleAudioEngine.h"
 #include <cmath>
 

@@ -1,7 +1,7 @@
 #include "SelectBookScene.h"
 #include "GameplayMenu.h"
-#include "OperatorBook.h"
-#include "EnemyBook.h"
+#include "Scene/FunctionScene/OperatorBook.h"
+#include "Scene/FunctionScene/EnemyBook.h"
 #include "editor-support\cocostudio\SimpleAudioEngine.h"
 
 USING_NS_CC;

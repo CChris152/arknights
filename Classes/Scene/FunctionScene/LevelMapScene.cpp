@@ -1,11 +1,11 @@
 #include "LevelMapScene.h"
 #include "Data/AllData.h"
-#include "LevelSelectScene.h"
-#include "Sprite/ExusiaiOperator.h"
-#include "Sprite/HongxueOperator.h"
-#include "Sprite/QiubaiOperator.h"
-#include "Sprite/EyjafjallaOperator.h"
-#include "Sprite/Card.h"
+#include "Scene/BranchScene/LevelSelectScene.h"
+#include "Sprite/Operator/ExusiaiOperator.h"
+#include "Sprite/Operator/HongxueOperator.h"
+#include "Sprite/Operator/QiubaiOperator.h"
+#include "Sprite/Operator/EyjafjallaOperator.h"
+#include "Sprite/Card/Card.h"
 #include "editor-support\cocostudio\SimpleAudioEngine.h"
 #include <vector>
 #include <cmath>

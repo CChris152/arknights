@@ -1,5 +1,5 @@
 #include "OperatorBook.h"
-#include "SelectBookScene.h"
+#include "Scene/BranchScene/SelectBookScene.h"
 #include "editor-support\cocostudio\SimpleAudioEngine.h"
 
 bool OperatorBook::init()

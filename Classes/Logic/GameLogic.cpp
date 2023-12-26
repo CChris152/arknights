@@ -1,9 +1,9 @@
 #include "GameLogic.h"
-#include "Sprite/AlphawormEnemy.h"
-#include "Sprite/SeagliderEnemy.h"
-#include "Sprite/D4Enemy.h"
-#include "Sprite/DuEnemy.h"
-#include "Sprite/HugeuglyEnemy.h"
+#include "Sprite/Enemy/AlphawormEnemy.h"
+#include "Sprite/Enemy/SeagliderEnemy.h"
+#include "Sprite/Enemy/D4Enemy.h"
+#include "Sprite/Enemy/DuEnemy.h"
+#include "Sprite/Enemy/HugeuglyEnemy.h"
 #include "Data/AllData.h"
 
 GameLogic::GameLogic(Scene* currentscene)
@@ -46,7 +46,7 @@ void GameLogic::setEnemyWave(std::vector<std::vector<int>> EnemyWave)
 void GameLogic::update(float update_time)
 {
 	//≈–∂œ §∏∫
-	if (BaseHP == 0) {
+	if (BaseHP <= 0) {
 		victoryorfail = -1;
 	}
 	else {

@@ -4,9 +4,9 @@
 #define __AllData_H__
 
 #include "cocos2d.h"
-#include "Sprite/EnemyBase.h"
-#include "Sprite/OperatorBase.h"
-#include "Sprite/Card.h"
+#include "Sprite/Enemy/EnemyBase.h"
+#include "Sprite/Operator/OperatorBase.h"
+#include "Sprite/Card/Card.h"
 #include <vector>
 
 USING_NS_CC;

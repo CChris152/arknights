@@ -1,7 +1,7 @@
 #include "EyjafjallaOperator.h"
-#include "MagicballSprite.h"
+#include "Sprite/AttackEffect/MagicballSprite.h"
 #include "Data/AllData.h"
-#include "Scene/LevelMapScene.h"
+#include "Scene/FunctionScene/LevelMapScene.h"
 #include "editor-support\cocostudio\SimpleAudioEngine.h"
 #include <cmath>
 

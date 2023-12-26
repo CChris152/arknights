@@ -1,27 +1,29 @@
 #include "GameplayMenu.h"
 #include "LevelSelectScene.h"
-#include "OperatorRecruitScene.h"
+#include "Scene/FunctionScene/OperatorRecruitScene.h"
 #include "SelectBookScene.h"
 #include "Data/AllData.h"
 #include "editor-support\cocostudio\SimpleAudioEngine.h"
 
 USING_NS_CC;
 
-std::vector<std::string> buttonLabels = { "Level Selection",
-										  "Operator Recruitment",
-										  "Collection Book",
-										  "Gameplay Introduction" };
+const std::vector<std::string> buttonLabels = { "Level Selection",
+										        "Operator Recruitment",
+										        "Game Book",
+										        "Game Introduction",
+	                                            "Game Over"};
+
+// 设置字体大小
+const int fontSize = 72;
+
+// 设置按钮间的垂直间距
+const int verticalSpacing = 150;
 
 //文字按钮
 void GameplayMenu::TextButtonCreat() 
 {
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-	// 设置字体大小
-	int fontSize = 72;
-	// 设置按钮间的垂直间距
-	int verticalSpacing = 200;
 
 	// 逐个创建按钮
 	for (int i = 0; i < buttonLabels.size(); ++i) {
@@ -41,6 +43,9 @@ void GameplayMenu::TextButtonCreat()
 				break;
 			case 3:
 				menuToGameplayIntroduction(sender);
+				break;
+			case 4:
+				menuCloseCallback(sender);
 				break;
 			default:
 				break;
@@ -65,12 +70,6 @@ bool GameplayMenu::init() {
 	auto Gameplay_menu = Sprite::create("pictures/GameplayMenu.png");
 	Gameplay_menu->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(Gameplay_menu, 0);
-	//程序退出图标
-	auto closeItem = MenuItemImage::create("CloseNormal.png", "CloseSelected.png", CC_CALLBACK_1(GameplayMenu::menuCloseCallback, this));
-	closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width / 2, origin.y + closeItem->getContentSize().height / 2));
-	auto closemenu = Menu::create(closeItem, NULL);
-	closemenu->setPosition(Vec2::ZERO);
-	this->addChild(closemenu, 0);
 
 	//合成玉计数器
 	auto JadeCount = Sprite::create("pictures/JadeCount.png");

@@ -1,7 +1,7 @@
 #include "ExusiaiOperator.h"
-#include "BulletSprite.h"
+#include "Sprite/AttackEffect/BulletSprite.h"
 #include "Data/AllData.h"
-#include "Scene/LevelMapScene.h"
+#include "Scene/FunctionScene/LevelMapScene.h"
 #include "editor-support\cocostudio\SimpleAudioEngine.h"
 #include <cmath>
 
