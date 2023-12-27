@@ -16,10 +16,13 @@ extern int Jade; //所持有的合成玉数量
 extern int FinishLevelNum; //已完成的关卡数量
 extern int CurrentLevel; //当前执行的关卡
 
+extern int MaxBaseHP; //最大基地血量
+
 extern int expenses; //费用
 extern int BaseHP; //基地血量
 extern int allenemynum; //敌人总数
 extern int killednum; //消灭敌人数量
+extern int victoryorfail; //胜利或失败（-1为失败，0为关卡中，1为胜利）
 
 extern std::vector<int> CardsNum; //干员卡片编号
 extern std::vector<int> LackCards; //缺少的干员卡片编号
@@ -44,6 +47,7 @@ extern std::vector<std::vector<int>> Level2EnemyWave; //第二关出现的敌人波次
 extern std::vector<std::vector<int>> Level3vec; //第三关的地图数组
 extern std::vector<std::vector<int>> Level3Road; //第三关的敌人行动路径
 extern std::vector<std::vector<int>> Level3Fly; //第三关的飞行敌人路径
+extern std::vector<std::vector<int>> Level3Boss; //第三关的Boss敌人路径
 extern std::vector<std::vector<int>> Level3EnemyWave; //第三关出现的敌人波次
 
 extern std::vector<std::vector<int>> AllBaseVec; //所用关卡基地的坐标

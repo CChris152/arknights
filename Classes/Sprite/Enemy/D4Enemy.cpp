@@ -31,10 +31,10 @@ void D4::EnemyInit()
 {
 	this->setAttack(0);
 	this->setAttackSpeed(10.0f);
-	this->setmaxHP(1800);
-	this->setcurrentHP(1800);
+	this->setmaxHP(1400);
+	this->setcurrentHP(1400);
 	this->setspeed(1.0f);
-	this->setPhysicalDefense(300);
+	this->setPhysicalDefense(200);
 	this->setMagicalDefense(5);
 
 	this->RoadStep = 0;

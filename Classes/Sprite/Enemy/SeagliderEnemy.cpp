@@ -125,8 +125,8 @@ void Seaglider::update(float update_time)
 	}
 
 	//血条变化
-	SeagliderBlood->setType(ProgressTimer::Type::BAR);        //类型：条状
-	SeagliderBlood->setMidpoint(Vec2(0, 0.5));    //从右到左减少血量
+	SeagliderBlood->setType(ProgressTimer::Type::BAR); //类型：条状
+	SeagliderBlood->setMidpoint(Vec2(0, 0.5)); //从右到左减少血量
 	SeagliderBlood->setBarChangeRate(Vec2(1, 0));
 	SeagliderBlood->setPercentage(100 * percentage);
 

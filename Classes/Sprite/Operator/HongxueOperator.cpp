@@ -21,7 +21,7 @@ void Hongxue::OperatorInit()
 {
 	this->setMaxHP(1200);
 	this->setCurrentHP(1200);
-	this->setAttack(700);
+	this->setAttack(1500);
 	this->setAttackSpeed(3);
 	this->setExpense(18);
 	this->setAttackRange(500);

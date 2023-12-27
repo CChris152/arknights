@@ -63,15 +63,15 @@ bool OperatorBook::init()
 	ExusiaiInfo->setTextColor(Color4B::BLACK);
 	this->addChild(ExusiaiInfo);
 
-	//ºìÑ©[1,2]
+	//ºèÑ©[1,2]
 	auto HongxueGuide = Sprite::create("pictures/HongxueGuide.png");
 	HongxueGuide->setPosition(HongxueGuide->getContentSize().width / 2 + start_x + 15 + cellWidth, visibleSize.height - cellHeight / 2);
 	this->addChild(HongxueGuide);
-	HongxueInfo->setPosition((HongxueGuide->getContentSize().width) / 2 + start_x + 15 + 2 * cellWidth, visibleSize.height - cellHeight / 2);
+	HongxueInfo->setPosition((cellWidth + HongxueGuide->getContentSize().width) / 2 + start_x + 15 + 1 * cellWidth, visibleSize.height - cellHeight / 2);
 	HongxueInfo->setTextColor(Color4B::BLACK);
 	this->addChild(HongxueInfo);
 
-	//Qiubai[1,3]
+	//³ð°×[1,3]
 	auto QiubaiGuide = Sprite::create("pictures/QiubaiGuide.png");
 	QiubaiGuide->setPosition(QiubaiGuide->getContentSize().width / 2 + start_x + 15 + 2 * cellWidth, visibleSize.height - cellHeight / 2);
 	this->addChild(QiubaiGuide);
@@ -79,7 +79,7 @@ bool OperatorBook::init()
 	QiubaiInfo->setTextColor(Color4B::BLACK);
 	this->addChild(QiubaiInfo);
 
-	//Eyjafjalla[2,1]
+	//°¬ÑÅ·¨À­[2,1]
 	auto EyjafjallaGuide = Sprite::create("pictures/EyjafjallaGuide.png");
 	EyjafjallaGuide->setPosition(EyjafjallaGuide->getContentSize().width / 2 + start_x + 15, visibleSize.height - cellHeight / 2 - cellHeight);
 	this->addChild(EyjafjallaGuide);
@@ -87,12 +87,12 @@ bool OperatorBook::init()
 	EyjafjallaInfo->setTextColor(Color4B::BLACK);
 	this->addChild(EyjafjallaInfo);
 
-	//Saria[2,2]
+	//ÈûÀ×æ«[2,2]
 	auto SariaGuide = Sprite::create("pictures/SariaGuide.png");
 	SariaGuide->setPosition(SariaGuide->getContentSize().width / 2 + start_x + 15+ cellWidth, visibleSize.height - cellHeight / 2 - cellHeight);
 	this->addChild(SariaGuide);
-	SariaInfo->setPosition((SariaGuide->getContentSize().width) / 2 + start_x + 15 + 2 * cellWidth, visibleSize.height - cellHeight / 2 - cellHeight);
-	EyjafjallaInfo->setTextColor(Color4B::BLACK);
+	SariaInfo->setPosition((cellWidth + SariaGuide->getContentSize().width) / 2 + start_x + 15 + 1 * cellWidth, visibleSize.height - cellHeight / 2 - cellHeight);
+	SariaInfo->setTextColor(Color4B::BLACK);
 	this->addChild(SariaInfo);
 
 	return true;
@@ -117,7 +117,7 @@ void OperatorBook::colOperatorInfo() {
     MaxHP   : 1200
  AttackType : physical
    Attack   : 300
-AttackSpeed : 1
+AttackSpeed : 0.8
 AttackRange : 700
 MaxStopNum  : 1)");
 
@@ -126,18 +126,18 @@ MaxStopNum  : 1)");
    Expense  : 18
     MaxHP   : 1200
  AttackType : physical
-   Attack   : 700
+   Attack   : 1500
 AttackSpeed : 3
 AttackRange : 500
 MaxStopNum  : 1)");
 
 	QiubaiInfo->setString(R"(
     Name    : Qiubai
-   Expense  : 15
+   Expense  : 18
     MaxHP   : 1500
  AttackType : physical
-   Attack   : 300
-AttackSpeed : 3
+   Attack   : 600
+AttackSpeed : 2
 AttackRange : 200
 MaxStopNum  : 2)");
 
@@ -154,10 +154,10 @@ MaxStopNum  : 1)");
 	SariaInfo->setString(R"(
     Name    : Saria
    Expense  : 25
-    MaxHP   : 1500
- AttackType : magical
-   Attack   : 0
-AttackSpeed : 2
+    MaxHP   : 3000
+ AttackType : physical
+   Attack   : 350
+AttackSpeed : 5
 AttackRange : 0
 MaxStopNum  : 3)");
 

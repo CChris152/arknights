@@ -119,8 +119,8 @@ void OperatorRecruit::Recruit()
 			it++;
 		}
 		//存档中干员刷新
-		std::string cardsnum = "";
-		std::string lackcards = "";
+		std::string cardsnum = "s";
+		std::string lackcards = "s";
 		for (int i = 0; i < CardsNum.size(); i++) {
 			cardsnum += static_cast<char>(CardsNum[i] + 48);
 		}

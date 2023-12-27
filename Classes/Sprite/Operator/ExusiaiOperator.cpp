@@ -22,7 +22,7 @@ void Exusiai::OperatorInit()
 	this->setMaxHP(1200);
 	this->setCurrentHP(1200);
 	this->setAttack(300);
-	this->setAttackSpeed(1);
+	this->setAttackSpeed(0.8f);
 	this->setExpense(12);
 	this->setAttackRange(700);
 	this->setAttackType(physical);

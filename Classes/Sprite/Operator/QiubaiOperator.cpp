@@ -23,9 +23,9 @@ void Qiubai::OperatorInit()
 {
 	this->setMaxHP(1500);
 	this->setCurrentHP(1500);
-	this->setAttack(300);
-	this->setAttackSpeed(3);
-	this->setExpense(15);
+	this->setAttack(600);
+	this->setAttackSpeed(2);
+	this->setExpense(18);
 	this->setAttackRange(200);
 	this->setAttackType(physical);
 	this->setMaxStopNum(2);

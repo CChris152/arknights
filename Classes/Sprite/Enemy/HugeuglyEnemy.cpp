@@ -11,14 +11,8 @@ Hugeugly::Hugeugly()
 	//设置路径
 	switch (CurrentLevel)
 	{
-	case 1:
-		this->setRoad(Level1Road);
-		break;
-	case 2:
-		this->setRoad(Level2Road);
-		break;
 	case 3:
-		this->setRoad(Level3Road);
+		this->setRoad(Level3Boss);
 		break;
 	default:
 		break;
@@ -32,13 +26,13 @@ Hugeugly::Hugeugly()
 
 void Hugeugly::EnemyInit()
 {
-	this->setAttack(1000);
+	this->setAttack(1200);
 	this->setAttackSpeed(5.0f);
-	this->setmaxHP(20000);
-	this->setcurrentHP(20000);
-	this->setspeed(0.2f);
-	this->setPhysicalDefense(200);
-	this->setMagicalDefense(40);
+	this->setmaxHP(100000);
+	this->setcurrentHP(100000);
+	this->setspeed(0.4f);
+	this->setPhysicalDefense(400);
+	this->setMagicalDefense(60);
 
 	this->RoadStep = 0;
 	this->xvec = 0;
@@ -93,7 +87,7 @@ void Hugeugly::update(float update_time)
 	//到达终点后消除
 	if (RoadStep == this->Road.size()) {
 		IsDead = 1;
-		BaseHP--;
+		BaseHP -= 5; //Boss扣5血
 		killednum++;
 	}
 

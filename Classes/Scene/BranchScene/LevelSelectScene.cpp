@@ -79,17 +79,7 @@ bool LevelSelect::init()
     this->addChild(backmenu, 1);
 
     //通过不同的关数来添加不同的关卡
-    switch (FinishLevelNum) { 
-    case 0:
-        LevelCreate(0);
-        break;
-    case 1:
-        LevelCreate(1);
-        break;
-    case 2:
-        LevelCreate(2);
-        break;
-    }
+    LevelCreate(FinishLevelNum);
 
     //合成玉计数器
     auto JadeCount = Sprite::create("pictures/JadeCount.png");

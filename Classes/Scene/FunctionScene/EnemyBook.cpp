@@ -138,11 +138,11 @@ PhysicalDefense : 200
 
 	D4Info->setString(R"(
       Name      : D4
-      MaxHP     : 1800
+      MaxHP     : 1400
       Speed     : 1.0
      Attack     : 0
   AttackSpeed   : 10.0
-PhysicalDefense : 300
+PhysicalDefense : 200
  MagicalDefense : 5)");
 
 	DuInfo->setString(R"(
@@ -156,12 +156,12 @@ PhysicalDefense : 100
 
 	HugeuglyInfo->setString(R"(
       Name      : Hugeugly
-      MaxHP     : 20000
-      Speed     : 0.2
-     Attack     : 1000
+      MaxHP     : 100000
+      Speed     : 0.4
+     Attack     : 1200
   AttackSpeed   : 5.0
-PhysicalDefense : 200
- MagicalDefense : 40)");
+PhysicalDefense : 400
+ MagicalDefense : 60)");
 
 
 }

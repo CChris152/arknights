@@ -1,6 +1,7 @@
 #include "LevelMapScene.h"
 #include "Data/AllData.h"
 #include "Scene/BranchScene/LevelSelectScene.h"
+#include "Scene/BranchScene/LevelResultScene.h"
 #include "Sprite/Operator/ExusiaiOperator.h"
 #include "Sprite/Operator/HongxueOperator.h"
 #include "Sprite/Operator/QiubaiOperator.h"
@@ -12,8 +13,7 @@
 #include <cmath>
 #include <algorithm>
 
-const std::vector<int> LevelBaseHP = { 3,3,3};
-const std::vector<int> Levelallenemynum = { 11,14,20 };
+const std::vector<int> Levelallenemynum = { 11,14,30 };
 
 bool LevelMap::init()
 {
@@ -97,7 +97,7 @@ bool LevelMap::init()
 		}
 		case 2:
 		{
-			Card* newcard = new Card("Qiubai", 15);
+			Card* newcard = new Card("Qiubai", 18);
 			newcard->CardSprite->setPosition(Vec2(origin.x + visibleSize.width - 300 - (2 * i + 1) * newcard->CardSprite->getContentSize().width / 2, origin.y + newcard->CardSprite->getContentSize().height / 2));
 			this->addChild(newcard->CardSprite, 1000);
 			Cards.push_back(newcard);
@@ -140,7 +140,7 @@ bool LevelMap::init()
 void LevelMap::init_data()
 {
 	expenses = 50;
-	BaseHP = LevelBaseHP[CurrentLevel - 1];
+	BaseHP = MaxBaseHP;
 	allenemynum = Levelallenemynum[CurrentLevel - 1];
 	killednum = 0;
 
@@ -202,10 +202,10 @@ void LevelMap::update(float update_time)
 	BaseHPlabel->setString(std::to_string(BaseHP));
 
 	//判断是否结束
-	if (gamelogic->victoryorfail == -1) {
+	if (victoryorfail == -1) {
 		BackCall();
 	}
-	if (gamelogic->victoryorfail == 1) {
+	if (victoryorfail == 1) {
 		FinishLevelNum = std::max(FinishLevelNum, CurrentLevel);
 		UserDefault::getInstance()->setIntegerForKey("FinishLevelNum", FinishLevelNum);
 		BackCall();
@@ -495,7 +495,7 @@ bool LevelMap::onTouchBegan(Touch* touch, Event* unused_event)
 void LevelMap::BackCall()
 {
 	//如果胜利将加合成玉
-	if (this->gamelogic->victoryorfail == 1) {
+	if (victoryorfail == 1) {
 		Jade += CurrentLevel * 10;
 		UserDefault::getInstance()->setIntegerForKey("Jade", Jade);
 	}
@@ -550,14 +550,20 @@ void LevelMap::BackCall()
 	this->unscheduleUpdate();
 	this->removeAllChildren();
 
-	//关停音乐
-	CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-
 	//关掉暂停
 	Director::getInstance()->resume();
 
-	//返回关卡选择页面
-	Director::getInstance()->replaceScene(LevelSelect::create());
+	//结果提示
+	if (victoryorfail != 0) {
+		Director::getInstance()->replaceScene(LevelResult::create());
+	}
+	else {
+		//关停音乐
+		CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+
+		//返回关卡选择页面
+		Director::getInstance()->replaceScene(LevelSelect::create());
+	}
 }
 
 void LevelMap::menuBackCallback(cocos2d::Ref* pSender)

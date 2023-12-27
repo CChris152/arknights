@@ -21,10 +21,10 @@ Saria::Saria(int Numbering, Vec2 VecPlace)
 
 void Saria::OperatorInit()
 {
-	this->setMaxHP(1500);
-	this->setCurrentHP(1500);
-	this->setAttack(0);
-	this->setAttackSpeed(2);
+	this->setMaxHP(3000);
+	this->setCurrentHP(3000);
+	this->setAttack(350);
+	this->setAttackSpeed(5);
 	this->setExpense(25);
 	this->setAttackRange(0);
 	this->setAttackType(physical);
@@ -71,16 +71,8 @@ void Saria::update(float update_time)
 	else {
 		Sariatimer = 0;//重置
 
-		int maxHP = this->getMaxHP();
-		int currentHP = this->getCurrentHP();
-		int healAmount = 50; // 每秒回复的生命值
+		this->setCurrentHP(std::min(this->getCurrentHP() + this->getAttack(), this->getMaxHP()));
 
-		if (currentHP + healAmount <= maxHP) {
-			this->setCurrentHP(currentHP + healAmount);
-		}
-		else {
-			this->setCurrentHP(maxHP);
-		}
 		// 更新血条百分比
 		this->Sariapercentage = (float)this->getCurrentHP() / (float)this->getMaxHP();
 		SariaBlood->setPercentage(100 * Sariapercentage);

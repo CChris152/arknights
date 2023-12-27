@@ -28,7 +28,7 @@ GameLogic::GameLogic(Scene* currentscene)
 	this->gametimer1 = 0;
 	this->gametimer2 = 0;
 	this->scece = currentscene;
-	this->victoryorfail = 0;
+	victoryorfail = 0;
 	this->scheduleUpdate();
 }
 
