@@ -72,10 +72,12 @@ bool GameBegin::init()
 void GameBegin::datainit()
 {
     //存档数据载入
-    Jade = UserDefault::getInstance()->getIntegerForKey("Jade", 1000);
+    Jade = UserDefault::getInstance()->getIntegerForKey("Jade", 100);
     FinishLevelNum = UserDefault::getInstance()->getIntegerForKey("FinishLevelNum", 0);
+    MaxBaseHP = UserDefault::getInstance()->getIntegerForKey("MaxBaseHP", 3);
     std::string cardsnum = UserDefault::getInstance()->getStringForKey("cardsnum", "s0");
     std::string lackcards = UserDefault::getInstance()->getStringForKey("lackcards", "s1234");
+    GoodsSellout = UserDefault::getInstance()->getStringForKey("GoodsSellout", "00");
     for (int i = 1; i < cardsnum.size(); i++) {
         CardsNum.push_back(static_cast<int> (cardsnum[i] - 48));
     }
@@ -86,11 +88,13 @@ void GameBegin::datainit()
 
 void GameBegin::menuNewGameCallback(cocos2d::Ref* pSender)
 {
-    //New Game数据初始化
-    UserDefault::getInstance()->setIntegerForKey("Jade", 1000);
+    //数据初始化
+    UserDefault::getInstance()->setIntegerForKey("Jade", 100);
     UserDefault::getInstance()->setIntegerForKey("FinishLevelNum", 0);
+    UserDefault::getInstance()->setIntegerForKey("MaxBaseHP", 3);
     UserDefault::getInstance()->setStringForKey("cardsnum", "s0");
     UserDefault::getInstance()->setStringForKey("lackcards", "s1234");
+    UserDefault::getInstance()->setStringForKey("GoodsSellout", "00");
     datainit();
     Director::getInstance()->replaceScene(GameplayMenu::create());
 }

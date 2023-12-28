@@ -2,6 +2,7 @@
 #include "LevelSelectScene.h"
 #include "Scene/FunctionScene/OperatorRecruitScene.h"
 #include "SelectBookScene.h"
+#include "Scene/FunctionScene/StoreScene.h"
 #include "Data/AllData.h"
 #include "editor-support\cocostudio\SimpleAudioEngine.h"
 
@@ -10,6 +11,7 @@ USING_NS_CC;
 const std::vector<std::string> buttonLabels = { "Level Selection",
 										        "Operator Recruitment",
 										        "Game Book",
+	                                            "Closure's Store",
 										        "Game Introduction",
 	                                            "Game Over"};
 
@@ -39,12 +41,15 @@ void GameplayMenu::TextButtonCreat()
 				menuToOperatorRecruitment(sender);
 				break;
 			case 2:
-				menuToCOllectionBook(sender);
+				menuToCollectionBook(sender);
 				break;
 			case 3:
-				menuToGameplayIntroduction(sender);
+				menuToStore(sender);
 				break;
 			case 4:
+				menuToGameplayIntroduction(sender);
+				break;
+			case 5:
 				menuCloseCallback(sender);
 				break;
 			default:
@@ -52,7 +57,7 @@ void GameplayMenu::TextButtonCreat()
 			}
 		});
 		auto menu = Menu::create(menuItem, nullptr);
-		menu->setPosition(Vec2(origin.x + 400, visibleSize.height - (i + 1) * verticalSpacing));
+		menu->setPosition(Vec2(origin.x + 600, visibleSize.height - (i + 1) * verticalSpacing));
 		this->addChild(menu);
 	}
 }
@@ -103,10 +108,17 @@ void GameplayMenu::menuToOperatorRecruitment(cocos2d::Ref* pSender)
 {
 	Director::getInstance()->replaceScene(OperatorRecruit::create());
 }
-void GameplayMenu::menuToCOllectionBook(cocos2d::Ref* pSender)
+
+void GameplayMenu::menuToCollectionBook(cocos2d::Ref* pSender)
 {
 	Director::getInstance()->replaceScene(SelectBookScene::create());
 }
+
+void GameplayMenu::menuToStore(cocos2d::Ref* pSender)
+{
+	Director::getInstance()->replaceScene(Store::create());
+}
+
 void GameplayMenu::menuToGameplayIntroduction(cocos2d::Ref* pSender)
 {
 	//Ìø×ªÖÁÍæ·¨½éÉÜ

@@ -14,6 +14,8 @@ Exusiai::Exusiai(int Numbering, Vec2 VecPlace)
 	this->OperatorInit();
 	this->SpriteInit();
 
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sound effect/Exusiai.mp3", false);
+
 	this->scheduleUpdate();
 }
 
@@ -22,7 +24,7 @@ void Exusiai::OperatorInit()
 	this->setMaxHP(1200);
 	this->setCurrentHP(1200);
 	this->setAttack(300);
-	this->setAttackSpeed(0.8f);
+	this->setAttackSpeed(1.0f);
 	this->setExpense(12);
 	this->setAttackRange(700);
 	this->setAttackType(physical);

@@ -117,7 +117,7 @@ void OperatorBook::colOperatorInfo() {
     MaxHP   : 1200
  AttackType : physical
    Attack   : 300
-AttackSpeed : 0.8
+AttackSpeed : 1
 AttackRange : 700
 MaxStopNum  : 1)");
 
@@ -133,12 +133,12 @@ MaxStopNum  : 1)");
 
 	QiubaiInfo->setString(R"(
     Name    : Qiubai
-   Expense  : 18
+   Expense  : 20
     MaxHP   : 1500
  AttackType : physical
    Attack   : 600
 AttackSpeed : 2
-AttackRange : 200
+AttackRange : 270
 MaxStopNum  : 2)");
 
 	EyjafjallaInfo->setString(R"(

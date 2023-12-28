@@ -14,6 +14,8 @@ Eyjafjalla::Eyjafjalla(int Numbering, Vec2 VecPlace)
 	this->OperatorInit();
 	this->SpriteInit();
 
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sound effect/Eyjafjalla.mp3", false);
+
 	this->scheduleUpdate();
 }
 

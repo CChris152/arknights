@@ -4,8 +4,8 @@ int Jade;
 
 int FinishLevelNum;
 int CurrentLevel = -1;
-
-int MaxBaseHP = 3;
+int MaxBaseHP;
+std::string GoodsSellout;
 
 int expenses = 0;
 int BaseHP = 3;

@@ -18,7 +18,8 @@ public:
     void menuCloseCallback(cocos2d::Ref* pSender);           //程序关闭
     void menuToLevelSelecScene(cocos2d::Ref* pSender);       //进入关卡选择
     void menuToOperatorRecruitment(cocos2d::Ref* pSender);   //进入干员寻访
-    void menuToCOllectionBook(cocos2d::Ref* pSender);        //进入干员图鉴
+    void menuToCollectionBook(cocos2d::Ref* pSender);        //进入干员图鉴
+    void menuToStore(cocos2d::Ref* pSender);        //进入商店
     void menuToGameplayIntroduction(cocos2d::Ref* pSender);  //进入玩法说明
 
     void TextButtonCreat(); //文字按钮生成函数

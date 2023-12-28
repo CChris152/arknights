@@ -14,6 +14,8 @@ Hongxue::Hongxue(int Numbering, Vec2 VecPlace)
 	this->OperatorInit();
 	this->SpriteInit();
 
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sound effect/Hongxue.mp3", false);
+
 	this->scheduleUpdate();
 }
 

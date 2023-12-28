@@ -13,7 +13,7 @@ Magicball::Magicball(int Start, int End)
 	this->endenemy = End;
 	this->IsDestroyed = 0;
 	this->speed = 6;
-	this->attackRange = 100;
+	this->attackRange = 150;
 	magicballSprite = Sprite::create("pictures/Magicball.png");
 	magicballSprite->setPosition(Alloperator[startoperator]->getPosition());
 

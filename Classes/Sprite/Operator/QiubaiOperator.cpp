@@ -16,6 +16,8 @@ Qiubai::Qiubai(int Numbering, Vec2 VecPlace)
 	this->OperatorInit();
 	this->SpriteInit();
 
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sound effect/Qiubai.mp3", false);
+
 	this->scheduleUpdate();
 }
 
@@ -25,8 +27,8 @@ void Qiubai::OperatorInit()
 	this->setCurrentHP(1500);
 	this->setAttack(600);
 	this->setAttackSpeed(2);
-	this->setExpense(18);
-	this->setAttackRange(200);
+	this->setExpense(20);
+	this->setAttackRange(270);
 	this->setAttackType(physical);
 	this->setMaxStopNum(2);
 	this->setCurrentStopNum(0);

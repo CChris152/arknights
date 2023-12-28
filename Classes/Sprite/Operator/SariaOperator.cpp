@@ -16,6 +16,8 @@ Saria::Saria(int Numbering, Vec2 VecPlace)
 	this->OperatorInit();
 	this->SpriteInit();
 
+	CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("sound effect/Saria.mp3", false);
+
 	this->scheduleUpdate();
 }
 
