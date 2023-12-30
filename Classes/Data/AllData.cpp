@@ -1,10 +1,10 @@
 #include "AllData.h"
 
 int Jade;
-
 int FinishLevelNum;
 int CurrentLevel = -1;
 int MaxBaseHP;
+int InitialExpenses;
 std::string GoodsSellout;
 
 int expenses = 0;
@@ -93,8 +93,6 @@ Vec2 Level2MapTransform(int i, int j)
     }
 }
 
-//j * 165.0f + 418, 805.0f - i * 140
-
 Vec2 Level3MapTransform(int i, int j)
 {
     switch (i)
@@ -118,5 +116,3 @@ Vec2 Level3MapTransform(int i, int j)
         break;
     }
 }
-
-//j * 160.0f + 420.5f, 870.0f - i * 132

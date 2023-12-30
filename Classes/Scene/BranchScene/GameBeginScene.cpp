@@ -75,9 +75,10 @@ void GameBegin::datainit()
     Jade = UserDefault::getInstance()->getIntegerForKey("Jade", 100);
     FinishLevelNum = UserDefault::getInstance()->getIntegerForKey("FinishLevelNum", 0);
     MaxBaseHP = UserDefault::getInstance()->getIntegerForKey("MaxBaseHP", 3);
+    InitialExpenses = UserDefault::getInstance()->getIntegerForKey("InitialExpenses", 10);
     std::string cardsnum = UserDefault::getInstance()->getStringForKey("cardsnum", "s0");
     std::string lackcards = UserDefault::getInstance()->getStringForKey("lackcards", "s1234");
-    GoodsSellout = UserDefault::getInstance()->getStringForKey("GoodsSellout", "00");
+    GoodsSellout = UserDefault::getInstance()->getStringForKey("GoodsSellout", "0000");
     for (int i = 1; i < cardsnum.size(); i++) {
         CardsNum.push_back(static_cast<int> (cardsnum[i] - 48));
     }
@@ -92,9 +93,10 @@ void GameBegin::menuNewGameCallback(cocos2d::Ref* pSender)
     UserDefault::getInstance()->setIntegerForKey("Jade", 100);
     UserDefault::getInstance()->setIntegerForKey("FinishLevelNum", 0);
     UserDefault::getInstance()->setIntegerForKey("MaxBaseHP", 3);
+    UserDefault::getInstance()->setIntegerForKey("InitialExpenses", 10);
     UserDefault::getInstance()->setStringForKey("cardsnum", "s0");
     UserDefault::getInstance()->setStringForKey("lackcards", "s1234");
-    UserDefault::getInstance()->setStringForKey("GoodsSellout", "00");
+    UserDefault::getInstance()->setStringForKey("GoodsSellout", "0000");
     datainit();
     Director::getInstance()->replaceScene(GameplayMenu::create());
 }

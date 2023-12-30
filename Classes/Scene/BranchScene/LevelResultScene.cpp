@@ -19,7 +19,7 @@ bool LevelResult::init()
 	background->setScale(1.5f, 0.8f);
 	this->addChild(background, 1);
 
-	////结果提示
+	//结果提示
 	auto resultlabel = Label::createWithTTF("", "fonts/Marker Felt.ttf", 160);
 	resultlabel->setColor(Color3B::BLACK);
 	resultlabel->setPosition(visibleSize.width / 2, visibleSize.height / 2 + 100);
@@ -53,6 +53,7 @@ bool LevelResult::init()
 	}
 	this->addChild(getJadelabel, 2);
 
+	//两秒后自动结束
 	this->scheduleOnce([](float dt) { CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 	                                  Director::getInstance()->replaceScene(LevelSelect::create()); }, 2.0f, "LevelResult");
 

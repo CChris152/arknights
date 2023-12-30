@@ -25,7 +25,6 @@ public:
 private:
 	std::string name; //干员名称
 	int cardexpense; //卡片费用
-	float CD; //卡片冷却时间
 	float Cardtimer; //卡片计时器
 };
 

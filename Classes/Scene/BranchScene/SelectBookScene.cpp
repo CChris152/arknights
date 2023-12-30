@@ -6,7 +6,7 @@
 
 USING_NS_CC;
 
-std::vector<std::string> BookButtonLabels = { "Operator Book", "Enemy Book" };
+const std::vector<std::string> BookButtonLabels = { "Operator Book", "Enemy Book" };
 
 //ÎÄ×Ö°´Å¥
 void SelectBookScene::TextButtonCreat()
@@ -74,10 +74,12 @@ void SelectBookScene::menuBackCallback(cocos2d::Ref* pSender)
 	Director::getInstance()->replaceScene(GameplayMenu::create());
 }
 
-void SelectBookScene::ToOperatorBook(cocos2d::Ref* pSender) {
+void SelectBookScene::ToOperatorBook(cocos2d::Ref* pSender) 
+{
 	Director::getInstance()->replaceScene(OperatorBook::create());
 }
 
-void SelectBookScene::ToEnemyBook(cocos2d::Ref* pSender) {
+void SelectBookScene::ToEnemyBook(cocos2d::Ref* pSender) 
+{
 	Director::getInstance()->replaceScene(EnemyBook::create());
 }

@@ -1,16 +1,6 @@
 #include "OperatorBase.h"
 #include "Data/AllData.h"
 
-void Operator::OperatorInit()
-{
-	//等待重写
-}
-
-void Operator::SpriteInit()
-{
-	//等待重写
-}
-
 void Operator::setMaxHP(int MaxHP)
 {
 	this->maxHP = MaxHP;

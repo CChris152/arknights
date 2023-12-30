@@ -12,10 +12,10 @@
 USING_NS_CC;
 
 extern int Jade; //所持有的合成玉数量
-
 extern int FinishLevelNum; //已完成的关卡数量
 extern int CurrentLevel; //当前执行的关卡
 extern int MaxBaseHP; //最大基地血量
+extern int InitialExpenses; //基础费用
 extern std::string GoodsSellout; //商品售卖情况
 
 extern int expenses; //费用

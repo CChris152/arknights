@@ -3,9 +3,9 @@
 #include "Data/AllData.h"
 #include "editor-support\cocostudio\SimpleAudioEngine.h"
 
-const std::vector<int> goodsexpenses = {100,100}; //商品的价格
-const std::vector<std::string> goodscontents = { "MaxBaseHP + 3","MaxBaseHP + 3" }; //所有商品的内容名称
-const std::vector<Vec2> allgoodsplace = { {325.0f,600.0f},{725.0f,600.0f} }; //所有商品的位置
+const std::vector<int> goodsexpenses = { 100,150,60,100 }; //商品的价格
+const std::vector<std::string> goodscontents = { "MaxBaseHP + 3","MaxBaseHP + 3","InitialExpenses + 10","InitialExpenses + 10" }; //所有商品的内容名称
+const std::vector<Vec2> allgoodsplace = { {325.0f,600.0f},{725.0f,600.0f},{1125.0f,600.0f},{325.0f,300.0f} }; //所有商品的位置
 
 bool Store::init()
 {
@@ -77,6 +77,12 @@ bool Store::init()
 		case 1:
 			goods = MenuItemImage::create("pictures/RecruitButton1.png", "pictures/RecruitButton2.png", CC_CALLBACK_1(Store::menugoods_2, this));
 			break;
+		case 2:
+			goods = MenuItemImage::create("pictures/RecruitButton1.png", "pictures/RecruitButton2.png", CC_CALLBACK_1(Store::menugoods_3, this));
+			break;
+		case 3:
+			goods = MenuItemImage::create("pictures/RecruitButton1.png", "pictures/RecruitButton2.png", CC_CALLBACK_1(Store::menugoods_4, this));
+			break;
 		default:
 			break;
 		}
@@ -93,6 +99,16 @@ bool Store::init()
 			goods_2menu = Menu::create(goods, NULL);
 			goods_2menu->setPosition(Vec2::ZERO);
 			this->addChild(goods_2menu);
+			break;
+		case 2:
+			goods_3menu = Menu::create(goods, NULL);
+			goods_3menu->setPosition(Vec2::ZERO);
+			this->addChild(goods_3menu);
+			break;
+		case 3:
+			goods_4menu = Menu::create(goods, NULL);
+			goods_4menu->setPosition(Vec2::ZERO);
+			this->addChild(goods_4menu);
 			break;
 		default:
 			break;
@@ -129,13 +145,15 @@ void Store::menuCheat(cocos2d::Ref* pSender)
 	UserDefault::getInstance()->setIntegerForKey("Jade", 1000);
 	UserDefault::getInstance()->setIntegerForKey("FinishLevelNum", 3);
 	UserDefault::getInstance()->setIntegerForKey("MaxBaseHP", 9);
+	UserDefault::getInstance()->setIntegerForKey("InitialExpenses", 30);
 	UserDefault::getInstance()->setStringForKey("cardsnum", "s01234");
 	UserDefault::getInstance()->setStringForKey("lackcards", "s");
-	UserDefault::getInstance()->setStringForKey("GoodsSellout", "11");
+	UserDefault::getInstance()->setStringForKey("GoodsSellout", "1111");
 	Jade = 1000;
 	JadeNum->setString(std::to_string(Jade));
 	FinishLevelNum = 3;
 	MaxBaseHP = 9;
+	InitialExpenses = 30;
 	CardsNum.clear();
 	for (int i = 0; i <= 4; i++)
 	{
@@ -181,6 +199,36 @@ void Store::menugoods_2(cocos2d::Ref* pSender)
 	}
 }
 
+void Store::menugoods_3(cocos2d::Ref* pSender)
+{
+	if (Jade >= goodsexpenses[2]) {
+		Jade -= goodsexpenses[2];
+		GoodsSellout[2] = '1';
+		makesellout(3);
+		InitialExpenses += 10;
+		JadeNum->setString(std::to_string(Jade));
+		Closuregreeting->setString("Thanks for buying!");
+	}
+	else {
+		Closuregreeting->setString("Insufficient Jade!");
+	}
+}
+
+void Store::menugoods_4(cocos2d::Ref* pSender)
+{
+	if (Jade >= goodsexpenses[3]) {
+		Jade -= goodsexpenses[3];
+		GoodsSellout[3] = '1';
+		makesellout(4);
+		InitialExpenses += 10;
+		JadeNum->setString(std::to_string(Jade));
+		Closuregreeting->setString("Thanks for buying!");
+	}
+	else {
+		Closuregreeting->setString("Insufficient Jade!");
+	}
+}
+
 void Store::makesellout(int goodsnum)
 {
 	//产生遮挡与文字
@@ -202,6 +250,12 @@ void Store::makesellout(int goodsnum)
 		break;
 	case 2:
 		goods_2menu->setEnabled(false);
+		break;
+	case 3:
+		goods_3menu->setEnabled(false);
+		break;
+	case 4:
+		goods_4menu->setEnabled(false);
 		break;
 	default:
 		break;

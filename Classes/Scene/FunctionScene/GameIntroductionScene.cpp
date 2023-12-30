@@ -1,7 +1,9 @@
 #include "GameIntroductionScene.h"
 #include "Scene/BranchScene/GameplayMenu.h"
 #include "editor-support\cocostudio\SimpleAudioEngine.h"
-bool GameIntroductionScene::init() {
+
+bool GameIntroductionScene::init() 
+{
 
 	if (!Scene::init())
 	{

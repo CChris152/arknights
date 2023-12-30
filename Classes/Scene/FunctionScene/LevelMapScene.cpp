@@ -139,7 +139,7 @@ bool LevelMap::init()
 
 void LevelMap::init_data()
 {
-	expenses = 50;
+	expenses = InitialExpenses;
 	BaseHP = MaxBaseHP;
 	allenemynum = Levelallenemynum[CurrentLevel - 1];
 	killednum = 0;

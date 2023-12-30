@@ -30,7 +30,6 @@ void GameplayMenu::TextButtonCreat()
 
 	// 逐个创建按钮
 	for (int i = 0; i < buttonLabels.size(); ++i) {
-
 		auto label = Label::createWithTTF(buttonLabels[i], "fonts/Marker Felt.ttf", fontSize);
 		label->setColor(Color3B(255, 200, 100));//字体颜色
 		auto menuItem = MenuItemLabel::create(label, [=](Ref* sender) {

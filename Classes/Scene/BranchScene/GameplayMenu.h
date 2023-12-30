@@ -10,10 +10,7 @@ USING_NS_CC;
 class GameplayMenu : public cocos2d::Scene
 {
 public:
-   // static cocos2d::Scene* createScene();
     virtual bool init();
-
-    //void setFinishLevelNum(int num); //设置完成关卡数量函数
 
     void menuCloseCallback(cocos2d::Ref* pSender);           //程序关闭
     void menuToLevelSelecScene(cocos2d::Ref* pSender);       //进入关卡选择

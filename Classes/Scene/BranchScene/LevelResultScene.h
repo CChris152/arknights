@@ -11,9 +11,6 @@ public:
 	virtual bool init();
 
 	CREATE_FUNC(LevelResult);
-
-private:
-	int resultnum;
 };
 
 #endif // __LEVELRESULT_SCENE_H__

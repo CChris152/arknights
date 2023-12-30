@@ -3,8 +3,8 @@
 #include "Data/AllData.h"
 #include "editor-support\cocostudio\SimpleAudioEngine.h"
 
-const int onetryjade = 30;
-const float probability = 50.0f;
+const int onetryjade = 30; //单次抽取价格
+const float probability = 30.0f; //抽出干员的概率
 
 bool OperatorRecruit::init()
 {

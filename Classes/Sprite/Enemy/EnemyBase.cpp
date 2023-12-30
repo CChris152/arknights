@@ -1,20 +1,5 @@
 #include "EnemyBase.h"
 
-void Enemy::EnemyInit()
-{
-	//等待重写
-}
-
-void Enemy::SpriteInit()
-{
-	//等待重写
-}
-
-void Enemy::LabelInit()
-{
-	//等待重写
-}
-
 void Enemy::setAttack(int Attack)
 {
 	this->attack = Attack;

@@ -19,9 +19,8 @@ public:
 	Enemy() = default;
 	~Enemy() = default;
 
-	virtual void EnemyInit(); //数值初始化
-	virtual void SpriteInit(); //精灵初始化
-	virtual void LabelInit(); //标签初始化
+	virtual void EnemyInit() = 0; //数值初始化
+	virtual void SpriteInit() = 0; //精灵初始化
 
 	virtual void setAttack(int Attack); //设置攻击力
 	virtual void setAttackSpeed(float AttackSpeed); //设置攻击速度

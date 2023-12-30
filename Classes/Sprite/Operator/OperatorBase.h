@@ -18,8 +18,8 @@ public:
 	Operator() = default;
 	~Operator() = default;
 
-	virtual void OperatorInit(); //数值初始化
-	virtual void SpriteInit(); //精灵初始化
+	virtual void OperatorInit() = 0; //数值初始化
+	virtual void SpriteInit() = 0; //精灵初始化
 
 	virtual void setMaxHP(int MaxHP); //设置血量
 	virtual void setCurrentHP(int CurrentHP); //得到当前血量

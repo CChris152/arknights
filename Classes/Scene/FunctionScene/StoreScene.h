@@ -18,6 +18,8 @@ public:
 
     void menugoods_1(cocos2d::Ref* pSender); //购买商品一
     void menugoods_2(cocos2d::Ref* pSender); //购买商品二
+    void menugoods_3(cocos2d::Ref* pSender); //购买商品三
+    void menugoods_4(cocos2d::Ref* pSender); //购买商品四
 
     void makesellout(int goodsnum); //使某一商品处于售罄状态
 
@@ -29,6 +31,8 @@ private:
 
     Menu* goods_1menu;//商品一按钮
     Menu* goods_2menu;//商品一按钮
+    Menu* goods_3menu;//商品一按钮
+    Menu* goods_4menu;//商品一按钮
 };
 
 #endif // __STORE_SCENE_H__

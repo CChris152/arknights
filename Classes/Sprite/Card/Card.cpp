@@ -1,5 +1,8 @@
 #include "Card.h"
 
+//¿¨Æ¬CD
+const float CD = 5.0f;
+
 Card::Card(std::string Name, int CardExpense)
 {
 	Sprite::onEnter();
@@ -8,7 +11,6 @@ Card::Card(std::string Name, int CardExpense)
 
 	name = Name;
 	cardexpense = CardExpense;
-	CD = 5.0f;
 	Cardtimer = 0;
 
 	//¼ÓÈëÍ¼Æ¬
