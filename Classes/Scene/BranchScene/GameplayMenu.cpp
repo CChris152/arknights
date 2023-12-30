@@ -3,6 +3,7 @@
 #include "Scene/FunctionScene/OperatorRecruitScene.h"
 #include "SelectBookScene.h"
 #include "Scene/FunctionScene/StoreScene.h"
+#include "Scene/FunctionScene/GameIntroductionScene.h"
 #include "Data/AllData.h"
 #include "editor-support\cocostudio\SimpleAudioEngine.h"
 
@@ -121,6 +122,7 @@ void GameplayMenu::menuToStore(cocos2d::Ref* pSender)
 
 void GameplayMenu::menuToGameplayIntroduction(cocos2d::Ref* pSender)
 {
+	Director::getInstance()->replaceScene(GameIntroductionScene::create());
 	//Ìø×ªÖÁÍæ·¨½éÉÜ
 }
 
